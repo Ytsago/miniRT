@@ -30,7 +30,6 @@ MAIN =		main.c
 
 INC = miniRT.h
 
-# LIBINC = libft.h	vect3.h
 # -----------SRCS-----------#
 
 
