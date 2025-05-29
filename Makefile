@@ -1,6 +1,15 @@
+# -----------COLOR-----------#
+
+GREEN  = \033[32m
+YELLOW = \033[33m
+BLUE   = \033[34m
+RED    = \033[31m
+RESET  = \033[0m
+
 # -----------RULES-----------#
 
 CFLAGS = -Wall -Wextra -Werror -MMD -MP
+MLXFLAG = -lbsd -lX11 -lm -lXext 
 CC = cc
 AR = ar
 ARFLAG = -rcs
@@ -10,20 +19,32 @@ ARFLAG = -rcs
 SRCDIR = src/
 
 INCDIR = inc/
-LIBDIR =
+
+LIBDIR = libs/
+
 OBJDIR = .Obj/
 
 # -----------FILES-----------#
 
 MAIN =		main.c
 
-INC =
+INC = miniRT.h
 
+# LIBINC = libft.h	vect3.h
 # -----------SRCS-----------#
 
 
 SRCS =	$(addprefix $(SRCDIR), $(MAIN)) 
 
+# -----------LIBS------------#
+
+LIB =	vect3 libft libmlx
+
+LIBA = $(foreach l,$(LIB),$(LIBDIR)$(l)/$(l).a)
+
+LIBS = $(addprefix $(LIBDIR), $(LIB))
+
+LIBINCDIR = $(addprefix -I , $(addsuffix $(INCDIR), $(addsuffix /, $(LIBS))))
 
 # -----------OTHER-----------#
 
@@ -33,44 +54,49 @@ DEPS =	$(OBJS:.o=.d)
 
 HEADER = $(addprefix $(INCDIR), $(INC))
 
-LIBS =	
-
 NAME =	miniRT
 
 # -----------RULES-----------#
 
 all: $(NAME) Makefile
 
-$(NAME): $(LIBS) $(OBJS)
-	$(CC) $(CFLAG) $(OBJS) -o $(NAME) $(LIBS)
+$(NAME): $(LIBA) $(OBJS) 
+	$(CC) $(CFLAGS) $(OBJS) $(MLXFLAG) $(LIBA) -o $(NAME) 
 
 $(OBJDIR)%.o: $(SRCDIR)%.c | $(OBJDIR)
-	$(CC) $(CFLAGS) -I $(INCDIR) $(if $(LIBS),-I $(LIBDIR)$(INCDIR)) -c $< -o $@ 
+	$(CC) $(CFLAGS) -I $(INCDIR) $(LIBINCDIR) -c $< -o $@ 
 
 $(OBJDIR):
-	mkdir -p $(OBJDIR) $(dir $(OBJS))
+	@mkdir -p $(OBJDIR) $(dir $(OBJS))
 
-$(LIBS): FORCE
-	@$(MAKE) -C $(LIBDIR) --no-print-directory
+$(LIBA):
+	@for dir in $(LIBS); do \
+		echo "$(YELLOW)Compiling library $$dir$(RESET)" && $(MAKE) -C $$dir --no-print-directory; \
+	done
 
 # -----------UTILS-----------#
 
 clean:
-	rm -rf $(OBJDIR)
-ifneq ($(LIBS),)
-	@$(MAKE) $@ -C $(LIBDIR) 
-endif
+	@echo "$(RED)Removing object files...$(RESET)" && rm -rf $(OBJDIR)
+	@for dir in $(LIBS); do \
+		echo "$(RED)Removing $$dir .Obj/ ...$(RESET)" && $(MAKE) $@ -C $$dir --no-print-directory; \
+	done
 
 fclean: clean
-	rm -f $(NAME)
-ifneq ($(LIBS),)
-	@$(MAKE) $@ -C $(LIBDIR) 
-endif
+	@echo "$(RED)Removing executable or library...$(RESET)" && rm -f $(NAME)
+	@for dir in $(LIBS); do \
+		if [ "$$dir" = "libs/libmlx" ]; then \
+			echo "$(RED)Removing $$dir lib.a ...$(RESET)"; \
+		else \
+			echo "$(RED)Removing $$dir lib.a ...$(RESET)" && $(MAKE) $@ -C $$dir --no-print-directory; \
+		fi; \
+	done
 
 re: fclean all
 
-FORCE:
+print-%:
+	@echo $($(patsubst print-%,%,$@))
 
 -include $(DEPS)
 
-.PHONY: clean fclean re all bonus
+.PHONY: clean fclean re all bonus 
