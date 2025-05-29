@@ -1,0 +1,5 @@
+*.o
+.Obj
+*.a
+.vscode
+*.out
