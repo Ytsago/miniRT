@@ -45,7 +45,7 @@ NAME = libft.a
 all: $(NAME) $(INC)
 
 $(NAME) : $(OBJS)
-	@$(AR) $(ARFLAG) $@ $? && echo "$(GREEN)$(NAME) created successfully !$(RESET)"
+	@$(AR) $(ARFLAG) $@ $?
 
 $(OBJDIR)%.o: $(SRCDIR)%.c $(INC) | $(OBJDIR) msg
 	@$(CC) -c $(CFLAGS) -I$(INCDIR) $< -o $@
@@ -54,10 +54,10 @@ $(OBJDIR):
 	@mkdir -p $(OBJDIR)
 
 clean:
-	@echo "$(RED)Deleting object files...$(RESET)"
+	@rm -rf $(OBJDIR)
 
 fclean:
-	@echo "$(RED)Deleting executable or library $(NAME)...$(RESET)"
+	@rm -f $(NAME)
 
 re: fclean all
 
