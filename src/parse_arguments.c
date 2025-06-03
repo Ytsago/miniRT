@@ -6,25 +6,41 @@
 /*   By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 13:33:49 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/03 14:24:37 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/03 15:24:55 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
-#include <stdbool.h>
+#include "miniRT.h"
+#include <string.h>
+#include <errno.h>
+#include <fcntl.h>
 
-void		parse_arguments(int argc, const char *argv[]);
+void		parse_arguments(int argc, const char *argv[], int *fd);
 static bool	first_argument_is_not_rt(const char *first_argument);
-static void	print_error_then_exit_failure(const char *error);
+static bool	failed_to_get_valid_fd(const char *path_to_file, int *fd);
 
-void	parse_arguments(int argc, const char *argv[])
+void	parse_arguments(int argc, const char *argv[], int *fd)
 
 {
 	if (argc < 2)
-		print_error_then_exit_failure("miniRT: no argument provided\n");
+	{
+		write(2, "Error\n", 6);
+		write(2, "miniRT: no argument provided\n", 29);
+		exit(EXIT_FAILURE);
+	}
 	if (first_argument_is_not_rt(argv[1]))
-		print_error_then_exit_failure("miniRT: invalid file\n");
+	{
+		write(2, "Error\n", 6);
+		write(2, "miniRT: invalid file\n", 21);
+		exit(EXIT_FAILURE);
+	}
+	if (failed_to_get_valid_fd(argv[1], fd))
+	{
+		write(2, "Error\nminiRT: open: ", 20);
+		write(2, strerror(errno), ft_strlen(strerror(errno)));
+		exit(EXIT_FAILURE);
+	}
 }
 
 static bool	first_argument_is_not_rt(const char *first_argument)
@@ -40,10 +56,11 @@ static bool	first_argument_is_not_rt(const char *first_argument)
 	return (true);
 }
 
-static void	print_error_then_exit_failure(const char *error)
+static bool	failed_to_get_valid_fd(const char *path_to_file, int *fd)
 
 {
-	write(2, "Error\n", 6);
-	write(2, error, ft_strlen(error));
-	exit(EXIT_FAILURE);
+	*fd = open(path_to_file, O_RDONLY);
+	if (*fd < 0)
+		return (true);
+	return (false);
 }

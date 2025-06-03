@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   initialize_scene_variables.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/03 14:00:10 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/03 15:43:59 by yabokhar         ###   ########.fr       */
+/*   Created: 2025/06/03 15:09:55 by yabokhar          #+#    #+#             */
+/*   Updated: 2025/06/03 18:07:40 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-int	main(int argc, const char *argv[])
-{
-	t_context	scene;
+void	initialize_scene_variables(t_context *scene)
 
-	initialize_scene_variables(&scene);
-	parse_arguments(argc, argv, &scene.fd);
-	parse_parameters(&scene);
+{
+	scene->element_has_been_declared[AMBIENT_LIGHTNING] = false;
+	scene->element_has_been_declared[CAMERA] = false;
+	scene->element_has_been_declared[LIGHT] = false;
+	scene->ambient_lightning.ratio = 0.0;
+	scene->ambient_lightning.colors[RED] = 0;
+	scene->ambient_lightning.colors[GREEN] = 0;
+	scene->ambient_lightning.colors[BLUE] = 0;
 }

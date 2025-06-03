@@ -6,7 +6,7 @@
 #    By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/03 13:46:53 by yabokhar          #+#    #+#              #
-#    Updated: 2025/06/03 14:06:41 by yabokhar         ###   ########.fr        #
+#    Updated: 2025/06/03 18:05:54 by yabokhar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ RESET  = \033[0m
 
 # -----------RULES-----------#
 
-CFLAGS = -Wall -Wextra -Werror -MMD -MP
+CFLAGS = -Wall -Wextra -Werror -MMD -MP -g3
 MLXFLAG = -lbsd -lX11 -lm -lXext 
 CC = cc
 AR = ar
@@ -44,7 +44,7 @@ INC = miniRT.h
 
 # -----------SRCS-----------#
 
-SRCS		= main.c parse_arguments.c
+SRCS		= main.c initialize_scene_variables.c parse_arguments.c parse_parameters.c parse_ambient_lightning.c
 FULL_SRCS	=	$(addprefix $(SRCDIR), $(SRCS)) 
 
 # -----------LIBS------------#
