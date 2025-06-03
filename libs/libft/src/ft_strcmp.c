@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/03 14:00:10 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/03 14:00:10 by yabokhar         ###   ########.fr       */
+/*   Created: 2025/06/03 14:08:56 by yabokhar          #+#    #+#             */
+/*   Updated: 2025/06/03 14:12:03 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include <stddef.h>
 
-int	main(int argc, const char *argv[])
+int	ft_strcmp(const char *s1, const char *s2)
+
 {
-	parse_arguments(argc, argv);
+	size_t	i;
+
+	i = 0;
+	while (s1[i] && s1[i] == s2[i])
+		i++;
+	return (s1[i] - s2[i]);
 }

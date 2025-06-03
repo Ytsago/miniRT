@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/06/03 13:46:53 by yabokhar          #+#    #+#              #
+#    Updated: 2025/06/03 14:06:41 by yabokhar         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 # -----------COLOR-----------#
 
 GREEN  = \033[32m
@@ -32,8 +44,8 @@ INC = miniRT.h
 
 # -----------SRCS-----------#
 
-
-SRCS =	$(addprefix $(SRCDIR), $(MAIN)) 
+SRCS		= main.c parse_arguments.c
+FULL_SRCS	=	$(addprefix $(SRCDIR), $(SRCS)) 
 
 # -----------LIBS------------#
 
@@ -47,7 +59,7 @@ LIBINCDIR = $(addprefix -I , $(addsuffix $(INCDIR), $(addsuffix /, $(LIBS))))
 
 # -----------OTHER-----------#
 
-OBJS =	$(patsubst $(SRCDIR)%.c, $(OBJDIR)%.o, $(SRCS))
+OBJS =	$(patsubst $(SRCDIR)%.c, $(OBJDIR)%.o, $(FULL_SRCS))
 
 DEPS =	$(OBJS:.o=.d)
 
