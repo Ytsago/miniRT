@@ -49,7 +49,8 @@ LIBA = $(foreach l,$(LIB),$(LIBDIR)$(l)/$(l).a)
 
 LIBS = $(addprefix $(LIBDIR), $(LIB))
 
-LIBINCDIR = $(addprefix -I , $(addsuffix $(INCDIR), $(addsuffix /, $(LIBS))))
+# LIBINCDIR = $(addprefix -I , $(addsuffix $(INCDIR), $(addsuffix /, $(LIBS))))
+LIBINCDIR = $(foreach l, $(LIBS), $(if $(findstring mlx, $(l)), -I $(l), -I $(l)/$(INCDIR)))
 
 # -----------OTHER-----------#
 
