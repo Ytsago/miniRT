@@ -25,7 +25,7 @@
 typedef struct s_ambient_lightning
 {
 	float			ratio;
-	unsigned short	colors[3];
+	short			colors[3];
 }	t_ambient_lightning;
 
 typedef struct s_context

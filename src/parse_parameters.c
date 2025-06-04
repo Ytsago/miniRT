@@ -12,10 +12,10 @@
 
 #include "get_next_line.h"
 #include "miniRT.h"
-#include <stdio.h>
 
 void		parse_parameters(t_context *scene);
 static bool	interpret_and_load_parameters(char *line, t_context *scene);
+static bool	parse_general_parameters(char *line, t_context *scene);
 
 void	parse_parameters(t_context *scene)
 
@@ -47,8 +47,32 @@ void	parse_parameters(t_context *scene)
 static bool	interpret_and_load_parameters(char *line, t_context *scene)
 
 {
-	if (line[0] == 'A')
+	while (*line)
+	{
+		if (*line == ' ')
+			while (*line == ' ')
+				++line;
+		else if (*line == 'A' || *line == 'C' || *line == 'L')
+			if (!parse_general_parameters(line, scene))
+				return (false);
+		++line;
+	}
+	return (true);
+}
+
+static bool	parse_general_parameters(char *line, t_context *scene)
+
+{
+	const char	identifier = *line;
+
+	if (identifier == 'A')
+	{
 		if (!parse_ambient_lightning(line + 1, scene))
 			return (false);
-	return (true);
+	}
+	else if (identifier == 'C')
+		return (true);
+	else if (identifier == 'L')
+		return (true);
+	return (false);
 }

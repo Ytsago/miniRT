@@ -16,7 +16,8 @@
 
 bool			parse_ambient_lightning(char *line, t_context *scene);
 static bool		get_ratio(float *ratio, char *line);
-static bool		get_colors(unsigned short pallet_to_fill[3], char *line);
+static bool		get_colors(short pallet_to_fill[3], char *line);
+static bool		release_memory_then_return_answer(bool answer, char **array);
 
 bool	parse_ambient_lightning(char *line, t_context *scene)
 
@@ -47,42 +48,59 @@ bool	parse_ambient_lightning(char *line, t_context *scene)
 static bool	get_ratio(float *ratio, char *line)
 
 {
-	float	integer_part;
-	float	fractional_part;
+	const float	integer_part = (float)(line[0] - '0');
+	const float	fractional_part = (float)((line[2] - '0') / 10);
 
-	if (line[0] != '0' && line[0] != '1')
+	if (integer_part != 0.0 && integer_part != 1.0)
 		return (false);
-	if (line[1] != '.')
+	else if (line[1] != '.')
 		return (false);
-	if (line[0] == '0' && !ft_isdigit(line[2]))
+	else if (integer_part == 0.0 && !ft_isdigit(line[2]))
 		return (false);
-	if (line[0] == '1' && line[2] != '0')
+	else if (line[2] != '0')
 		return (false);
-	integer_part = (float)(line[0] - '0');
-	fractional_part = (float)((line[2] - '0') / 10.0);
+	else if (line[3] != ' ')
+		return (false);
 	*ratio = integer_part + fractional_part;
 	return (true);
 }
 
-static bool	get_colors(unsigned short pallet_to_fill[3], char *line)
+static bool	get_colors(short pallet_to_fill[3], char *line)
 
 {
-	pallet_to_fill[RED] = ft_atoi(line);
-	if (pallet_to_fill[RED] < 0 || pallet_to_fill[RED] > 255)
+	char	**splitted_line;
+	short	index;
+
+	splitted_line = ft_split(line, ',');
+	if (!splitted_line)
 		return (false);
-	while (*line && *line != ',')
-		++line;
-	if (!*line)
-		return (false);
-	pallet_to_fill[GREEN] = ft_atoi(line);
-	if (pallet_to_fill[GREEN] < 0 || pallet_to_fill[GREEN] > 255)
-		return (false);
-	while (*line && *line != ',')
-		++line;
-	if (!*line)
-		return (false);
-	pallet_to_fill[BLUE] = ft_atoi(line);
-	if (pallet_to_fill[BLUE] < 0 || pallet_to_fill[BLUE] > 255)
-		return (false);
-	return (true);
+	index = 0;
+	while (splitted_line[index])
+		++index;
+	if (index != 3)
+		return (release_memory_then_return_answer(false, splitted_line));
+	index = 0;
+	while (index < 2)
+	{
+		pallet_to_fill[index] = ft_atoi(splitted_line[index]);
+		if (pallet_to_fill[index] < 0 || pallet_to_fill[index] > 255)
+			return (release_memory_then_return_answer(false, splitted_line));
+		++index;
+	}
+	return (release_memory_then_return_answer(true, splitted_line));
+}
+
+static bool	release_memory_then_return_answer(bool answer, char **array)
+
+{
+	size_t	i;
+
+	i = 0;
+	while (array[i])
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
+	return (answer);
 }

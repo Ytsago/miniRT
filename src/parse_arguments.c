@@ -46,8 +46,8 @@ void	parse_arguments(int argc, const char *argv[], int *fd)
 static bool	first_argument_is_not_rt(const char *first_argument)
 
 {
-	const size_t	argument_length = ft_strlen(first_argument);
-	const size_t	index_before_extension = argument_length - 3;
+	const unsigned short	argument_length = ft_strlen(first_argument);
+	const unsigned short	index_before_extension = argument_length - 3;
 
 	if (argument_length < 4)
 		return (true);
