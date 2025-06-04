@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/06/03 13:46:53 by yabokhar          #+#    #+#              #
-#    Updated: 2025/06/03 18:05:54 by yabokhar         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 # -----------COLOR-----------#
 
 GREEN  = \033[32m
@@ -20,7 +8,7 @@ RESET  = \033[0m
 
 # -----------RULES-----------#
 
-CFLAGS = -Wall -Wextra -Werror -MMD -MP -g3
+CFLAGS = -Wall -Wextra -Werror -MMD -MP
 MLXFLAG = -lbsd -lX11 -lm -lXext 
 CC = cc
 AR = ar
@@ -36,16 +24,22 @@ LIBDIR = libs/
 
 OBJDIR = .Obj/
 
+#///////////SUBDIR////////////#
+
+PARSDIR = $(SRCDIR)parsing/
+
 # -----------FILES-----------#
 
-MAIN =		main.c
+MAIN =		main.c	initialize_scene_variables.c
+
+PARSING =	parse_ambient_lightning.c	parse_arguments.c	parse_parameters.c
 
 INC = miniRT.h
 
 # -----------SRCS-----------#
 
-SRCS		= main.c initialize_scene_variables.c parse_arguments.c parse_parameters.c parse_ambient_lightning.c
-FULL_SRCS	=	$(addprefix $(SRCDIR), $(SRCS)) 
+SRCS =	$(addprefix $(SRCDIR), $(MAIN))\
+		$(addprefix $(PARSDIR), $(PARSING))
 
 # -----------LIBS------------#
 
@@ -59,7 +53,7 @@ LIBINCDIR = $(addprefix -I , $(addsuffix $(INCDIR), $(addsuffix /, $(LIBS))))
 
 # -----------OTHER-----------#
 
-OBJS =	$(patsubst $(SRCDIR)%.c, $(OBJDIR)%.o, $(FULL_SRCS))
+OBJS =	$(patsubst $(SRCDIR)%.c, $(OBJDIR)%.o, $(SRCS))
 
 DEPS =	$(OBJS:.o=.d)
 
@@ -69,7 +63,7 @@ NAME =	miniRT
 
 # -----------RULES-----------#
 
-all: $(NAME) Makefile
+all: libs $(NAME)
 
 $(NAME): $(LIBA) $(OBJS) 
 	$(CC) $(CFLAGS) $(OBJS) $(MLXFLAG) $(LIBA) -o $(NAME) 
@@ -80,7 +74,8 @@ $(OBJDIR)%.o: $(SRCDIR)%.c | $(OBJDIR)
 $(OBJDIR):
 	@mkdir -p $(OBJDIR) $(dir $(OBJS))
 
-$(LIBA):
+# $(LIBA): FORCE
+libs:
 	@for dir in $(LIBS); do \
 		echo "$(YELLOW)Compiling library $$dir$(RESET)" && $(MAKE) -C $$dir --no-print-directory; \
 	done
@@ -110,4 +105,4 @@ print-%:
 
 -include $(DEPS)
 
-.PHONY: clean fclean re all bonus 
+.PHONY: clean fclean re all bonus libs
