@@ -26,7 +26,7 @@
 // 	parse_parameters(&scene);
 // }
 
-# define PIXELSIZE 8
+# define PIXELSIZE 4
 
 int key_press(void *data)
 {
@@ -34,9 +34,11 @@ int key_press(void *data)
 	static unsigned char blue = 255;
 	t_display	mlx_display;
 	t_color		pixel;
+	unsigned int *pixel_ptr;
 
 	blue += 1;
 	mlx_display = *(t_display *)data;
+	pixel_ptr = (unsigned int *) mlx_display.img.addr;
 	ft_bzero(i, sizeof(int) * 2);
 	while (i[0] < 256 * PIXELSIZE)
 	{
@@ -44,11 +46,14 @@ int key_press(void *data)
 		while (i[1] < 256 * PIXELSIZE)
 		{
 			pixel = (t_color){.a = 0, .r = i[1] / PIXELSIZE, .g = i[0] / PIXELSIZE, .b = (blue - (i[0] / 2 + i[1] / 2) / PIXELSIZE)};
-			*(unsigned int *) (mlx_display.img.addr + (i[0] * mlx_display.img.l_size) + (i[1] * mlx_display.img.bbp / 8)) = pixel.color;
+			*pixel_ptr = pixel.color;
+			pixel_ptr++;
 			i[1]++;
 		}
+		pixel_ptr += (mlx_display.img.l_size / 4) - i[1];
 		i[0]++;
 	}
+	mlx_put_image_to_window(mlx_display.mlx_ptr, mlx_display.win_ptr, mlx_display.img.img_ptr, 0, 0);
 	return (0);
 }
 
@@ -76,11 +81,6 @@ int	main()
 		i[0]++;
 	}
 	mlx_put_image_to_window(mlx_display.mlx_ptr, mlx_display.win_ptr, mlx_display.img.img_ptr, 0, 0);
-	// mlx_loop_hook(mlx_display.win_ptr, key_press, &mlx_display);
-	while (1)
-	{
-		key_press(&mlx_display);
-		mlx_put_image_to_window(mlx_display.mlx_ptr, mlx_display.win_ptr, mlx_display.img.img_ptr, 0, 0);
-	}
+	mlx_loop_hook(mlx_display.mlx_ptr, key_press, &mlx_display);
 	mlx_loop(mlx_display.mlx_ptr);
 }
