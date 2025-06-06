@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_ambient_lightning.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 15:57:00 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/03 19:53:30 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/06 11:28:13 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,24 +46,42 @@ bool	parse_ambient_lightning(char *line, t_context *scene)
 }
 
 static bool	get_ratio(float *ratio, char *line)
-
 {
-	const float	integer_part = (float)(line[0] - '0');
-	const float	fractional_part = (float)((line[2] - '0') / 10);
+	char	*end;
+	bool	precision;
 
-	if (integer_part != 0.0 && integer_part != 1.0)
+	*ratio = (float) ft_strtod((const char *)line, &end, &precision);
+	if (end == line)
 		return (false);
-	else if (line[1] != '.')
+	if (precision)
+	{
+		ft_putstr_fd("Error\nPrecision lost due to too many digits\n", 2);
 		return (false);
-	else if (integer_part == 0.0 && !ft_isdigit(line[2]))
+	}
+	if (!(*ratio >= 0.0 && *ratio <= 1.0))
 		return (false);
-	else if (line[2] != '0')
-		return (false);
-	else if (line[3] != ' ')
-		return (false);
-	*ratio = integer_part + fractional_part;
 	return (true);
 }
+
+// static bool	get_ratio(float *ratio, char *line)
+
+// {
+// 	const float	integer_part = (float)(line[0] - '0');
+// 	const float	fractional_part = (float)((line[2] - '0') / 10);
+
+// 	if (integer_part != 0.0 && integer_part != 1.0)
+// 		return (false);
+// 	else if (line[1] != '.')
+// 		return (false);
+// 	else if (integer_part == 0.0 && !ft_isdigit(line[2]))
+// 		return (false);
+// 	else if (line[2] != '0')
+// 		return (false);
+// 	else if (line[3] != ' ')
+// 		return (false);
+// 	*ratio = integer_part + fractional_part;
+// 	return (true);
+// }
 
 static bool	get_colors(short pallet_to_fill[3], char *line)
 

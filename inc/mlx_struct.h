@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 16:07:04 by secros            #+#    #+#             */
-/*   Updated: 2025/06/04 17:36:07 by secros           ###   ########.fr       */
+/*   Updated: 2025/06/06 12:59:27 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "mlx.h"
 
 typedef struct s_display	t_display;
-
 typedef struct s_pict		t_pict;
 
 struct s_pict

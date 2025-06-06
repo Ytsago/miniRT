@@ -15,20 +15,19 @@
 #include "libft.h"
 #include "ft_printf.h"
 #include "mlx_int.h"
-#include <pthread.h>
 
-// int	main(int argc, const char *argv[])
-// {
-// 	t_context	scene;
+int	main(int argc, const char *argv[])
+{
+	t_context	scene;
 
-// 	initialize_scene_variables(&scene);
-// 	parse_arguments(argc, argv, &scene.fd);
-// 	parse_parameters(&scene);
-// }
-
+	initialize_scene_variables(&scene);
+	parse_arguments(argc, argv, &scene.fd);
+	parse_parameters(&scene);
+}
+/* 
 # define PIXELSIZE 4
 
-int key_press(void *data)
+int colorul_useless_thing(void *data)
 {
 	int	i[2];
 	static unsigned char blue = 255;
@@ -87,7 +86,7 @@ int	main()
 		i[0]++;
 	}
 	mlx_put_image_to_window(mlx_display.mlx_ptr, mlx_display.win_ptr, mlx_display.img.img_ptr, 0, 0);
-	mlx_loop_hook(mlx_display.mlx_ptr, key_press, &mlx_display);
+	mlx_loop_hook(mlx_display.mlx_ptr, colorul_useless_thing, &mlx_display);
 	mlx_hook(mlx_display.win_ptr, KeyPress, KeyPressMask, escape, &mlx_display);
 	mlx_loop(mlx_display.mlx_ptr);
-}
+} */

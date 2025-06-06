@@ -6,14 +6,16 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:54:55 by secros            #+#    #+#             */
-/*   Updated: 2025/06/03 18:23:54 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/06 12:59:41 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
-#include <stdbool.h>
+# include <stdbool.h>
+# include "vect3.h"
+# include "mlx_struct.h"
 
 # define AMBIENT_LIGHTNING 0
 # define CAMERA 1
@@ -21,6 +23,16 @@
 # define RED 0
 # define GREEN 1
 # define BLUE 2
+
+typedef struct s_object		t_object;
+
+enum e_obj
+{
+	SPHERE,
+	CYLINDER,
+	PLANE,
+};
+
 
 typedef struct s_ambient_lightning
 {
@@ -34,6 +46,17 @@ typedef struct s_context
 	bool				element_has_been_declared[3];
 	t_ambient_lightning	ambient_lightning;
 }	t_context;
+
+struct	s_object
+{
+	enum e_obj	type;
+	t_point3	pos;
+	t_vect3		orientation;
+	t_color		color;
+	double		radius;
+	double		height;
+};
+
 
 int		main(int argc, const char *argv[]);
 
