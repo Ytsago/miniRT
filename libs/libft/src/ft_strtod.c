@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 16:05:37 by secros            #+#    #+#             */
-/*   Updated: 2025/06/06 10:56:54 by secros           ###   ########.fr       */
+/*   Updated: 2025/06/06 11:06:01 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,26 @@ static double	get_fractional_part(const char **str, char **end, \
 	return (result);
 }
 
+/**
+ * @brief Converts a string to a double precision floating-point number.
+ *
+ * This function behaves similarly to the standard `strtod`, with support for
+ * 
+ * optional end-pointer and precision loss detection. Leading whitespace is
+ * 
+ * skipped and optional signs are handled. Supports basic decimal parsing.
+ *
+ * @param str The string to convert.
+ * @param end (Optional) If not NULL, set to the character after the last
+ * 
+ * parsed character. If no valid conversion is performed, it is set to `str`.
+ * @param precision_flag (Optional) If not NULL, set to true if the result
+ * 
+ * may have lost precision due to rounding or overflow.
+ *
+ * @return The parsed double value. On overflow, returns HUGE_VAL and sets
+ * errno to ERANGE.
+ */
 double	ft_strtod(const char *str, char **end, bool	*precision_flag)
 {
 	int		sign;

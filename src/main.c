@@ -57,13 +57,19 @@ int key_press(void *data)
 	return (0);
 }
 
+int	escape(int key, void *data)
+{
+	if (key == 65307)
+	mlx_loop_end(((t_display *)data)->mlx_ptr);
+	return (0);
+}
+
 int	main()
 {
 	t_display	mlx_display;
 	t_color		pixel;
 			
 	int			i[3];
-
 	ft_bzero(i, sizeof(int) * 2);
 	mlx_display.mlx_ptr = mlx_init();
 	mlx_display.win_ptr = mlx_new_window(mlx_display.mlx_ptr, 256 * PIXELSIZE, 256 * PIXELSIZE, "color_test");
@@ -82,5 +88,6 @@ int	main()
 	}
 	mlx_put_image_to_window(mlx_display.mlx_ptr, mlx_display.win_ptr, mlx_display.img.img_ptr, 0, 0);
 	mlx_loop_hook(mlx_display.mlx_ptr, key_press, &mlx_display);
+	mlx_hook(mlx_display.win_ptr, KeyPress, KeyPressMask, escape, &mlx_display);
 	mlx_loop(mlx_display.mlx_ptr);
 }
