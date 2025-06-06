@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:29:29 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/06 11:14:51 by secros           ###   ########.fr       */
+/*   Updated: 2025/06/06 15:22:10 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,14 @@ static bool	interpret_and_load_parameters(char *line, t_context *scene)
 }
 
 static bool	parse_general_parameters(char *line, t_context *scene)
-
 {
 	const char	identifier = *line;
 
 	if (identifier == 'A')
 	{
-		if (!parse_ambient_lightning(line + 1, scene))
+		if (scene->element_has_been_declared[AMBIENT_LIGHTNING] && !parse_ambient_lightning(line + 1, scene))
 			return (false);
+		scene->element_has_been_declared[AMBIENT_LIGHTNING] = true;
 	}
 	else if (identifier == 'C')
 		return (true);
