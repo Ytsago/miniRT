@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:29:29 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/06 15:22:10 by secros           ###   ########.fr       */
+/*   Updated: 2025/06/06 16:12:48 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,12 @@ static bool	interpret_and_load_parameters(char *line, t_context *scene)
 			while (*line == ' ')
 				++line;
 		else if (*line == 'A' || *line == 'C' || *line == 'L')
+		{
 			if (!parse_general_parameters(line, scene))
 				return (false);
+		}
+		else if (parse_object(line, scene))
+			return (false);
 		++line;
 	}
 	return (true);

@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:54:55 by secros            #+#    #+#             */
-/*   Updated: 2025/06/06 12:59:41 by secros           ###   ########.fr       */
+/*   Updated: 2025/06/06 16:24:21 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdbool.h>
 # include "vect3.h"
 # include "mlx_struct.h"
+# include "libft.h"
 
 # define AMBIENT_LIGHTNING 0
 # define CAMERA 1
@@ -45,6 +46,7 @@ typedef struct s_context
 	int					fd;
 	bool				element_has_been_declared[3];
 	t_ambient_lightning	ambient_lightning;
+	t_list				*obj;
 }	t_context;
 
 struct	s_object
@@ -53,8 +55,7 @@ struct	s_object
 	t_point3	pos;
 	t_vect3		orientation;
 	t_color		color;
-	double		radius;
-	double		height;
+	t_vect3		size;
 };
 
 
@@ -64,5 +65,6 @@ void	initialize_scene_variables(t_context *scene);
 void	parse_arguments(int argc, const char *argv[], int *fd);
 void	parse_parameters(t_context *scene);
 bool    parse_ambient_lightning(char *line, t_context *scene);
+bool	parse_object(char *line, t_context *scene);
 
 #endif

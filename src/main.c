@@ -16,15 +16,15 @@
 #include "ft_printf.h"
 #include "mlx_int.h"
 
-/* int	main(int argc, const char *argv[])
+int	main(int argc, const char *argv[])
 {
 	t_context	scene;
 
 	initialize_scene_variables(&scene);
 	parse_arguments(argc, argv, &scene.fd);
 	parse_parameters(&scene);
-} */
- 
+}
+/* 
 # define PIXELSIZE 4
 
 int colorul_useless_thing(void *data)
@@ -89,4 +89,4 @@ int	main()
 	mlx_loop_hook(mlx_display.mlx_ptr, colorul_useless_thing, &mlx_display);
 	mlx_hook(mlx_display.win_ptr, KeyPress, KeyPressMask, escape, &mlx_display);
 	mlx_loop(mlx_display.mlx_ptr);
-}
+} */

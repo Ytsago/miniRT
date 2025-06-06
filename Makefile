@@ -32,7 +32,7 @@ PARSDIR = $(SRCDIR)parsing/
 
 MAIN =		main.c	initialize_scene_variables.c
 
-PARSING =	parse_ambient_lightning.c	parse_arguments.c	parse_parameters.c
+PARSING =	parse_ambient_lightning.c	parse_arguments.c	parse_parameters.c	parse_object.c
 
 INC = miniRT.h
 
