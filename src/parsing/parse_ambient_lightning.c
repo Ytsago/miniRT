@@ -6,13 +6,15 @@
 /*   By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 15:57:00 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/03 19:53:30 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/07 19:19:47 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 #include "libft.h"
-#include <stdio.h>
+#define MULTIPLE_DECLARATION_ERROR "ambient lightning multiple declarations\n"
+#define RATIO_ERROR "ambient lightning ratio must be in range [0.0,1.0]\n"
+#define COLORS_ERROR "ambient lightning colors must be in range [0-255]\n"
 
 bool			parse_ambient_lightning(char *line, t_context *scene);
 static bool		get_ratio(float *ratio, char *line);
@@ -24,24 +26,16 @@ bool	parse_ambient_lightning(char *line, t_context *scene)
 {
 	t_ambient_lightning	*parameters;
 
+	if (scene->element_has_been_declared[AMBIENT_LIGHTNING])
+		return (print_error_then_return_false(MULTIPLE_DECLARATION_ERROR));
 	while (*line && *line == ' ')
 		++line;
 	parameters = &scene->ambient_lightning;
 	if (!get_ratio(&parameters->ratio, line))
-	{
-		write(2, "Error\n", 6);
-		write(2, "miniRT: ambient lightning ratio must be in range", 48);
-		write(2, " [0.0,1.0]\n", 11);
-		return (false);
-	}
+		return (print_error_then_return_false(RATIO_ERROR));
 	line += 3;
 	if (!get_colors(parameters->colors, line))
-	{
-		write(2, "Error\n", 6);
-		write(2, "miniRT: ambient lightning colors must be in range", 49);
-		write(2, " [0-255]\n", 9);
-		return (false);
-	}
+		return (print_error_then_return_false(COLORS_ERROR));
 	return (true);
 }
 
@@ -57,7 +51,7 @@ static bool	get_ratio(float *ratio, char *line)
 		return (false);
 	else if (integer_part == 0.0 && !ft_isdigit(line[2]))
 		return (false);
-	else if (line[2] != '0')
+	else if (integer_part == 1.0 && line[2] != '0')
 		return (false);
 	else if (line[3] != ' ')
 		return (false);

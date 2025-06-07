@@ -6,16 +6,19 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:41:21 by secros            #+#    #+#             */
-/*   Updated: 2025/06/03 14:10:09 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/07 18:33:53 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# include <stdlib.h>
 # include <unistd.h>
+# include <stdlib.h>
 # include <stdint.h>
+# include <stdbool.h>
+# include <errno.h>
+# include <string.h>
 
 typedef struct s_list
 {
@@ -42,6 +45,8 @@ int		ft_memcmp(const void *s1, const void *s2, size_t n);
 size_t	ft_strlen(const char *s);
 size_t	count_char(char *s, char c);
 size_t	ft_tablen(char **s);
+short	ft_strcpy(char *dest, const char *src);
+short	ft_strcat(char *dest, const char *src);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);

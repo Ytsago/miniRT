@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/06/07 17:10:22 by yabokhar          #+#    #+#              #
+#    Updated: 2025/06/07 19:22:36 by yabokhar         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 # -----------COLOR-----------#
 
 GREEN  = \033[32m
@@ -26,20 +38,26 @@ OBJDIR = .Obj/
 
 #///////////SUBDIR////////////#
 
-PARSDIR = $(SRCDIR)parsing/
+PARSDIR 	= $(SRCDIR)parsing/
+ERRDIR 		= $(SRCDIR)errors/
+
 
 # -----------FILES-----------#
 
-MAIN =		main.c	initialize_scene_variables.c
+MAIN 	=	main.c	initialize_scene_variables.c
 
-PARSING =	parse_ambient_lightning.c	parse_arguments.c	parse_parameters.c
+PARSING =	parse_arguments_then_get_fd.c	parse_and_load_parameters.c \
+			parse_ambient_lightning.c
 
-INC = miniRT.h
+ERRORS 	=	parsing_error_reporting.c
+
+INC		=	miniRT.h
 
 # -----------SRCS-----------#
 
 SRCS =	$(addprefix $(SRCDIR), $(MAIN))\
-		$(addprefix $(PARSDIR), $(PARSING))
+		$(addprefix $(PARSDIR), $(PARSING))\
+		$(addprefix $(ERRDIR), $(ERRORS))
 
 # -----------LIBS------------#
 

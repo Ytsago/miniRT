@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/03 14:00:10 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/07 18:45:49 by yabokhar         ###   ########.fr       */
+/*   Created: 2025/06/07 17:03:03 by yabokhar          #+#    #+#             */
+/*   Updated: 2025/06/07 17:06:24 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+short	ft_strcpy(char *dest, const char *src)
 
-int	main(int argc, const char *argv[])
 {
-	t_context	scene;
+	short	i;
 
-	initialize_scene_variables(&scene);
-	parse_arguments_then_get_fd(argc, argv, &scene.fd);
-	parse_and_load_parameters(&scene);
+	i = 0;
+	while (src[i])
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:54:55 by secros            #+#    #+#             */
-/*   Updated: 2025/06/03 18:23:54 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/07 19:02:42 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,12 @@ typedef struct s_context
 int		main(int argc, const char *argv[]);
 
 void	initialize_scene_variables(t_context *scene);
-void	parse_arguments(int argc, const char *argv[], int *fd);
-void	parse_parameters(t_context *scene);
+void	parse_arguments_then_get_fd(int argc, const char *argv[], int *fd);
+void	parse_and_load_parameters(t_context *scene);
 bool    parse_ambient_lightning(char *line, t_context *scene);
+
+void	print_error_then_exit_failure(char *error_description);
+void	print_error_from_open_function_then_exit_failure(const char *path);
+bool	print_error_then_return_false(char *error_description);
 
 #endif

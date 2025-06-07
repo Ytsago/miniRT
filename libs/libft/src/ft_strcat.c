@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/03 14:00:10 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/07 18:45:49 by yabokhar         ###   ########.fr       */
+/*   Created: 2025/06/07 16:58:03 by yabokhar          #+#    #+#             */
+/*   Updated: 2025/06/07 18:20:07 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+short	ft_strcat(char *dest, const char *src)
 
-int	main(int argc, const char *argv[])
 {
-	t_context	scene;
+	short	i;
+	short	j;
 
-	initialize_scene_variables(&scene);
-	parse_arguments_then_get_fd(argc, argv, &scene.fd);
-	parse_and_load_parameters(&scene);
+	i = 0;
+	while (dest[i])
+		i++;
+	j = 0;
+	while (src[j])
+	{
+		dest[i + j] = src[j];
+		j++;
+	}
+	dest[i + j] = '\0';
+	return (i + j);
 }
