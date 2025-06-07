@@ -2,3 +2,6 @@ miniRT
 .Obj/
 .vscode
 *.a
+*.swp
+*/*.swp
+*/*/*.swp

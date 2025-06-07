@@ -6,7 +6,7 @@
 #    By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/07 17:10:22 by yabokhar          #+#    #+#              #
-#    Updated: 2025/06/07 19:22:36 by yabokhar         ###   ########.fr        #
+#    Updated: 2025/06/07 20:59:27 by yabokhar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,8 +39,8 @@ OBJDIR = .Obj/
 #///////////SUBDIR////////////#
 
 PARSDIR 	= $(SRCDIR)parsing/
+COLORSDIR	= $(SRCDIR)colors/
 ERRDIR 		= $(SRCDIR)errors/
-
 
 # -----------FILES-----------#
 
@@ -48,6 +48,8 @@ MAIN 	=	main.c	initialize_scene_variables.c
 
 PARSING =	parse_arguments_then_get_fd.c	parse_and_load_parameters.c \
 			parse_ambient_lightning.c
+
+COLORS	=	ascii_to_rgb.c
 
 ERRORS 	=	parsing_error_reporting.c
 
@@ -57,6 +59,7 @@ INC		=	miniRT.h
 
 SRCS =	$(addprefix $(SRCDIR), $(MAIN))\
 		$(addprefix $(PARSDIR), $(PARSING))\
+		$(addprefix $(COLORSDIR), $(COLORS))\
 		$(addprefix $(ERRDIR), $(ERRORS))
 
 # -----------LIBS------------#

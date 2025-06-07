@@ -6,7 +6,7 @@
 /*   By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 15:57:00 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/07 19:19:47 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/07 21:05:06 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 bool			parse_ambient_lightning(char *line, t_context *scene);
 static bool		get_ratio(float *ratio, char *line);
 static bool		get_colors(short pallet_to_fill[3], char *line);
-static bool		release_memory_then_return_answer(bool answer, char **array);
 
 bool	parse_ambient_lightning(char *line, t_context *scene)
 
@@ -62,39 +61,10 @@ static bool	get_ratio(float *ratio, char *line)
 static bool	get_colors(short pallet_to_fill[3], char *line)
 
 {
-	char	**splitted_line;
-	short	index;
-
-	splitted_line = ft_split(line, ',');
-	if (!splitted_line)
+	pallet_to_fill[RED] = ascii_to_rgb(line);
+	pallet_to_fill[GREEN] = ascii_to_rgb(line);
+	pallet_to_fill[BLUE] = ascii_to_rgb(line);
+	if (*line != '\0' || *line != '\n' || *line != ' ')
 		return (false);
-	index = 0;
-	while (splitted_line[index])
-		++index;
-	if (index != 3)
-		return (release_memory_then_return_answer(false, splitted_line));
-	index = 0;
-	while (index < 2)
-	{
-		pallet_to_fill[index] = ft_atoi(splitted_line[index]);
-		if (pallet_to_fill[index] < 0 || pallet_to_fill[index] > 255)
-			return (release_memory_then_return_answer(false, splitted_line));
-		++index;
-	}
-	return (release_memory_then_return_answer(true, splitted_line));
-}
-
-static bool	release_memory_then_return_answer(bool answer, char **array)
-
-{
-	size_t	i;
-
-	i = 0;
-	while (array[i])
-	{
-		free(array[i]);
-		i++;
-	}
-	free(array);
-	return (answer);
+	return (true);
 }

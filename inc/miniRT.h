@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:54:55 by secros            #+#    #+#             */
-/*   Updated: 2025/06/07 19:02:42 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/07 20:59:58 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	initialize_scene_variables(t_context *scene);
 void	parse_arguments_then_get_fd(int argc, const char *argv[], int *fd);
 void	parse_and_load_parameters(t_context *scene);
 bool    parse_ambient_lightning(char *line, t_context *scene);
+
+short	ascii_to_rgb(const char *nptr);
 
 void	print_error_then_exit_failure(char *error_description);
 void	print_error_from_open_function_then_exit_failure(const char *path);
