@@ -18,7 +18,6 @@
 
 bool			parse_ambient_lightning(char *line, t_context *scene);
 static bool		get_ratio(float *ratio, char *line);
-static bool		get_colors(short pallet_to_fill[3], char *line);
 
 bool	parse_ambient_lightning(char *line, t_context *scene)
 
@@ -32,8 +31,8 @@ bool	parse_ambient_lightning(char *line, t_context *scene)
 	parameters = &scene->ambient_lightning;
 	if (!get_ratio(&parameters->ratio, line))
 		return (print_error_then_return_false(RATIO_ERROR));
-	line += 3;
-	if (!get_colors(parameters->colors, line))
+	line += 4;
+	if (!fill_pallet(parameters->colors, line))
 		return (print_error_then_return_false(COLORS_ERROR));
 	return (true);
 }
@@ -55,16 +54,5 @@ static bool	get_ratio(float *ratio, char *line)
 	else if (line[3] != ' ')
 		return (false);
 	*ratio = integer_part + fractional_part;
-	return (true);
-}
-
-static bool	get_colors(short pallet_to_fill[3], char *line)
-
-{
-	pallet_to_fill[RED] = ascii_to_rgb(line);
-	pallet_to_fill[GREEN] = ascii_to_rgb(line);
-	pallet_to_fill[BLUE] = ascii_to_rgb(line);
-	if (*line != '\0' || *line != '\n' || *line != ' ')
-		return (false);
 	return (true);
 }

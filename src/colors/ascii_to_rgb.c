@@ -11,43 +11,74 @@
 /* ************************************************************************** */
 
 #include <stdbool.h>
+#include <stdio.h>
 
-short		ascii_to_rgb(const char *nptr);
-static void	jump_whitespaces(const char *nptr);
+short		ascii_to_rgb(char *str, char *offset);
+static void	jump_whitespaces(char *str, size_t *c);
+static bool	string_represents_a_negative_number(char *str, size_t *c);
+static void	jump_zeros(char *str, size_t *c);
 
-short	ascii_to_rgb(const char *nptr)
+short	ascii_to_rgb(char *str, char *offset)
 
 {
-	bool	negative;
+	short	color_to_return;
+	size_t	character_count;
 	char	digits;
-	char	color_to_return;
 
-	negative = false;
-	jump_whitespaces(nptr);
-	while (*nptr == '+' || *nptr == '-')
-	{
-		if (*nptr == '-')
-			negative = !negative;
-		nptr++;
-	}
-	if (negative)
+	character_count = 0;
+	*offset = 0;
+	jump_whitespaces(str, &character_count);
+	printf("|%s| -> ", str);
+	if (string_represents_a_negative_number(str, &character_count))
 		return (-1);
+	jump_zeros(str, &character_count);
 	color_to_return = 0;
 	digits = 0;
-	while (*nptr >= '0' && *nptr <= '9')
+	while (*str >= '0' && *str <= '9')
 	{
-		color_to_return = color_to_return * 10 + *nptr - '\0';
-		digits += (*nptr != '0');
-		if (digits > 3)
+		color_to_return = color_to_return * 10 + *str - '0';
+		if (++digits > 3)
 			return (-1);
-		nptr++;
+		++character_count;
+		++str;
 	}
+	*offset = character_count + digits;
+	printf("|%d|\n", color_to_return);
 	return (color_to_return);
 }
 
-static void	jump_whitespaces(const char *nptr)
+static void	jump_whitespaces(char *str, size_t *count)
 
 {
-	while (*nptr == ' ' || (*nptr >= '\t' && *nptr <= '\r'))
-		nptr++;
+	while (*str == ' ' || (*str >= '\t' && *str <= '\r'))
+	{
+		++(*count);
+		++str;
+	}
+}
+
+static bool	string_represents_a_negative_number(char *str, size_t *count)
+
+{
+	bool	answer;
+
+	answer = false;
+	while (*str == '+' || *str == '-')
+	{
+		if (*str == '-')
+			answer = !answer;
+		++str;
+		++(*count);
+	}
+	return (answer);
+}
+
+static void	jump_zeros(char *str, size_t *count)
+
+{
+	while (*str == '0')
+	{
+		++str;
+		++(*count);
+	}
 }

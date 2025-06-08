@@ -42,7 +42,7 @@ void	parse_arguments_then_get_fd(int argc, const char *argv[], int *fd);
 void	parse_and_load_parameters(t_context *scene);
 bool    parse_ambient_lightning(char *line, t_context *scene);
 
-short	ascii_to_rgb(const char *nptr);
+short	ascii_to_rgb(const char *nptr, char *digits);
 
 void	print_error_then_exit_failure(char *error_description);
 void	print_error_from_open_function_then_exit_failure(const char *path);

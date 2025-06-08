@@ -20,7 +20,7 @@ RESET  = \033[0m
 
 # -----------RULES-----------#
 
-CFLAGS = -Wall -Wextra -Werror -MMD -MP
+CFLAGS = -Wall -Wextra -Werror -MMD -MP -g3
 MLXFLAG = -lbsd -lX11 -lm -lXext 
 CC = cc
 AR = ar
