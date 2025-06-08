@@ -46,8 +46,9 @@ ERRDIR 		= $(SRCDIR)errors/
 
 MAIN 	=	main.c	initialize_scene_variables.c
 
-PARSING =	parse_arguments_then_get_fd.c	parse_and_load_parameters.c \
-			parse_ambient_lightning.c	jump_characters.c
+PARSING =	parse_arguments_then_get_fd.c	parse_and_load_parameters.c	\
+			parse_ambient_lightning.c	parse_camera.c	parse_light.c	\
+			jump_characters.c
 
 COLORS	=	fill_pallet.c ascii_to_rgb.c
 

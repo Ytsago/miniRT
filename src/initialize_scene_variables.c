@@ -22,4 +22,12 @@ void	initialize_scene_variables(t_context *scene)
 	scene->ambient_lightning.colors[RED] = 0;
 	scene->ambient_lightning.colors[GREEN] = 0;
 	scene->ambient_lightning.colors[BLUE] = 0;
+	scene->camera.view_point[X] = 0.0;
+	scene->camera.view_point[Y] = 0.0;
+	scene->camera.view_point[Z] = 0.0;
+	scene->camera.horizontal_fov = 0;
+	scene->light.light_point[X] = 0.0;
+	scene->light.light_point[Y] = 0.0;
+	scene->light.light_point[Z] = 0.0;
+	scene->light.brightness_ratio = 0.0;
 }

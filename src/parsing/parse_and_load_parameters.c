@@ -68,8 +68,16 @@ static bool	parse_general_parameters(char *line, t_context *scene)
 		scene->element_has_been_declared[AMBIENT_LIGHTNING] = true;
 	}
 	else if (identifier == 'C')
-		return (true);
+	{
+		if (!parse_camera(line + 1, scene))
+			return (false);
+		scene->element_has_been_declared[CAMERA] = true;
+	}
 	else if (identifier == 'L')
-		return (true);
+	{
+		if (!parse_light(line + 1, scene))
+			return (true);
+		scene->element_has_been_declared[LIGHT] = true;
+	}
 	return (true);
 }
