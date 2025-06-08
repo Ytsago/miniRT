@@ -13,60 +13,20 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-short		ascii_to_rgb(char *str, char *offset);
-static bool	string_represents_a_negative_number(char *str, size_t *c);
-static void	jump_zeros(char *str, size_t *c);
-
-short	ascii_to_rgb(char *str, char *offset)
+short	ascii_to_rgb(const char **str)
 
 {
 	short	color_to_return;
-	size_t	character_count;
-	char	digits;
+	char	digits_count;
 
-	character_count = 0;
-	*offset = 0;
-	printf("|%s| -> ", str);
-	if (string_represents_a_negative_number(str, &character_count))
-		return (-1);
-	jump_zeros(str, &character_count);
 	color_to_return = 0;
-	digits = 0;
-	while (*str >= '0' && *str <= '9')
+	digits_count = 0;
+	while (**str >= '0' && **str <= '9')
 	{
-		color_to_return = color_to_return * 10 + *str - '0';
-		if (++digits > 3)
+		if (++digits_count > 3)
 			return (-1);
-		++character_count;
-		++str;
+		color_to_return = color_to_return * 10 + **str - '0';
+		++(*str);
 	}
-	*offset = character_count + digits;
-	printf("|%d|\n", color_to_return);
 	return (color_to_return);
-}
-
-static bool	string_represents_a_negative_number(char *str, size_t *count)
-
-{
-	bool	answer;
-
-	answer = false;
-	while (*str == '+' || *str == '-')
-	{
-		if (*str == '-')
-			answer = !answer;
-		++str;
-		++(*count);
-	}
-	return (answer);
-}
-
-static void	jump_zeros(char *str, size_t *count)
-
-{
-	while (*str == '0')
-	{
-		++str;
-		++(*count);
-	}
 }

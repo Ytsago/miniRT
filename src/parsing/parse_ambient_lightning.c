@@ -12,10 +12,10 @@
 
 #include "miniRT.h"
 #include "libft.h"
-#include <stdio.h>
 #define MULTIPLE_DECLARATION_ERROR "ambient lightning multiple declarations\n"
 #define RATIO_ERROR "ambient lightning ratio must be in range [0.0,1.0]\n"
 #define COLORS_ERROR "ambient lightning colors must be in range [0-255]\n"
+#define PARAMS_NUMBER_ERROR "ambient lightning has more than two parameters\n"
 
 bool			parse_ambient_lightning(char *line, t_context *scene);
 static bool		get_ratio(float *ratio, char *line);
@@ -35,6 +35,11 @@ bool	parse_ambient_lightning(char *line, t_context *scene)
 	jump_spaces(&line);
 	if (!fill_pallet(parameters->colors, line))
 		return (print_error_then_return_false(COLORS_ERROR));
+	while (ft_isdigit(*line) || *line == ',')
+		++line;
+	jump_spaces(&line);
+	if (*line != '\n' && *line != '\0')
+		return (print_error_then_return_false(PARAMS_NUMBER_ERROR));
 	return (true);
 }
 
@@ -55,6 +60,5 @@ static bool	get_ratio(float *ratio, char *line)
 	else if (line[3] != ' ')
 		return (false);
 	*ratio = integer_part + fractional_part;
-	line += 4;
 	return (true);
 }

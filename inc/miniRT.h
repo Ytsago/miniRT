@@ -42,8 +42,8 @@ void	parse_arguments_then_get_fd(int argc, const char *argv[], int *fd);
 void	parse_and_load_parameters(t_context *scene);
 bool    parse_ambient_lightning(char *line, t_context *scene);
 
-bool	fill_pallet(short pallet_to_fill[3], char *line);
-short	ascii_to_rgb(const char *nptr, char *digits);
+bool	fill_pallet(short pallet[3], const char *line);
+short	ascii_to_rgb(const char **str);
 
 void	jump_spaces(char **str);
 void	jump_zeros(char **str);
