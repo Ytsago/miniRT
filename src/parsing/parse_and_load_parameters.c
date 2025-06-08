@@ -47,10 +47,8 @@ static bool	interpret_and_load_parameters(char *line, t_context *scene)
 {
 	while (*line)
 	{
-		if (*line == ' ')
-			while (*line == ' ')
-				++line;
-		else if (*line == 'A' || *line == 'C' || *line == 'L')
+		jump_spaces(&line);
+		if (*line == 'A' || *line == 'C' || *line == 'L')
 			if (!parse_general_parameters(line, scene))
 				return (false);
 		++line;

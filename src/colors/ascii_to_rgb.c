@@ -14,7 +14,6 @@
 #include <stdio.h>
 
 short		ascii_to_rgb(char *str, char *offset);
-static void	jump_whitespaces(char *str, size_t *c);
 static bool	string_represents_a_negative_number(char *str, size_t *c);
 static void	jump_zeros(char *str, size_t *c);
 
@@ -27,7 +26,6 @@ short	ascii_to_rgb(char *str, char *offset)
 
 	character_count = 0;
 	*offset = 0;
-	jump_whitespaces(str, &character_count);
 	printf("|%s| -> ", str);
 	if (string_represents_a_negative_number(str, &character_count))
 		return (-1);
@@ -45,16 +43,6 @@ short	ascii_to_rgb(char *str, char *offset)
 	*offset = character_count + digits;
 	printf("|%d|\n", color_to_return);
 	return (color_to_return);
-}
-
-static void	jump_whitespaces(char *str, size_t *count)
-
-{
-	while (*str == ' ' || (*str >= '\t' && *str <= '\r'))
-	{
-		++(*count);
-		++str;
-	}
 }
 
 static bool	string_represents_a_negative_number(char *str, size_t *count)
