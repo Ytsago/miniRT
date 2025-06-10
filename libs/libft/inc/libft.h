@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:41:21 by secros            #+#    #+#             */
-/*   Updated: 2025/06/07 18:33:53 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/10 14:39:49 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ char	*ft_strappend(char *s1, char *s2);
 void	*ft_calloc(size_t nmemb, size_t size);
 int		ft_atoi(const char *nptr);
 long	ft_atol(const char *nptr);
+double	ft_strtod(const char *str, char **end, bool precision_flag);
 ssize_t	ft_putchar_fd(char c, int fd);
 ssize_t	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);

@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:54:55 by secros            #+#    #+#             */
-/*   Updated: 2025/06/07 20:59:58 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/10 16:14:11 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_ambient_lightning
 typedef struct	s_camera
 {
 	float	view_point[3];
+	float	normalized_orientation_vector;
 	short	horizontal_fov;
 }	t_camera;
 
@@ -70,5 +71,6 @@ void	jump_zeros(char **str);
 void	print_error_then_exit_failure(char *error_description);
 void	print_error_from_open_function_then_exit_failure(const char *path);
 bool	print_error_then_return_false(char *error_description);
+bool	print_character_error_then_return_false(char c, char *error_description);
 
 #endif
