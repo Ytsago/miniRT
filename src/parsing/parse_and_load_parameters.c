@@ -6,12 +6,14 @@
 /*   By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:29:29 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/07 19:19:13 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/10 19:15:55 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include "miniRT.h"
+#include "libft.h"
+#include <stdio.h>
 
 void		parse_and_load_parameters(t_context *scene);
 static bool	interpret_and_load_parameters(char *line, t_context *scene);
@@ -39,18 +41,27 @@ void	parse_and_load_parameters(t_context *scene)
 		free(line);
 		line = get_next_line(scene->fd);
 	}
+	printf("%d\n", scene->number_of_objects);
 	close(scene->fd);
 }
 
 static bool	interpret_and_load_parameters(char *line, t_context *scene)
 
 {
+	scene->number_of_objects = 0;
+
 	while (*line)
 	{
 		jump_spaces(&line);
 		if (*line == 'A' || *line == 'C' || *line == 'L')
+		{
 			if (!parse_general_parameters(line, scene))
 				return (false);
+		}
+		else if (ft_strncmp(line, "sp ", 3))
+		{
+			++scene->number_of_objects;
+		}
 		++line;
 	}
 	return (true);

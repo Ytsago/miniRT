@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:54:55 by secros            #+#    #+#             */
-/*   Updated: 2025/06/10 16:14:11 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/10 19:01:13 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_context
 {
 	int					fd;
 	bool				element_has_been_declared[3];
+	short				number_of_objects;
 	t_ambient_lightning	ambient_lightning;
 	t_camera			camera;
 	t_light				light;
