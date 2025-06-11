@@ -15,13 +15,14 @@
 #include "libft.h"
 #include "ft_printf.h"
 #include "mlx_int.h"
+#include "color.h"
 
 static void	print_vect(void *vect)
 {
 	t_vect3	print;
 
 	print = *((t_vect3 *) vect);
-	printf("Vect3 : %f, %f, %f", print.x, print.y, print.z);
+	printf("Vect3 : %s%f, %f, %f%s",FG_GREEN, print.x, print.y, print.z, RESET);
 }
 
 static void	print_obj_lst(t_list *head)
@@ -47,7 +48,7 @@ static void	print_obj_lst(t_list *head)
 		print_vect(&content.orientation);
 		printf("\nSize : ");
 		print_vect(&content.size);
-		printf("\nColor : RGB : %d, %d, %d\nEND\n\n",content.color.r, content.color.g, content.color.b);
+		printf("\nColor : RGB : %s%d, %d, %d%s\nEND\n\n",FG_RED, content.color.r, content.color.g, content.color.b, RESET);
 		head = head->next;
 	}
 }
@@ -55,12 +56,12 @@ static void	print_obj_lst(t_list *head)
 void	debug_display_scene_param(t_context *scene)
 {
 	printf("////DEBUG\\\\\\\\\n");
-	printf("Ambient light :\nRGB = %d, %d, %d\nRatio :%f\n\n", scene->ambient_lightning.color.r, scene->ambient_lightning.color.g, scene->ambient_lightning.color.b, scene->ambient_lightning.ratio);
-	printf("Camera :\nViewpoint : %f, %f, %f,  FOV : %d\nOrientation : ", scene->camera.view_point[0], scene->camera.view_point[1], scene->camera.view_point[2], scene->camera.horizontal_fov);
+	printf("Ambient light :RGB = %s%d, %d, %d%s\nRatio :%s%f%s\n\n", FG_RED, scene->ambient_lightning.color.r, scene->ambient_lightning.color.g, scene->ambient_lightning.color.b, RESET, FG_GREEN, scene->ambient_lightning.ratio, RESET);
+	printf("Camera :\nViewpoint : %s%f, %f, %f%s,  FOV : %s%d%s\nOrientation : ", FG_GREEN, scene->camera.view_point[0], scene->camera.view_point[1], scene->camera.view_point[2], RESET, FG_RED, scene->camera.horizontal_fov, RESET);
 	print_vect(&scene->camera.orientation_vector);
-	printf("\n\nLight :\nBrightness ratio : %f\nPosition : ",scene->light.brightness_ratio);
+	printf("\n\nLight :\nBrightness ratio : %s%f%s\nPosition : ", FG_RED, scene->light.brightness_ratio, RESET);
 	print_vect(&scene->light.light_point);
-	printf("\nColor : RGB : %d, %d, %d\n\n", scene->light.color.r, scene->light.color.g, scene->light.color.b);
+	printf("\nColor : RGB : %s%d, %d, %d%s\n\n", FG_RED, scene->light.color.r, scene->light.color.g, scene->light.color.b, RESET);
 	printf("Obj : \n\n");
 	print_obj_lst(scene->obj);
 }
