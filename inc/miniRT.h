@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:54:55 by secros            #+#    #+#             */
-/*   Updated: 2025/06/11 11:48:35 by secros           ###   ########.fr       */
+/*   Updated: 2025/06/11 14:39:44 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,15 @@ typedef struct s_ambient_lightning
 typedef struct	s_camera
 {
 	float	view_point[3];
-	float	normalized_orientation_vector;
+	t_vect3	orientation_vector;
 	short	horizontal_fov;
 }	t_camera;
 
 typedef struct s_light
 {
-	float	light_point[3];
-	float	brightness_ratio;
+	t_point3	light_point;
+	double		brightness_ratio;
+	t_color		color;
 }	t_light;
 
 typedef struct s_context
@@ -98,5 +99,7 @@ void	print_error_from_open_function_then_exit_failure(const char *path);
 bool	print_error_then_return_false(char *error_description);
 bool	print_character_error_then_return_false(char c, char *error_description);
 bool	parse_object(char *line, t_context *scene);
+bool	get_value(char **line, void *element);
+bool	get_color(char **line, t_color *color);
 
 #endif

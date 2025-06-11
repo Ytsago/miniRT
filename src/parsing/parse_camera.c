@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_camera.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:38:37 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/10 17:55:08 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/11 16:24:50 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@
 
 bool		parse_camera(char *line, t_context *scene);
 static bool	get_view_point(char **line, float view_point[3], short index);
-static bool	get_nov(char **line, float *result);
+static bool	get_nov(char **line, t_vect3 *result);
 static bool	get_horizontal_fov(char **line, short *horizontal_fov);
+
+#include <stdio.h>
 
 bool	parse_camera(char *line, t_context *scene)
 
@@ -37,7 +39,7 @@ bool	parse_camera(char *line, t_context *scene)
 	parameters = &scene->camera;
 	if (!get_view_point(&line, parameters->view_point, 0))
 		return (false);
-	if (!get_nov(&line, &parameters->normalized_orientation_vector))
+	if (get_nov(&line, &parameters->orientation_vector))
 		return (false);
 	jump_spaces(&line);
 	if (!get_horizontal_fov(&line, &parameters->horizontal_fov))
@@ -51,26 +53,48 @@ bool	parse_camera(char *line, t_context *scene)
 static bool	get_view_point(char **line, float view_point[3], short index)
 
 {
-	view_point[index] = atof(*line);
-	while (**line && (ft_isdigit(**line) || **line == '.'))
-		++(*line);
+	char *end;
+
+	view_point[index] = ft_strtod(*line, &end, NULL);
+	*line = end;
+/* 	while (**line && (ft_isdigit(**line) || ft_issign(**line) || **line == '.'))
+		++(*line); */
 	if (index < 2 && **line != ',')
 		return (print_error_then_return_false(COMMA_ERROR));
-	++(*line);
+	else if (**line == ',')
+		++(*line);
 	if (index < 2)
-		get_view_point(line, view_point, ++index);
+		return (get_view_point(line, view_point, ++index));
 	if (**line != ' ')
-		return (print_error_then_return_false(SPACE_ERROR));
+		return ( print_error_then_return_false(SPACE_ERROR));
 	return (true);
 }
 
-static bool	get_nov(char **line, float *result)
+// static bool	get_view_point(char **line, float view_point[3], short index)
+
+// {
+// 	view_point[index] = atof(*line);
+// 	while (**line && (ft_isdigit(**line) || ft_issign(**line) || **line == '.'))
+// 		++(*line);
+// 	if (index < 2 && **line != ',')
+// 		return (print_error_then_return_false(COMMA_ERROR));
+// 	else if (**line == ',')
+// 		++(*line);
+// 	printf("char : %c  value : %f \n", *(*line), view_point[index]);
+// 	if (index < 2)
+// 		return (get_view_point(line, view_point, ++index));
+// 	if (**line != ' ')
+// 		return ( print_error_then_return_false(SPACE_ERROR));
+// 	return (true);
+// }
+
+static bool	get_nov(char **line, t_vect3 *result)
 
 {
-	while (**line && (ft_isdigit(**line) || **line == '.' || **line == ','))
-		++(*line);
-	(void)result;
-	return (true);
+	if (**line == ' ')
+		(*line)++;
+	get_value(line, result);
+	return (0);
 }
 
 static bool	get_horizontal_fov(char **line, short *horizontal_fov)

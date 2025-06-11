@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 15:57:00 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/11 11:50:40 by secros           ###   ########.fr       */
+/*   Updated: 2025/06/11 11:53:23 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,22 @@ static bool	get_ratio(float *ratio, char **line)
 // 	*ratio = integer_part + fractional_part;
 // 	return (true);
 // }
+/* static bool	release_memory_then_return_answer(bool answer, char **array)
 
-static bool	get_colors(short pallet_to_fill[3], char *line)
+{
+	size_t	i;
+
+	i = 0;
+	while (array[i])
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
+	return (answer);
+}
+ */
+/* static bool	get_colors(short pallet_to_fill[3], char *line)
 
 {
 	char	**splitted_line;
@@ -117,17 +131,4 @@ static bool	get_colors(short pallet_to_fill[3], char *line)
 	return (release_memory_then_return_answer(true, splitted_line));
 }
 
-static bool	release_memory_then_return_answer(bool answer, char **array)
-
-{
-	size_t	i;
-
-	i = 0;
-	while (array[i])
-	{
-		free(array[i]);
-		i++;
-	}
-	free(array);
-	return (answer);
-}
+ */

@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:29:29 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/11 11:51:09 by secros           ###   ########.fr       */
+/*   Updated: 2025/06/11 16:48:33 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	parse_and_load_parameters(t_context *scene)
 		free(line);
 		line = get_next_line(scene->fd);
 	}
-	printf("%d\n", scene->number_of_objects);
 	close(scene->fd);
 }
 
@@ -58,12 +57,12 @@ static bool	interpret_and_load_parameters(char *line, t_context *scene)
 			if (!parse_general_parameters(line, scene))
 				return (false);
 		}
-		else if (ft_strncmp(line, "sp ", 3))
-		{
-			++scene->number_of_objects;
-		}
+		// else if (ft_strncmp(line, "sp ", 3))
+		// {
+		// 	++scene->number_of_objects;
+		// }
 		else if (parse_object(line, scene))
-			return (false);
+			return (printf("Obj parsing failded\n"), false);
 		++line;
 	}
 	return (true);
