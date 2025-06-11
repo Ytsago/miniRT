@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:54:55 by secros            #+#    #+#             */
-/*   Updated: 2025/06/11 14:39:44 by secros           ###   ########.fr       */
+/*   Updated: 2025/06/11 17:19:56 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ enum e_obj
 typedef struct s_ambient_lightning
 {
 	float			ratio;
-	short			colors[3];
+	t_color			color;
 }	t_ambient_lightning;
 
 typedef struct	s_camera

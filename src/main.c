@@ -55,7 +55,7 @@ static void	print_obj_lst(t_list *head)
 void	debug_display_scene_param(t_context *scene)
 {
 	printf("////DEBUG\\\\\\\\\n");
-	printf("Ambient light :\nRGB = %d, %d, %d\nRatio :%f\n\n", scene->ambient_lightning.colors[0], scene->ambient_lightning.colors[1], scene->ambient_lightning.colors[2], scene->ambient_lightning.ratio);
+	printf("Ambient light :\nRGB = %d, %d, %d\nRatio :%f\n\n", scene->ambient_lightning.color.r, scene->ambient_lightning.color.g, scene->ambient_lightning.color.b, scene->ambient_lightning.ratio);
 	printf("Camera :\nViewpoint : %f, %f, %f,  FOV : %d\nOrientation : ", scene->camera.view_point[0], scene->camera.view_point[1], scene->camera.view_point[2], scene->camera.horizontal_fov);
 	print_vect(&scene->camera.orientation_vector);
 	printf("\n\nLight :\nBrightness ratio : %f\nPosition : ",scene->light.brightness_ratio);

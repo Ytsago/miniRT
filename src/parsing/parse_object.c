@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 11:29:39 by secros            #+#    #+#             */
-/*   Updated: 2025/06/11 16:52:42 by secros           ###   ########.fr       */
+/*   Updated: 2025/06/11 16:58:11 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ bool	get_value(char **line, void *element)
 	char	*end;
 
 	i = 0;
-	if (**line == ' ')
+	while (**line && **line == ' ')
 		(*line)++;
 	ft_bzero(coord, sizeof(double) * 3);
 	while (i < 3 && **line && (ft_isdigit(**line) || ft_issign(**line)))
