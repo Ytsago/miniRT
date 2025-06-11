@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: secros <secros@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/07 17:10:22 by yabokhar          #+#    #+#              #
-#    Updated: 2025/06/07 20:59:27 by yabokhar         ###   ########.fr        #
+#    Updated: 2025/06/11 11:48:09 by secros           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ MAIN 	=	main.c	initialize_scene_variables.c
 
 PARSING =	parse_arguments_then_get_fd.c	parse_and_load_parameters.c	\
 			parse_ambient_lightning.c	parse_camera.c	parse_light.c	\
-			jump_characters.c
+			jump_characters.c	parse_object.c
 
 COLORS	=	fill_pallet.c ascii_to_rgb.c
 
@@ -71,7 +71,8 @@ LIBA = $(foreach l,$(LIB),$(LIBDIR)$(l)/$(l).a)
 
 LIBS = $(addprefix $(LIBDIR), $(LIB))
 
-LIBINCDIR = $(addprefix -I , $(addsuffix $(INCDIR), $(addsuffix /, $(LIBS))))
+# LIBINCDIR = $(addprefix -I , $(addsuffix $(INCDIR), $(addsuffix /, $(LIBS))))
+LIBINCDIR = $(foreach l, $(LIBS), $(if $(findstring mlx, $(l)), -I $(l), -I $(l)/$(INCDIR)))
 
 # -----------OTHER-----------#
 

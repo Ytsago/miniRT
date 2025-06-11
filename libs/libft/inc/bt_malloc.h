@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 16:18:31 by secros            #+#    #+#             */
-/*   Updated: 2025/03/24 17:28:45 by secros           ###   ########.fr       */
+/*   Updated: 2025/06/06 10:51:31 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define BT_MALLOC_H
 
 # include <stdlib.h>
-
 
 /**
  * @brief Node of chained list

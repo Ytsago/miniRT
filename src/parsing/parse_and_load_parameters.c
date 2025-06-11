@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_and_load_parameters.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:29:29 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/10 19:15:55 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/11 11:51:09 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,19 +62,20 @@ static bool	interpret_and_load_parameters(char *line, t_context *scene)
 		{
 			++scene->number_of_objects;
 		}
+		else if (parse_object(line, scene))
+			return (false);
 		++line;
 	}
 	return (true);
 }
 
 static bool	parse_general_parameters(char *line, t_context *scene)
-
 {
 	const char	identifier = *line;
 
 	if (identifier == 'A')
 	{
-		if (!parse_ambient_lightning(line + 1, scene))
+		if (scene->element_has_been_declared[AMBIENT_LIGHTNING] && !parse_ambient_lightning(line + 1, scene))
 			return (false);
 		scene->element_has_been_declared[AMBIENT_LIGHTNING] = true;
 	}

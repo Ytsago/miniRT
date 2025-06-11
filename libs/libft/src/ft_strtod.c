@@ -6,12 +6,13 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 16:05:37 by secros            #+#    #+#             */
-/*   Updated: 2025/06/10 15:26:28 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/11 11:49:14 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdbool.h>
 #include <math.h>
+#include <stdio.h>
 #include <errno.h>
 
 #define INTPART 9007199254740992.0
@@ -112,7 +113,6 @@ static double	get_fractional_part(const char **str, char **end, \
  * errno to ERANGE.
  */
 
- #include <stdio.h>
 double	ft_strtod(const char *str, char **end, bool	*precision_flag)
 {
 	int		sign;

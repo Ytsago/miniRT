@@ -6,14 +6,17 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:54:55 by secros            #+#    #+#             */
-/*   Updated: 2025/06/10 19:01:13 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/11 11:48:35 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
-#include <stdbool.h>
+# include <stdbool.h>
+# include "vect3.h"
+# include "mlx_struct.h"
+# include "libft.h"
 
 # define AMBIENT_LIGHTNING 0
 # define CAMERA 1
@@ -24,6 +27,16 @@
 # define RED 0
 # define GREEN 1
 # define BLUE 2
+
+typedef struct s_object		t_object;
+
+enum e_obj
+{
+	SPHERE,
+	CYLINDER,
+	PLANE,
+};
+
 
 typedef struct s_ambient_lightning
 {
@@ -52,7 +65,18 @@ typedef struct s_context
 	t_ambient_lightning	ambient_lightning;
 	t_camera			camera;
 	t_light				light;
+	t_list				*obj;
 }	t_context;
+
+struct	s_object
+{
+	enum e_obj	type;
+	t_point3	pos;
+	t_vect3		orientation;
+	t_color		color;
+	t_vect3		size;
+};
+
 
 int		main(int argc, const char *argv[]);
 
@@ -73,5 +97,6 @@ void	print_error_then_exit_failure(char *error_description);
 void	print_error_from_open_function_then_exit_failure(const char *path);
 bool	print_error_then_return_false(char *error_description);
 bool	print_character_error_then_return_false(char c, char *error_description);
+bool	parse_object(char *line, t_context *scene);
 
 #endif
