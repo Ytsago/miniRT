@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:38:37 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/11 16:24:50 by secros           ###   ########.fr       */
+/*   Updated: 2025/06/12 12:41:58 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ static bool	get_nov(char **line, t_vect3 *result)
 {
 	if (**line == ' ')
 		(*line)++;
-	get_value(line, result);
+	get_vect3_value(line, result);
 	return (0);
 }
 

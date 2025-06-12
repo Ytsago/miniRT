@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:38:43 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/11 14:40:56 by secros           ###   ########.fr       */
+/*   Updated: 2025/06/12 12:50:38 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ bool	parse_light(char *line, t_context *scene)
 		return (print_error_then_return_false(MULTIPLE_DECLARATION_ERR3));
 	parameters = &scene->light;
 	jump_spaces(&line);
-	if (get_value(&line, &parameters->light_point))
+	if (get_vect3_value(&line, &parameters->light_point))
 		return (false);
 	jump_spaces(&line);
 	if (!get_brightness_ratio(&line, &parameters->brightness_ratio))
