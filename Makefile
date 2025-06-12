@@ -6,7 +6,7 @@
 #    By: secros <secros@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/07 17:10:22 by yabokhar          #+#    #+#              #
-#    Updated: 2025/06/12 13:24:44 by secros           ###   ########.fr        #
+#    Updated: 2025/06/12 14:04:05 by yabokhar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,6 @@ OBJDIR = .Obj/
 #///////////SUBDIR////////////#
 
 PARSDIR 	= $(SRCDIR)parsing/
-COLORSDIR	= $(SRCDIR)colors/
 ERRDIR 		= $(SRCDIR)errors/
 
 # -----------FILES-----------#
@@ -50,8 +49,6 @@ PARSING =	parse_arguments_then_get_fd.c	parse_and_load_parameters.c	\
 			parse_ambient_lightning.c	parse_camera.c	parse_light.c	\
 			jump_characters.c	parse_object.c	parsing_utils.c	debug.c
 
-COLORS	=	fill_pallet.c ascii_to_rgb.c
-
 ERRORS 	=	parsing_error_reporting.c
 
 INC		=	miniRT.h
@@ -60,7 +57,6 @@ INC		=	miniRT.h
 
 SRCS =	$(addprefix $(SRCDIR), $(MAIN))\
 		$(addprefix $(PARSDIR), $(PARSING))\
-		$(addprefix $(COLORSDIR), $(COLORS))\
 		$(addprefix $(ERRDIR), $(ERRORS))
 
 # -----------LIBS------------#

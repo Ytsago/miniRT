@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 15:57:00 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/11 17:29:58 by secros           ###   ########.fr       */
+/*   Updated: 2025/06/12 14:30:16 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,16 @@
 
 #define MULTIPLE_DECLARATION_ERR1 "ambient lightning multiple declarations\n"
 #define RATIO_ERROR "ambient lightning ratio must be in range [0.0,1.0]\n"
+#define OF_ERR "ambient lightning ratio precision lost due to too many digits\n"
+#define SPACE_ERROR "parameters elements must be separated by a space\n"
 #define COLORS_ERROR "ambient lightning colors must be in range [0-255]\n"
 #define PARAMS_NUMBER_ERROR "ambient lightning has more than two parameters\n"
 #define PRECISION_LOST_ERROR "precision lost (too many digits)\n"
 
 bool			parse_ambient_lightning(char *line, t_context *scene);
 static bool		get_ratio(float *ratio, char **line);
+
+#include <stdio.h>
 
 bool	parse_ambient_lightning(char *line, t_context *scene)
 
@@ -34,16 +38,13 @@ bool	parse_ambient_lightning(char *line, t_context *scene)
 	parameters = &scene->ambient_lightning;
 	if (!get_ratio(&parameters->ratio, &line))
 		return (false);
-	while (ft_isdigit(*line) || *line == '.')
-		++line;
 	jump_spaces(&line);
-	if (get_color(&line, &parameters->color))
-		return (print_error_then_return_false(COLORS_ERROR));
-	while (ft_isdigit(*line) || *line == ',')
-		++line;
+	if (!get_color(&line, &parameters->color))
+		return (false);
 	jump_spaces(&line);
 	if (*line != '\n' && *line != '\0')
 		return (print_error_then_return_false(PARAMS_NUMBER_ERROR));
+	//printf("r[%d]\ng[%d]\nb[%d]\n", parameters->color.r, parameters->color.g, parameters->color.b);
 	return (true);
 }
 
@@ -66,12 +67,12 @@ static bool	get_ratio(float *ratio, char **line)
 	if (end == *line)
 		return (false);
 	if (precision)
-	{
-		ft_putstr_fd("Error\nPrecision lost due to too many digits\n", 2);
-		return (false);
-	}
+		return (print_error_then_return_false(OF_ERR));
 	if (!(*ratio >= 0.0 && *ratio <= 1.0))
-		return (false);
+		return (print_error_then_return_false(RATIO_ERROR));
+	*line = end;
+	if (**line != ' ' )
+		return (print_error_then_return_false(SPACE_ERROR));
 	return (true);
 }
 

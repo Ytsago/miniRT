@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:54:55 by secros            #+#    #+#             */
-/*   Updated: 2025/06/12 12:53:35 by secros           ###   ########.fr       */
+/*   Updated: 2025/06/12 15:24:50 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ typedef struct s_context
 {
 	int					fd;
 	bool				element_has_been_declared[3];
-	short				number_of_objects;
 	t_ambient_lightning	ambient_lightning;
 	t_camera			camera;
 	t_light				light;
@@ -88,11 +87,9 @@ bool    parse_ambient_lightning(char *line, t_context *scene);
 bool	parse_camera(char *line, t_context *scene);
 bool	parse_light(char *line, t_context *scene);
 
-bool	fill_pallet(short pallet[3], const char *line);
-short	ascii_to_rgb(const char **str);
-
 void	jump_spaces(char **str);
 void	jump_zeros(char **str);
+bool	empty_line(char *line);
 
 void	print_error_then_exit_failure(char *error_description);
 void	print_error_from_open_function_then_exit_failure(const char *path);

@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.PIXELSIZE2.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:00:10 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/07 18:45:49 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/12 16:12:01 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	main(int argc, const char *argv[])
 	parse_arguments_then_get_fd(argc, argv, &scene.fd);
 	parse_and_load_parameters(&scene);
 	debug_display_scene_param(&scene);
+	ft_lstclear(&scene.obj, free);
 }
 
 /* # define PIXELSIZE 4

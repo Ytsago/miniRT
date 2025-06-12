@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:38:37 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/12 12:41:58 by secros           ###   ########.fr       */
+/*   Updated: 2025/06/12 14:53:24 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ bool	parse_camera(char *line, t_context *scene)
 	parameters = &scene->camera;
 	if (!get_view_point(&line, parameters->view_point, 0))
 		return (false);
-	if (get_nov(&line, &parameters->orientation_vector))
+	if (!get_nov(&line, &parameters->orientation_vector))
 		return (false);
 	jump_spaces(&line);
 	if (!get_horizontal_fov(&line, &parameters->horizontal_fov))
@@ -57,16 +57,14 @@ static bool	get_view_point(char **line, float view_point[3], short index)
 
 	view_point[index] = ft_strtod(*line, &end, NULL);
 	*line = end;
-/* 	while (**line && (ft_isdigit(**line) || ft_issign(**line) || **line == '.'))
-		++(*line); */
 	if (index < 2 && **line != ',')
 		return (print_error_then_return_false(COMMA_ERROR));
 	else if (**line == ',')
 		++(*line);
 	if (index < 2)
 		return (get_view_point(line, view_point, ++index));
-	if (**line != ' ')
-		return ( print_error_then_return_false(SPACE_ERROR));
+	if (index == 2 && **line != ' ')
+		return (print_error_then_return_false(SPACE_ERROR));
 	return (true);
 }
 
@@ -93,8 +91,17 @@ static bool	get_nov(char **line, t_vect3 *result)
 {
 	if (**line == ' ')
 		(*line)++;
-	get_vect3_value(line, result);
-	return (0);
+	if (!get_vect3_value(line, result))
+		return (false);
+	if (result->x < -1.0 || result->x > 1.0)
+		return (print_error_then_return_false(VIEW_POINT_ERROR));
+	if (result->y < -1.0 || result->y > 1.0)
+		return (print_error_then_return_false(VIEW_POINT_ERROR));
+	if (result->z < -1.0 || result->z > 1.0)
+		return (print_error_then_return_false(VIEW_POINT_ERROR));
+	if (**line != ' ')
+		return (print_error_then_return_false(SPACE_ERROR));
+	return (true);
 }
 
 static bool	get_horizontal_fov(char **line, short *horizontal_fov)

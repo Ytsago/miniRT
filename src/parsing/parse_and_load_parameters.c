@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:29:29 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/11 17:29:25 by secros           ###   ########.fr       */
+/*   Updated: 2025/06/12 16:11:23 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,36 +36,35 @@ void	parse_and_load_parameters(t_context *scene)
 		{
 			close(scene->fd);
 			free(line);
+			ft_lstclear(&scene->obj, free);
 			exit(EXIT_FAILURE);
 		}
 		free(line);
 		line = get_next_line(scene->fd);
 	}
 	close(scene->fd);
+	if (!scene->element_has_been_declared[AMBIENT_LIGHTNING]
+		|| !scene->element_has_been_declared[CAMERA]
+		|| !scene->element_has_been_declared[LIGHT])
+		exit(EXIT_FAILURE);
 }
+
+#include <stdio.h>
 
 static bool	interpret_and_load_parameters(char *line, t_context *scene)
 
 {
-	scene->number_of_objects = 0;
-
-	while (*line)
+	jump_spaces(&line);
+	if (*line == 'A' || *line == 'C' || *line == 'L')
 	{
-		jump_spaces(&line);
-		if (*line == 'A' || *line == 'C' || *line == 'L')
-		{
-			if (!parse_general_parameters(line, scene))
-				return (false);
-		}
-		// else if (ft_strncmp(line, "sp ", 3))
-		// {
-		// 	++scene->number_of_objects;
-		// }
-		else if (parse_object(line, scene))
-			return (printf("Obj parsing failded\n"), false);
-		++line;
+		if (parse_general_parameters(line, scene))
+			return (true);
 	}
-	return (true);
+	else if (parse_object(line, scene))
+		return (true);
+	else if (empty_line(line))
+		return (true);
+	return (false);
 }
 
 static bool	parse_general_parameters(char *line, t_context *scene)
