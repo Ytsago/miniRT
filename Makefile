@@ -6,7 +6,7 @@
 #    By: secros <secros@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/07 17:10:22 by yabokhar          #+#    #+#              #
-#    Updated: 2025/06/12 12:50:56 by secros           ###   ########.fr        #
+#    Updated: 2025/06/12 13:24:44 by secros           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ MAIN 	=	main.c	initialize_scene_variables.c
 
 PARSING =	parse_arguments_then_get_fd.c	parse_and_load_parameters.c	\
 			parse_ambient_lightning.c	parse_camera.c	parse_light.c	\
-			jump_characters.c	parse_object.c	parsing_utils.c
+			jump_characters.c	parse_object.c	parsing_utils.c	debug.c
 
 COLORS	=	fill_pallet.c ascii_to_rgb.c
 
