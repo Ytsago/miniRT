@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_object.c                                     :+:      :+:    :+:   */
+/*   parse_objects.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 11:29:39 by secros            #+#    #+#             */
-/*   Updated: 2025/06/12 16:18:28 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/14 15:35:36 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_object	*new_object(char **line, enum e_obj type)
 	jump_spaces(line);
 	if ((type == SPHERE && get_unique_value(line, &new->size.x))
 		|| (type == CYLINDER && (get_unique_value(line, &new->size.x)
-		|| get_unique_value(line, &new->size.y))))
+			|| get_unique_value(line, &new->size.y))))
 		return (free(new), NULL);
 	jump_spaces(line);
 	if (!get_color(line, &new->color))
@@ -43,32 +43,19 @@ t_object	*new_object(char **line, enum e_obj type)
 		return (free(new), write(2, "objects params\n", 14), NULL);
 	return (new);
 }
-#include <stdio.h>
-bool	add_object(t_context *scene, t_object *obj)
+
+bool	add_object(t_context *scene, t_object *object)
 {
 	t_list	*new;
 
-	if (!obj)
+	if (!object)
 		return (false);
-	new = ft_lstnew((void *)obj);
+	new = ft_lstnew((void *)object);
 	if (!new)
 	{
-		free(obj);
+		free(object);
 		return (false);
 	}
-	ft_lstadd_back(&scene->obj, new);
+	ft_lstadd_back(&scene->objects, new);
 	return (true);
-}
-
-#include <stdio.h>
-
-bool	parse_object(char *line, t_context *scene)
-{
-	if (!ft_strncmp("sp ", line, 3))
-		return (add_object(scene, new_object(&line, SPHERE)));
-	if (!ft_strncmp("pl ", line, 3))
-		return (add_object(scene, new_object(&line, PLANE)));
-	if (!ft_strncmp("cy ", line, 3))
-		return (add_object(scene, new_object(&line, CYLINDER)));
-	return (false);
 }

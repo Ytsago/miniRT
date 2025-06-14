@@ -6,15 +6,14 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:38:43 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/12 15:17:39 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/14 20:57:03 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 #include "libft.h"
-#define MULTIPLE_DECLARATION_ERR3 "light multiple declarations\n"
+#include "../../inc/errors.h"
 #define COMMA_ERROR "light point coordinates must be separated by a comma\n"
-#define SPACE_ERROR "light parameters must be separated by a space\n"
 #define RATIO_ERROR "light ratio must be in range[0.0,1.0]\n"
 #define PRECISION_ERROR "prout\n"
 #define PARAMS_NUMBER_ERROR "light has more than two parameters\n"
@@ -30,7 +29,7 @@ bool	parse_light(char *line, t_context *scene)
 	t_light	*parameters;
 
 	if (scene->element_has_been_declared[LIGHT])
-		return (print_error_then_return_false(MULTIPLE_DECLARATION_ERR3));
+		multiple_declarations_error(scene, "light");
 	parameters = &scene->light;
 	jump_spaces(&line);
 	if (!get_light_point_coords(&line, &parameters->light_point))
@@ -55,7 +54,7 @@ static bool	get_light_point_coords(char **line, t_point3 *result)
 	if (!get_vect3_value(line, result))
 		return (false);
 	if (**line != ' ')
-		return (print_error_then_return_false(SPACE_ERROR));
+		return (print_error_then_return_false(NO_SPACE));
 	return (true);
 }
 
@@ -74,6 +73,6 @@ static bool	get_brightness_ratio(char **line, double *brightness_ratio)
 		return (print_error_then_return_false(PRECISION_ERROR));
 	*line = end;
 	if (**line != ' ')
-		return (print_error_then_return_false(SPACE_ERROR));
+		return (print_error_then_return_false(NO_SPACE));
 	return (true);
 }

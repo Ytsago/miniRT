@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: secros <secros@student.PIXELSIZE2.fr>              +#+  +:+       +#+        */
+/*   By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/03 14:00:10 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/12 16:12:01 by yabokhar         ###   ########.fr       */
+/*   Created: 2025/06/14 14:38:13 by yabokhar          #+#    #+#             */
+/*   Updated: 2025/06/14 20:45:01 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ int	main(int argc, const char *argv[])
 {
 	t_context	scene;
 
-	initialize_scene_variables(&scene);
-	parse_arguments_then_get_fd(argc, argv, &scene.fd);
+	ft_bzero(&scene, sizeof(t_context));
+	parse_arguments(argc, argv, &scene);
 	parse_and_load_parameters(&scene);
 	debug_display_scene_param(&scene);
-	ft_lstclear(&scene.obj, free);
+	ft_lstclear(&scene.objects, free);
 }
 
 /* # define PIXELSIZE 4

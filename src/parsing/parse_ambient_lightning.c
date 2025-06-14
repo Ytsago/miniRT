@@ -6,18 +6,16 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 15:57:00 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/12 14:30:16 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/14 20:55:27 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 #include "libft.h"
-#include <stdio.h>
+#include "../../inc/errors.h"
 
-#define MULTIPLE_DECLARATION_ERR1 "ambient lightning multiple declarations\n"
 #define RATIO_ERROR "ambient lightning ratio must be in range [0.0,1.0]\n"
 #define OF_ERR "ambient lightning ratio precision lost due to too many digits\n"
-#define SPACE_ERROR "parameters elements must be separated by a space\n"
 #define COLORS_ERROR "ambient lightning colors must be in range [0-255]\n"
 #define PARAMS_NUMBER_ERROR "ambient lightning has more than two parameters\n"
 #define PRECISION_LOST_ERROR "precision lost (too many digits)\n"
@@ -25,15 +23,13 @@
 bool			parse_ambient_lightning(char *line, t_context *scene);
 static bool		get_ratio(float *ratio, char **line);
 
-#include <stdio.h>
-
 bool	parse_ambient_lightning(char *line, t_context *scene)
 
 {
 	t_ambient_lightning	*parameters;
 
 	if (scene->element_has_been_declared[AMBIENT_LIGHTNING])
-		return (print_error_then_return_false(MULTIPLE_DECLARATION_ERR1));
+		multiple_declarations_error(scene, "ambient lightning");
 	jump_spaces(&line);
 	parameters = &scene->ambient_lightning;
 	if (!get_ratio(&parameters->ratio, &line))
@@ -43,20 +39,9 @@ bool	parse_ambient_lightning(char *line, t_context *scene)
 		return (false);
 	jump_spaces(&line);
 	if (*line != '\n' && *line != '\0')
-		return (print_error_then_return_false(PARAMS_NUMBER_ERROR));
-	//printf("r[%d]\ng[%d]\nb[%d]\n", parameters->color.r, parameters->color.g, parameters->color.b);
+		return (print_error_then_return_false("prout\n"));
 	return (true);
 }
-
-/* static bool	get_ratio(float *ratio, char **line)
-
-{
-	*ratio = atof(*line);
-	if (*ratio < 0.0 || *ratio > 1.0)
-		return (print_error_then_return_false(RATIO_ERROR));
-	return (true);
-} */
-
 
 static bool	get_ratio(float *ratio, char **line)
 {
@@ -72,67 +57,6 @@ static bool	get_ratio(float *ratio, char **line)
 		return (print_error_then_return_false(RATIO_ERROR));
 	*line = end;
 	if (**line != ' ' )
-		return (print_error_then_return_false(SPACE_ERROR));
+		return (print_error_then_return_false(NO_SPACE));
 	return (true);
 }
-
-// static bool	get_ratio(float *ratio, char *line)
-
-// {
-// 	const float	integer_part = (float)(line[0] - '0');
-// 	const float	fractional_part = (float)((line[2] - '0') / 10);
-
-// 	if (integer_part != 0.0 && integer_part != 1.0)
-// 		return (false);
-// 	else if (line[1] != '.')
-// 		return (false);
-// 	else if (integer_part == 0.0 && !ft_isdigit(line[2]))
-// 		return (false);
-// 	else if (line[2] != '0')
-// 		return (false);
-// 	else if (line[3] != ' ')
-// 		return (false);
-// 	*ratio = integer_part + fractional_part;
-// 	return (true);
-// }
-/* static bool	release_memory_then_return_answer(bool answer, char **array)
-
-{
-	size_t	i;
-
-	i = 0;
-	while (array[i])
-	{
-		free(array[i]);
-		i++;
-	}
-	free(array);
-	return (answer);
-}
- */
-/* static bool	get_colors(short pallet_to_fill[3], char *line)
-
-{
-	char	**splitted_line;
-	short	index;
-
-	splitted_line = ft_split(line, ',');
-	if (!splitted_line)
-		return (false);
-	index = 0;
-	while (splitted_line[index])
-		++index;
-	if (index != 3)
-		return (release_memory_then_return_answer(false, splitted_line));
-	index = 0;
-	while (index < 2)
-	{
-		pallet_to_fill[index] = ft_atoi(splitted_line[index]);
-		if (pallet_to_fill[index] < 0 || pallet_to_fill[index] > 255)
-			return (release_memory_then_return_answer(false, splitted_line));
-		++index;
-	}
-	return (release_memory_then_return_answer(true, splitted_line));
-}
-
- */

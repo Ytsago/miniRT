@@ -6,13 +6,13 @@
 /*   By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:08:56 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/03 14:12:03 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/14 17:55:40 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 
-int	ft_strcmp(const char *s1, const char *s2)
+short	ft_strcmp(const char *s1, const char *s2)
 
 {
 	size_t	i;

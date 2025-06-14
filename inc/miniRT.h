@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:54:55 by secros            #+#    #+#             */
-/*   Updated: 2025/06/12 15:24:50 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/14 21:00:58 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,14 @@ typedef struct s_light
 typedef struct s_context
 {
 	int					fd;
+	char				*file_name;
+	char				*line;
+	unsigned int		line_number;
 	bool				element_has_been_declared[3];
 	t_ambient_lightning	ambient_lightning;
 	t_camera			camera;
 	t_light				light;
-	t_list				*obj;
+	t_list				*objects;
 }	t_context;
 
 struct	s_object
@@ -78,26 +81,23 @@ struct	s_object
 };
 
 
-int		main(int argc, const char *argv[]);
+int			main(int argc, const char *argv[]);
 
-void	initialize_scene_variables(t_context *scene);
-void	parse_arguments_then_get_fd(int argc, const char *argv[], int *fd);
-void	parse_and_load_parameters(t_context *scene);
-bool    parse_ambient_lightning(char *line, t_context *scene);
-bool	parse_camera(char *line, t_context *scene);
-bool	parse_light(char *line, t_context *scene);
+void		parse_arguments(int ac, const char *av[], t_context *s);
+void		parse_and_load_parameters(t_context *scene);
+bool   		parse_ambient_lightning(char *line, t_context *scene);
+bool		parse_camera(char *line, t_context *scene);
+bool		parse_light(char *line, t_context *scene);
 
-void	jump_spaces(char **str);
-void	jump_zeros(char **str);
-bool	empty_line(char *line);
+bool		add_object(t_context *scene, t_object *object); 
+t_object	*new_object(char **line, enum e_obj type);
 
-void	print_error_then_exit_failure(char *error_description);
-void	print_error_from_open_function_then_exit_failure(const char *path);
-bool	print_error_then_return_false(char *error_description);
-bool	print_character_error_then_return_false(char c, char *error_description);
-bool	parse_object(char *line, t_context *scene);
-bool	get_unique_value(char **line, double *value);
-bool	get_vect3_value(char **line, void *element);
-bool	get_color(char **line, t_color *color);
+void		jump_spaces(char **str);
+bool		empty_line(char *line);
+bool		verify_and_skip_comma(char **line);
+
+bool		get_unique_value(char **line, double *value);
+bool		get_vect3_value(char **line, void *element);
+bool		get_color(char **line, t_color *color);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 13:24:23 by secros            #+#    #+#             */
-/*   Updated: 2025/06/12 13:26:57 by secros           ###   ########.fr       */
+/*   Updated: 2025/06/14 15:07:24 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,5 @@ void	debug_display_scene_param(t_context *scene)
 	print_vect(&scene->light.light_point);
 	printf("\nColor : RGB : %s%d, %d, %d%s\n\n", FG_RED, scene->light.color.r, scene->light.color.g, scene->light.color.b, RESET);
 	printf("Obj : \n\n");
-	print_obj_lst(scene->obj);
+	print_obj_lst(scene->objects);
 }

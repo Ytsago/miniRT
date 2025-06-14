@@ -6,18 +6,18 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:29:29 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/12 16:11:23 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/14 20:59:51 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include "miniRT.h"
-#include "libft.h"
-#include <stdio.h>
+#include "../../inc/errors.h"
 
 void		parse_and_load_parameters(t_context *scene);
-static bool	interpret_and_load_parameters(char *line, t_context *scene);
-static bool	parse_general_parameters(char *line, t_context *scene);
+static bool	parse_elements(char *line, t_context *scene);
+static bool	parse_general_elements(char *line, t_context *scene);
+static bool	parse_objects(char *line, t_context *scene);
 
 void	parse_and_load_parameters(t_context *scene)
 
@@ -30,64 +30,77 @@ void	parse_and_load_parameters(t_context *scene)
 		close(scene->fd);
 		print_error_then_exit_failure("empty .rt file\n");
 	}
+	++scene->line_number;
 	while (line)
 	{
-		if (!interpret_and_load_parameters(line, scene))
+		scene->line = line;
+		if (!parse_elements(line, scene))
 		{
 			close(scene->fd);
 			free(line);
-			ft_lstclear(&scene->obj, free);
+			ft_lstclear(&scene->objects, free);
 			exit(EXIT_FAILURE);
 		}
 		free(line);
 		line = get_next_line(scene->fd);
+		++scene->line_number;
 	}
 	close(scene->fd);
-	if (!scene->element_has_been_declared[AMBIENT_LIGHTNING]
-		|| !scene->element_has_been_declared[CAMERA]
-		|| !scene->element_has_been_declared[LIGHT])
-		exit(EXIT_FAILURE);
 }
 
-#include <stdio.h>
-
-static bool	interpret_and_load_parameters(char *line, t_context *scene)
+static bool	parse_elements(char *line, t_context *scene)
 
 {
 	jump_spaces(&line);
-	if (*line == 'A' || *line == 'C' || *line == 'L')
-	{
-		if (parse_general_parameters(line, scene))
-			return (true);
-	}
-	else if (parse_object(line, scene))
+	if (parse_general_elements(line, scene))
+		return (true);
+	else if (parse_objects(line, scene))
 		return (true);
 	else if (empty_line(line))
 		return (true);
 	return (false);
 }
 
-static bool	parse_general_parameters(char *line, t_context *scene)
+static bool	parse_general_elements(char *line, t_context *scene)
 {
-	const char	identifier = *line;
-
-	if (identifier == 'A')
+	if (*line == 'A')
 	{
-		if (!parse_ambient_lightning(line + 1, scene))
-			return (false);
-		scene->element_has_been_declared[AMBIENT_LIGHTNING] = true;
-	}
-	else if (identifier == 'C')
-	{
-		if (!parse_camera(line + 1, scene))
-			return (false);
-		scene->element_has_been_declared[CAMERA] = true;
-	}
-	else if (identifier == 'L')
-	{
-		if (!parse_light(line + 1, scene))
+		if (parse_ambient_lightning(line + 1, scene))
+		{
+			scene->element_has_been_declared[AMBIENT_LIGHTNING] = true;
 			return (true);
-		scene->element_has_been_declared[LIGHT] = true;
+		}
+		return (false);
 	}
-	return (true);
+	else if (*line == 'C')
+	{
+		if (parse_camera(line + 1, scene))
+		{
+			scene->element_has_been_declared[CAMERA] = true;
+			return (true);
+		}
+		return (false);
+	}
+	else if (*line == 'L')
+	{
+		if (parse_light(line + 1, scene))
+		{
+			scene->element_has_been_declared[LIGHT] = true;
+			return (true);
+		}
+		return (false);
+	}
+	return (false);
+}
+
+static bool	parse_objects(char *line, t_context *scene)
+
+{
+	if (!ft_strncmp("sp ", line, 3))
+		return (add_object(scene, new_object(&line, SPHERE)));
+	if (!ft_strncmp("pl ", line, 3))
+		return (add_object(scene, new_object(&line, PLANE)));
+	if (!ft_strncmp("cy ", line, 3))
+		return (add_object(scene, new_object(&line, CYLINDER)));
+	return (false);
 }

@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_utils.c                                    :+:      :+:    :+:   */
+/*   get_values.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 12:43:13 by secros            #+#    #+#             */
-/*   Updated: 2025/06/12 15:57:13 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/14 18:00:58 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
+#include "../../inc/errors.h"
 
 #define X 0
 #define Y 1
@@ -19,31 +20,10 @@
 #define COLOR_ERROR "ambient lightning colors must be in range [0-255]\n"
 #define COLOR_ERR_BIS "ambient lightning colors has less than three colors\n"
 #define PRECISION_ERROR "precision lost because of too many digits\n"
-#include <stdio.h>
-
-bool	empty_line(char *line)
-
-{
-	while ((*line >= '\t' && *line <= '\r') || *line == ' ')
-		++line;
-	return (*line == '\0' || *line == '\n');
-}
-
-bool	verify_and_skip_comma(char **line)
-{
-	if (**line == ',' && (ft_isdigit(*((*line) + 1))
-			|| ft_issign(*((*line) + 1))))
-	{
-		(*line)++;
-		return (0);
-	}
-	else
-		return (1);
-}
 
 bool	get_color(char **line, t_color *color)
 {
-	int	rgb[3];
+	int		rgb[3];
 	short	i;
 	bool	negative;
 
