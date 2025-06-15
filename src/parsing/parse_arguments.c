@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "errors.h"
-# define READ_ONLY 0
+#define READ_ONLY 0
 
 void		parse_arguments(int argc, const char *argv[], t_context *scene);
 static bool	first_argument_is_not_rt(const char *first_argument);

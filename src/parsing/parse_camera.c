@@ -13,92 +13,83 @@
 #include "miniRT.h"
 #include "libft.h"
 #include "../../inc/errors.h"
-#define VIEW_POINT_ERROR "orientation vector coords must be in range[-1,1]\n"
-#define COMMA_ERROR "camera view points values must be separated by a comma\n"
-#define NEG_HORIZONTAL_FOV_ERR "camera horziontal fov must be positive\n"
-#define HORIZON_FOV_RANGE_ERR "camera horizontal fov must be in range [0,180]\n"
 #define PARS_CAMERA_ERR "camera parsing error after setting horizontal fov\n"
-#define CAMERA_PARAMS_NB_ERR "camera parameters has more than three variables\n"
 
 bool		parse_camera(char *line, t_context *scene);
-static bool	get_view_point(char **line, float view_point[3], short index);
-static bool	get_nov(char **line, t_vect3 *result);
-static bool	get_horizontal_fov(char **line, short *horizontal_fov);
+static void	get_view_point(t_context *scene, char **line, float p[3], short i);
+static bool	get_nov(t_context *scene, char **line, t_vect3 *result);
+static void	get_horizontal_fov(t_context *s, char **line, short *horizon_fov);
 
 bool	parse_camera(char *line, t_context *scene)
 
 {
 	t_camera	*parameters;
 
-	if (scene->element_has_been_declared[LIGHT])
-		multiple_declarations_error(scene, "light");
+	if (scene->element_has_been_declared[CAMERA])
+		multiple_declarations_error(scene, "camera");
 	jump_spaces(&line);
 	parameters = &scene->camera;
-	if (!get_view_point(&line, parameters->view_point, 0))
-		return (false);
-	if (!get_nov(&line, &parameters->orientation_vector))
+	get_view_point(scene, &line, parameters->view_point, 0);
+	if (!get_nov(scene, &line, &parameters->orientation_vector))
 		return (false);
 	jump_spaces(&line);
-	if (!get_horizontal_fov(&line, &parameters->horizontal_fov))
-		return (false);
+	get_horizontal_fov(scene, &line, &parameters->horizontal_fov);
 	jump_spaces(&line);
 	if (*line != '\0' && *line != '\n' && *line != ' ')
-		return (print_error_then_return_false(CAMERA_PARAMS_NB_ERR));
+		excessive_params_error(scene, "camera", '3');
 	return (true);
 }
 
-static bool	get_view_point(char **line, float view_point[3], short index)
+static void	get_view_point(t_context *scene, char **line, float p[3], short i)
 
 {
 	char	*end;
 
-	view_point[index] = ft_strtod(*line, &end, NULL);
+	p[i] = ft_strtod(*line, &end, NULL);
 	*line = end;
-	if (index < 2 && **line != ',')
-		return (print_error_then_return_false(COMMA_ERROR));
+	if (i < 2 && **line != ',')
+		no_comma_error(scene);
 	else if (**line == ',')
 		++(*line);
-	if (index < 2)
-		return (get_view_point(line, view_point, ++index));
-	if (index == 2 && **line != ' ')
-		return (print_error_then_return_false(NO_SPACE));
-	return (true);
+	if (i < 2)
+		get_view_point(scene, line, p, ++i);
+	if (i == 2 && **line != ' ')
+		no_space_error(scene);
 }
 
-static bool	get_nov(char **line, t_vect3 *result)
+static bool	get_nov(t_context *scene, char **line, t_vect3 *result)
 
 {
 	if (**line == ' ')
 		(*line)++;
-	if (!get_vect3_value(line, result))
+	if (!get_vect3_value(scene, line, result))
 		return (false);
 	if (result->x < -1.0 || result->x > 1.0)
-		return (print_error_then_return_false(VIEW_POINT_ERROR));
+		range_error(scene, "camera 3d normalized orientation vec", "-1", "1");
 	if (result->y < -1.0 || result->y > 1.0)
-		return (print_error_then_return_false(VIEW_POINT_ERROR));
+		range_error(scene, "camera 3d normalized orientation vec", "-1", "1");
 	if (result->z < -1.0 || result->z > 1.0)
-		return (print_error_then_return_false(VIEW_POINT_ERROR));
+		range_error(scene, "camera 3d normalized orientation vec", "-1", "1");
 	if (**line != ' ')
-		return (print_error_then_return_false(NO_SPACE));
+		no_space_error(scene);
 	return (true);
 }
 
-static bool	get_horizontal_fov(char **line, short *horizontal_fov)
+static void	get_horizontal_fov(t_context *s, char **line, short *horizon_fov)
 
 {
 	if (**line == '-')
-		return (print_error_then_return_false(NEG_HORIZONTAL_FOV_ERR));
-	*horizontal_fov = 0;
+		range_error(s, "camera horizontal fov", "0", " ...");
+	*horizon_fov = 0;
 	if (**line < '0' && **line > '9')
-		return (print_error_then_return_false(HORIZON_FOV_RANGE_ERR));
+		range_error(s, "camera horizontal fov", "0", "180");
 	while (**line >= '0' && **line <= '9')
 	{
-		*horizontal_fov = *horizontal_fov * 10 + **line - '0';
+		*horizon_fov = *horizon_fov * 10 + **line - '0';
 		++(*line);
 	}
 	if (**line != '\0' && **line != '\n' && **line != ' ')
-		return (print_error_then_return_false(PARS_CAMERA_ERR));
-	if (*horizontal_fov < 0 || *horizontal_fov > 180)
-		return (print_error_then_return_false(HORIZON_FOV_RANGE_ERR));
-	return (true);
+		no_space_error(s);
+	if (*horizon_fov < 0 || *horizon_fov > 180)
+		range_error(s, "camera horizontal fov", "0", "180");
 }

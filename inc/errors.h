@@ -31,7 +31,12 @@ void	exit(int status);
 char	*strerror(int errnum);
 void	print(int fd, const char *format, ...);
 
-bool	multiple_declarations_error(t_context *scene, const char *element);
+void	multiple_declarations_error(t_context *scene, const char *element);
+void	excessive_params_error(t_context *scene, const char *element, char n);
+void	no_space_error(t_context *scene);
+void	no_comma_error(t_context *scene);
+void	precision_lost_error(t_context *s, const char *elem, const char *p);
+void	range_error(t_context *scene, const char *elem, char *min, char *max);
 bool	print_error_then_return_false(const char *error_description);
 bool	print_space_then_error_then_return_false(const char *element);
 void	print_error_then_exit_failure(const char *error_description);

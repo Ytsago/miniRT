@@ -46,12 +46,12 @@ ERRDIR 		= $(SRCDIR)errors/
 
 MAIN 	=	main.c
 
-PARSING =	parse_arguments.c	parse_and_load_parameters.c	\
+PARSING =	parse_arguments.c	parse_parameters.c	\
 			parse_ambient_lightning.c	parse_camera.c	parse_light.c	\
 			process_characters.c	parse_objects.c	get_values.c	debug.c
 UTILS	=	print.c
 
-ERRORS 	=	parsing_error_reporting.c
+ERRORS 	=	parsing_error_reporting.c parsing_error_reporting_bis.c
 
 INC		=	miniRT.h
 

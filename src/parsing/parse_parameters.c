@@ -66,29 +66,20 @@ static bool	parse_general_elements(char *line, t_context *scene)
 	if (*line == 'A')
 	{
 		if (parse_ambient_lightning(line + 1, scene))
-		{
 			scene->element_has_been_declared[AMBIENT_LIGHTNING] = true;
-			return (true);
-		}
-		return (false);
+		return (scene->element_has_been_declared[AMBIENT_LIGHTNING]);
 	}
 	else if (*line == 'C')
 	{
 		if (parse_camera(line + 1, scene))
-		{
 			scene->element_has_been_declared[CAMERA] = true;
-			return (true);
-		}
-		return (false);
+		return (scene->element_has_been_declared[CAMERA]);
 	}
 	else if (*line == 'L')
 	{
 		if (parse_light(line + 1, scene))
-		{
 			scene->element_has_been_declared[LIGHT] = true;
-			return (true);
-		}
-		return (false);
+		return (scene->element_has_been_declared[LIGHT]);
 	}
 	return (false);
 }
@@ -97,10 +88,10 @@ static bool	parse_objects(char *line, t_context *scene)
 
 {
 	if (!ft_strncmp("sp ", line, 3))
-		return (add_object(scene, new_object(&line, SPHERE)));
+		return (add_object(scene, new_object(scene, &line, SPHERE)));
 	if (!ft_strncmp("pl ", line, 3))
-		return (add_object(scene, new_object(&line, PLANE)));
+		return (add_object(scene, new_object(scene, &line, PLANE)));
 	if (!ft_strncmp("cy ", line, 3))
-		return (add_object(scene, new_object(&line, CYLINDER)));
+		return (add_object(scene, new_object(scene, &line, CYLINDER)));
 	return (false);
 }

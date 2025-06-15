@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <stdbool.h>
+
 int	ft_isdigit(int c);
 int	ft_issign(int c);
 
@@ -20,6 +21,7 @@ void	jump_spaces(char **str)
 	while (**str == ' ')
 		++(*str);
 }
+
 bool	empty_line(char *line)
 
 {

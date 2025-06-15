@@ -14,14 +14,8 @@
 #include "libft.h"
 #include "../../inc/errors.h"
 
-#define RATIO_ERROR "ambient lightning ratio must be in range [0.0,1.0]\n"
-#define OF_ERR "ambient lightning ratio precision lost due to too many digits\n"
-#define COLORS_ERROR "ambient lightning colors must be in range [0-255]\n"
-#define PARAMS_NUMBER_ERROR "ambient lightning has more than two parameters\n"
-#define PRECISION_LOST_ERROR "precision lost (too many digits)\n"
-
 bool			parse_ambient_lightning(char *line, t_context *scene);
-static bool		get_ratio(float *ratio, char **line);
+static void		get_ratio(t_context *scene, float *ratio, char **line);
 
 bool	parse_ambient_lightning(char *line, t_context *scene)
 
@@ -30,33 +24,33 @@ bool	parse_ambient_lightning(char *line, t_context *scene)
 
 	if (scene->element_has_been_declared[AMBIENT_LIGHTNING])
 		multiple_declarations_error(scene, "ambient lightning");
+	if (*line != ' ')
+		no_space_error(scene);
 	jump_spaces(&line);
 	parameters = &scene->ambient_lightning;
-	if (!get_ratio(&parameters->ratio, &line))
-		return (false);
+	get_ratio(scene, &parameters->ratio, &line);
+	if (*line != ' ')
+		no_space_error(scene);
 	jump_spaces(&line);
-	if (!get_color(&line, &parameters->color))
+	if (!get_color(scene, &line, &parameters->color))
 		return (false);
 	jump_spaces(&line);
 	if (*line != '\n' && *line != '\0')
-		return (print_error_then_return_false("prout\n"));
+		excessive_params_error(scene, "ambient lightning", '2');
 	return (true);
 }
 
-static bool	get_ratio(float *ratio, char **line)
+static void	get_ratio(t_context *scene, float *ratio, char **line)
 {
 	char	*end;
 	bool	precision;
 
 	*ratio = (float) ft_strtod(*line, &end, &precision);
 	if (end == *line)
-		return (false);
+		range_error(scene, "ambient lightning", "0.0", "1.0");
 	if (precision)
-		return (print_error_then_return_false(OF_ERR));
+		precision_lost_error(scene, "ambient lightning", "ratio");
 	if (!(*ratio >= 0.0 && *ratio <= 1.0))
-		return (print_error_then_return_false(RATIO_ERROR));
+		range_error(scene, "ambient lightning", "0.0", "1.0");
 	*line = end;
-	if (**line != ' ' )
-		return (print_error_then_return_false(NO_SPACE));
-	return (true);
 }

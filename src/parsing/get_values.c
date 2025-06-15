@@ -16,12 +16,8 @@
 #define X 0
 #define Y 1
 #define Z 2
-#define COMMA_ERROR "color values must be separated by a comma\n"
-#define COLOR_ERROR "ambient lightning colors must be in range [0-255]\n"
-#define COLOR_ERR_BIS "ambient lightning colors has less than three colors\n"
-#define PRECISION_ERROR "precision lost because of too many digits\n"
 
-bool	get_color(char **line, t_color *color)
+bool	get_color(t_context *scene, char **line, t_color *color)
 {
 	int		rgb[3];
 	short	i;
@@ -32,7 +28,7 @@ bool	get_color(char **line, t_color *color)
 	while (i < 3 && **line)
 	{
 		if (!ft_isdigit(**line) && !ft_issign(**line))
-			return (print_error_then_return_false("QUADRUPLE PROUT\n\n"));
+			return (false);
 		negative = false;
 		while (**line == '+' || **line == '-')
 		{
@@ -44,25 +40,26 @@ bool	get_color(char **line, t_color *color)
 		{
 			rgb[i] = rgb[i] * 10 + **line - '0';
 			if (rgb[i] > 255 || negative)
-				return (print_error_then_return_false(COLOR_ERROR));
+				range_error(scene, "colors", "0", "255");
 			++(*line);
 		}
 		if (i < 2 && verify_and_skip_comma(line))
-			return (print_error_then_return_false(COMMA_ERROR));
+			no_comma_error(scene);
 		i++;
 	}
 	if (i < 3)
-		return (print_error_then_return_false(COLOR_ERR_BIS));
+		range_error(scene, "colors", "0", "255");
 	*color = (t_color){.a = 0, .r = rgb[RED], .g = rgb[GREEN], .b = rgb[BLUE]};
 	return (true);
 }
 
-bool	get_unique_value(char **line, double *value)
+bool	get_unique_value(t_context *scene, char **line, double *value)
 {
 	bool	precision;
 	char	*end;
 
 	jump_spaces(line);
+	(void)scene;
 	*value = ft_strtod(*line, &end, &precision);
 	if (end == *line || precision)
 		return (1);
@@ -70,7 +67,7 @@ bool	get_unique_value(char **line, double *value)
 	return (0);
 }
 
-bool	get_vect3_value(char **line, void *element)
+bool	get_vect3_value(t_context *scene, char **line, void *element)
 {
 	short	i;
 	double	coord[3];
@@ -87,11 +84,11 @@ bool	get_vect3_value(char **line, void *element)
 		if (precision || end == *line)
 		{
 			if (precision)
-				return (print_error_then_return_false(PRECISION_ERROR));
+				precision_lost_error(scene, "object", "coords");
 		}
 		*line = end;
 		if (i < 2 && verify_and_skip_comma(line))
-			return (print_error_then_return_false(COMMA_ERROR));
+			no_comma_error(scene);
 		i++;
 	}
 	*((t_vect3 *) element) = (t_vect3){coord[X], coord[Y], coord[Z]};

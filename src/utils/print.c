@@ -14,7 +14,7 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include <stdlib.h>
-#define BUFFER_SIZE 4
+#define BUFFER_SIZE 1
 
 void		print(int fd, const char *format, ...);
 static void	fill_character(int fd, char *buffer, short *index, char c);
@@ -34,7 +34,7 @@ void	print(int fd, const char *format, ...)
 	{
 		if (*format == '%')
 		{
-			format++;
+			++format;
 			if (*format == 's')
 				fill_string(fd, &buffer[0], &index, va_arg(arguments, char *));
 			else if (*format == 'd')

@@ -90,14 +90,14 @@ bool		parse_camera(char *line, t_context *scene);
 bool		parse_light(char *line, t_context *scene);
 
 bool		add_object(t_context *scene, t_object *object); 
-t_object	*new_object(char **line, enum e_obj type);
+t_object	*new_object(t_context *scene, char **line, enum e_obj type);
 
 void		jump_spaces(char **str);
 bool		empty_line(char *line);
 bool		verify_and_skip_comma(char **line);
 
-bool		get_unique_value(char **line, double *value);
-bool		get_vect3_value(char **line, void *element);
-bool		get_color(char **line, t_color *color);
+bool		get_unique_value(t_context *scene, char **line, double *value);
+bool		get_vect3_value(t_context *scene, char **line, void *element);
+bool		get_color(t_context *scene, char **line, t_color *color);
 
 #endif

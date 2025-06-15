@@ -13,64 +13,42 @@
 #include "../../inc/errors.h"
 #include "miniRT.h"
 
-void	print_error_then_exit_failure(const char *error_description)
-
-{
-	print(STDERR, "%s%s", X_ERROR, error_description);
-	exit(FAILURE);
-}
-
-void	print_error_from_open_function_then_exit_failure(const char *path)
-
-{
-	char	buffer[128];
-	short	string_length;
-
-	ft_strcpy(buffer, "Error\nminiRT: ");
-	string_length = ft_strcat(buffer + 14, path) + 14;
-	string_length += ft_strcat(buffer + 14, strerror(errno)) + 1;
-	buffer[string_length] = '\n';
-	buffer[++string_length] = '\0';
-	write(STDERR, buffer, string_length);
-	exit(FAILURE);
-}
-
-void	multiple_declarations_error(t_context *scene, const char *element)
+void	excessive_params_error(t_context *scene, const char *element, char n)
 
 {
 	const char			*file_name = scene->file_name;
 	const unsigned int	line_no = scene->line_number;
 
 	print(STDERR, "%s%s: line %d: *** ", X_ERROR, file_name, line_no);
-	print(STDERR, "multiple declarations of general element %s\n", element);
+	print(STDERR, "%s has more than %d parameters\n", element, n);
 	close(scene->fd);
 	free(scene->line);
 	ft_lstclear(&scene->objects, free);
 	exit(FAILURE);
 }
 
-void	precision_lost_error(t_context *scene, const char *elem, const char *p)
+void	no_space_error(t_context *scene)
 
 {
 	const char			*file_name = scene->file_name;
 	const unsigned int	line_no = scene->line_number;
 
 	print(STDERR, "%s%s: line %d: *** ", X_ERROR, file_name, line_no);
-	print(STDERR, "%s %s precision lost (too many digits)\n", elem, p);
+	print(STDERR, "parameters must be separated by a space\n");
 	close(scene->fd);
 	free(scene->line);
 	ft_lstclear(&scene->objects, free);
 	exit(FAILURE);
 }
 
-void	range_error(t_context *scene, const char *elem, char *min, char *max)
+void	no_comma_error(t_context *scene)
 
 {
 	const char			*file_name = scene->file_name;
 	const unsigned int	line_no = scene->line_number;
 
 	print(STDERR, "%s%s: line %d: *** ", X_ERROR, file_name, line_no);
-	print(STDERR, "%s must be in range [%s,%s]\n", elem, min, max);
+	print(STDERR, "parameters values must be separated by a comma\n");
 	close(scene->fd);
 	free(scene->line);
 	ft_lstclear(&scene->objects, free);

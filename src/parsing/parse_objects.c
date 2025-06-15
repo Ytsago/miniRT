@@ -16,7 +16,7 @@
 #include "color.h"
 #include "debug.h"
 
-t_object	*new_object(char **line, enum e_obj type)
+t_object	*new_object(t_context *scene, char **line, enum e_obj type)
 {
 	t_object	*new;
 
@@ -27,17 +27,17 @@ t_object	*new_object(char **line, enum e_obj type)
 	new->type = type;
 	(*line) += 3;
 	jump_spaces(line);
-	if (!get_vect3_value(line, &new->pos))
+	if (!get_vect3_value(scene, line, &new->pos))
 		return (free(new), NULL);
-	if (type != SPHERE && !get_vect3_value(line, &new->orientation))
-		return (free(new), NULL);
-	jump_spaces(line);
-	if ((type == SPHERE && get_unique_value(line, &new->size.x))
-		|| (type == CYLINDER && (get_unique_value(line, &new->size.x)
-			|| get_unique_value(line, &new->size.y))))
+	if (type != SPHERE && !get_vect3_value(scene, line, &new->orientation))
 		return (free(new), NULL);
 	jump_spaces(line);
-	if (!get_color(line, &new->color))
+	if ((type == SPHERE && get_unique_value(scene, line, &new->size.x))
+		|| (type == CYLINDER && (get_unique_value(scene, line, &new->size.x)
+		|| get_unique_value(scene, line, &new->size.y))))
+		return (free(new), NULL);
+	jump_spaces(line);
+	if (!get_color(scene, line, &new->color))
 		return (free(new), NULL);
 	if (!empty_line(*line))
 		return (free(new), write(2, "objects params\n", 14), NULL);
