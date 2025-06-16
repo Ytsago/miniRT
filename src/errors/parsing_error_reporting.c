@@ -6,7 +6,7 @@
 /*   By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 16:46:17 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/14 21:05:42 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/16 11:42:38 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,7 @@ void	print_error_then_exit_failure(const char *error_description)
 void	print_error_from_open_function_then_exit_failure(const char *path)
 
 {
-	char	buffer[128];
-	short	string_length;
-
-	ft_strcpy(buffer, "Error\nminiRT: ");
-	string_length = ft_strcat(buffer + 14, path) + 14;
-	string_length += ft_strcat(buffer + 14, strerror(errno)) + 1;
-	buffer[string_length] = '\n';
-	buffer[++string_length] = '\0';
-	write(STDERR, buffer, string_length);
+	print(STDERR, "%s%s: %s\n", X_ERROR, path, strerror(errno));
 	exit(FAILURE);
 }
 

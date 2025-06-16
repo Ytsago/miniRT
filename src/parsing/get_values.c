@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 12:43:13 by secros            #+#    #+#             */
-/*   Updated: 2025/06/14 18:00:58 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/16 12:01:03 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,13 @@
 #define Y 1
 #define Z 2
 
+static bool	is_negative(char **line);
+
 bool	get_color(t_context *scene, char **line, t_color *color)
 {
-	int		rgb[3];
-	short	i;
-	bool	negative;
+	int			rgb[3];
+	short		i;
+	const bool	negative = is_negative(line);
 
 	i = 0;
 	ft_bzero(rgb, sizeof(int) * 3);
@@ -29,13 +31,6 @@ bool	get_color(t_context *scene, char **line, t_color *color)
 	{
 		if (!ft_isdigit(**line) && !ft_issign(**line))
 			return (false);
-		negative = false;
-		while (**line == '+' || **line == '-')
-		{
-			if (**line == '-')
-				negative = !(negative);
-			++(*line);
-		}
 		while (**line >= '0' && **line <= '9')
 		{
 			rgb[i] = rgb[i] * 10 + **line - '0';
@@ -51,6 +46,20 @@ bool	get_color(t_context *scene, char **line, t_color *color)
 		range_error(scene, "colors", "0", "255");
 	*color = (t_color){.a = 0, .r = rgb[RED], .g = rgb[GREEN], .b = rgb[BLUE]};
 	return (true);
+}
+
+static bool	is_negative(char **line)
+
+{
+	bool	answer;
+
+	while (**line == '+' || **line == '-')
+	{
+		if (**line == '-')
+			answer = !(answer);
+		++(*line);
+	}
+	return (answer);
 }
 
 bool	get_unique_value(t_context *scene, char **line, double *value)

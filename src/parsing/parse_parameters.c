@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_and_load_parameters.c                        :+:      :+:    :+:   */
+/*   parse_parameters.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:29:29 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/14 20:59:51 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/16 11:52:48 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ static bool	parse_elements(char *line, t_context *scene)
 }
 
 static bool	parse_general_elements(char *line, t_context *scene)
+
 {
 	if (*line == 'A')
 	{
@@ -93,5 +94,10 @@ static bool	parse_objects(char *line, t_context *scene)
 		return (add_object(scene, new_object(scene, &line, PLANE)));
 	if (!ft_strncmp("cy ", line, 3))
 		return (add_object(scene, new_object(scene, &line, CYLINDER)));
+	else
+	{
+		print(STDERR, "%sline %d ", X_ERROR, scene->line_number);
+		print(STDERR, "starts with an unknown identifier\n");
+	}
 	return (false);
 }
