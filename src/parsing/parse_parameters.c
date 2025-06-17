@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:29:29 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/16 11:52:48 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/17 11:02:07 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static bool	parse_general_elements(char *line, t_context *scene);
 static bool	parse_objects(char *line, t_context *scene);
 
 void	parse_and_load_parameters(t_context *scene)
-
 {
 	char	*line;
 

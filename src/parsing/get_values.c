@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 12:43:13 by secros            #+#    #+#             */
-/*   Updated: 2025/06/16 12:01:03 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/17 10:21:08 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static bool	is_negative(char **line)
 {
 	bool	answer;
 
+	answer = false;
 	while (**line == '+' || **line == '-')
 	{
 		if (**line == '-')
