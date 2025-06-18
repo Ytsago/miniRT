@@ -6,7 +6,7 @@
 #    By: secros <secros@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/07 17:10:22 by yabokhar          #+#    #+#              #
-#    Updated: 2025/06/14 20:45:30 by yabokhar         ###   ########.fr        #
+#    Updated: 2025/06/17 11:15:03 by secros           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,7 +85,7 @@ NAME =	miniRT
 
 # -----------RULES-----------#
 
-all: libs $(NAME)
+all: $(NAME)
 
 $(NAME): $(LIBA) $(OBJS) 
 	$(CC) $(CFLAGS) $(OBJS) $(MLXFLAG) $(LIBA) -o $(NAME) 
@@ -97,6 +97,7 @@ $(OBJDIR):
 	@mkdir -p $(OBJDIR) $(dir $(OBJS))
 
 # $(LIBA): FORCE
+$(LIBA): libs
 libs:
 	@for dir in $(LIBS); do \
 		echo "$(YELLOW)Compiling library $$dir$(RESET)" && $(MAKE) -C $$dir --no-print-directory; \
@@ -107,16 +108,18 @@ libs:
 clean:
 	@echo "$(RED)Removing object files...$(RESET)" && rm -rf $(OBJDIR)
 	@for dir in $(LIBS); do \
-		echo "$(RED)Removing $$dir .Obj/ ...$(RESET)" && $(MAKE) $@ -C $$dir --no-print-directory; \
+		if [ "$$dir" != "libs/libmlx" ]; then \
+			echo "$(RED)Removing $$dir .Obj/ ...$(RESET)" && $(MAKE) $@ -C $$dir --no-print-directory --silent; \
+		fi; \
 	done
 
 fclean: clean
 	@echo "$(RED)Removing executable or library...$(RESET)" && rm -f $(NAME)
 	@for dir in $(LIBS); do \
 		if [ "$$dir" = "libs/libmlx" ]; then \
-			echo "$(RED)Removing $$dir lib.a ...$(RESET)"; \
+			echo "$(RED)Removing $$dir lib.a ...$(RESET)" && $(MAKE) clean -C $$dir ; \
 		else \
-			echo "$(RED)Removing $$dir lib.a ...$(RESET)" && $(MAKE) $@ -C $$dir --no-print-directory; \
+			echo "$(RED)Removing $$dir lib.a ...$(RESET)" && $(MAKE) $@ -C $$dir --no-print-directory --silent; \
 		fi; \
 	done
 

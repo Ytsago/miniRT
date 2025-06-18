@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 20:03:21 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/14 20:29:52 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/18 14:24:44 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include <stdlib.h>
-#define BUFFER_SIZE 1
+#define BUFFER_SIZE 64
 
 void		print(int fd, const char *format, ...);
 static void	fill_character(int fd, char *buffer, short *index, char c);

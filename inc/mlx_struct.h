@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 16:07:04 by secros            #+#    #+#             */
-/*   Updated: 2025/06/11 17:21:01 by secros           ###   ########.fr       */
+/*   Updated: 2025/06/18 15:19:47 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "mlx.h"
 
-typedef struct s_display	t_display;
+typedef struct s_mlx		t_mlx;
 typedef struct s_pict		t_pict;
 
 struct s_pict
@@ -27,11 +27,11 @@ struct s_pict
 	int		endian;
 };
 
-struct s_display
+struct s_mlx
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
-	t_pict	img;
+	t_pict	*img;
 };
 
 typedef union u_color

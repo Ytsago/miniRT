@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_error_reporting.c                          :+:      :+:    :+:   */
+/*   parsing_error_reporting_bis.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 16:46:17 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/14 21:05:42 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/18 14:23:55 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	excessive_params_error(t_context *scene, const char *element, char n)
 	const char			*file_name = scene->file_name;
 	const unsigned int	line_no = scene->line_number;
 
-	print(STDERR, "%s%s: line %d: *** ", X_ERROR, file_name, line_no);
-	print(STDERR, "%s has more than %d parameters\n", element, n);
+	print(STDERR, "%s%s: line %d: *** %s has more than %d parameters\n" \
+		, X_ERROR, file_name, line_no, element, n);
 	close(scene->fd);
 	free(scene->line);
 	ft_lstclear(&scene->objects, free);
