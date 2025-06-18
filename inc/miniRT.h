@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:54:55 by secros            #+#    #+#             */
-/*   Updated: 2025/06/14 21:00:58 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/18 20:20:22 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,26 @@ enum e_obj
 	PLANE,
 };
 
-
 typedef struct s_ambient_lightning
 {
 	float			ratio;
 	t_color			color;
 }	t_ambient_lightning;
 
-typedef struct	s_camera
+typedef struct s_camera
 {
 	float	view_point[3];
+	t_vect3	prout;
 	t_vect3	orientation_vector;
 	short	horizontal_fov;
+	double	viewport[2];
+	t_vect3	focal;
+	t_vect3	viewport_u;
+	t_vect3	viewport_v;
+	t_vect3	pixel_delta_u;
+	t_vect3	pixel_delta_v;
+	t_vect3	viewport_upper_left;
+	t_vect3	pixel_zero;
 }	t_camera;
 
 typedef struct s_light
@@ -60,15 +68,16 @@ typedef struct s_light
 
 typedef struct s_context
 {
+	short				img[2];
+	t_ambient_lightning	ambient_lightning;
+	t_camera			camera;
+	t_light				light;
+	t_list				*objects;
 	int					fd;
 	char				*file_name;
 	char				*line;
 	unsigned int		line_number;
 	bool				element_has_been_declared[3];
-	t_ambient_lightning	ambient_lightning;
-	t_camera			camera;
-	t_light				light;
-	t_list				*objects;
 }	t_context;
 
 struct	s_object
@@ -99,5 +108,8 @@ bool		verify_and_skip_comma(char **line);
 bool		get_unique_value(t_context *scene, char **line, double *value);
 bool		get_vect3_value(t_context *scene, char **line, void *element);
 bool		get_color(t_context *scene, char **line, t_color *color);
+
+void		get_image_dimensions(short image[2]);
+void		get_camera(t_camera *params, short img[2]);
 
 #endif

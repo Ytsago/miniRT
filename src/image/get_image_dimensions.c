@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray.h                                              :+:      :+:    :+:   */
+/*   get_image_dimensions.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/18 15:26:15 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/18 19:22:04 by yabokhar         ###   ########.fr       */
+/*   Created: 2025/06/18 19:28:01 by yabokhar          #+#    #+#             */
+/*   Updated: 2025/06/18 19:31:10 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RAY_H
-# define RAY_H
+# define WIDTH 1920
+# define RATIO 1.778
+# define W 0
+# define H 1
 
-# include "miniRT.h"
-# include "vect3.h"
-# include <stdbool.h>
+void	get_image_dimensions(short img_dimensions[2])
 
-typedef struct s_ray
 {
-	t_vect3	origin;
-	t_vect3	direction;
-}	t_ray;
-
-bool	hit_sphere(t_point3 pos, double radius, t_ray ray);
-t_color	ray_color(t_ray dir, t_list *objects);
-
-#endif
+	img_dimensions[W] = WIDTH;
+	img_dimensions[H] = WIDTH / RATIO;
+}

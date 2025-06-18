@@ -6,7 +6,7 @@
 #    By: secros <secros@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/07 17:10:22 by yabokhar          #+#    #+#              #
-#    Updated: 2025/06/18 15:31:19 by yabokhar         ###   ########.fr        #
+#    Updated: 2025/06/18 20:18:20 by yabokhar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,12 +42,18 @@ PARSDIR 	= $(SRCDIR)parsing/
 UTILSDIR	= $(SRCDIR)utils/
 ERRDIR 		= $(SRCDIR)errors/
 RAYDIR		= $(SRCDIR)ray/
+MLXDIR		= $(SRCDIR)mlx/
+IMGDIR		= $(SRCDIR)image/
 
 # -----------FILES-----------#
 
 MAIN 	=	main.c
 
-RAY		=	ray_create.c ray_at.c
+MLX		=	mlx.c
+
+IMAGE	=	get_image_dimensions.c get_camera.c
+
+RAY		=	ray_create.c ray_at.c ray_color.c hit_sphere.c
 
 PARSING =	parse_arguments.c	parse_parameters.c	\
 			parse_ambient_lightning.c	parse_camera.c	parse_light.c	\
@@ -64,6 +70,8 @@ SRCS =	$(addprefix $(SRCDIR), $(MAIN))\
 		$(addprefix $(PARSDIR), $(PARSING))\
 		$(addprefix $(ERRDIR), $(ERRORS))\
 		$(addprefix $(UTILSDIR), $(UTILS))\
+		$(addprefix $(MLXDIR), $(MLX))\
+		$(addprefix $(IMGDIR), $(IMAGE))\
 		$(addprefix $(RAYDIR), $(RAY))
 
 # -----------LIBS------------#
