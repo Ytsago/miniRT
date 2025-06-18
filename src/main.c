@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 14:38:13 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/18 16:47:17 by secros           ###   ########.fr       */
+/*   Updated: 2025/06/18 19:06:55 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 #include "mlx_int.h"
 #include "color.h"
 #include "debug.h"
+#include "ray.h"
 
 #define WIDTH 1920
-#define RATIO 1.7778
-
+#define RATIO 1.778
 
 int	destroy_display(t_mlx *display)
 {
@@ -80,9 +80,33 @@ t_pict	*new_image(t_mlx *display, int width, int height)
 	return (new);
 }
 
-t_color ray_color(t_vect3 dir)
+bool	hit_sphere(t_point3 pos, double radius, t_ray ray)
+
 {
-    t_vect3	unit_direction = vect3_unit(dir);
+	const t_vect3	oc = vect3_sub(ray.origin, pos);
+	const double	a = vect3_scalar(ray.direction, ray.direction);
+	const double	b = -2.0 * vect3_scalar(ray.direction, oc);
+	const double	c = vect3_scalar(oc, oc) - radius * radius;
+	const double	discriminant = b*b - 4*a*c;
+	return (discriminant >= 0);
+}
+
+t_color ray_color(t_ray dir, t_list *objects)
+{
+	t_object	sphere;
+
+	while (objects)
+	{
+		if (((t_object *)objects->content)->type == SPHERE)
+		{
+			sphere = *((t_object *)objects->content);
+			if (hit_sphere(sphere.pos, sphere.size.x / 2, dir))
+				return (sphere.color);
+		}
+		objects = objects->next;
+	}
+
+    t_vect3	unit_direction = vect3_unit(dir.direction);
     double	a = 0.5*(unit_direction.y + 1.0);
 	t_vect3	rgb = vect3_add(vect3_const_mult(((t_vect3) {1.0, 1.0, 1.0}), (1.0-a)), vect3_const_mult(((t_vect3) {0.5, 0.7, 1.0}), a));
 	return ((t_color) {.r = rgb.x * 255.99 , .g = rgb.y * 255.99, .b = rgb.z * 255.99, .a = rgb.z * 255.99});
@@ -105,7 +129,7 @@ int	main(int argc, const char *argv[])
 
 	//Vector accross the viewport
 	const t_vect3	viewport_u = {viewport_width, 0, 0};
-	const t_vect3	viewport_v = {0, -viewport_height, 0};
+	const t_vect3	viewport_v = {0, -viewport_height * (img_height / (double)img_width), 0};
 
 	//Delta for vector
 	const t_vect3	pixel_delta_u = vect3_const_div(viewport_u, img_width);
@@ -131,7 +155,8 @@ int	main(int argc, const char *argv[])
 		{
 			pixel_center = vect3_add(pixel_zero, vect3_add(vect3_const_mult(pixel_delta_u, j), vect3_const_mult(pixel_delta_v, i)));
 			t_vect3	ray_dir = vect3_sub(pixel_center, camera_center);
-			*pixel_ptr = ray_color(ray_dir).color;
+			t_ray	r = {camera_center, ray_dir};
+			*pixel_ptr = ray_color(r, scene.objects).color;
 			pixel_ptr++;
 		}
 	}
