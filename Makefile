@@ -6,7 +6,7 @@
 #    By: secros <secros@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/07 17:10:22 by yabokhar          #+#    #+#              #
-#    Updated: 2025/06/17 11:15:03 by secros           ###   ########.fr        #
+#    Updated: 2025/06/18 15:31:19 by yabokhar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,10 +41,13 @@ OBJDIR = .Obj/
 PARSDIR 	= $(SRCDIR)parsing/
 UTILSDIR	= $(SRCDIR)utils/
 ERRDIR 		= $(SRCDIR)errors/
+RAYDIR		= $(SRCDIR)ray/
 
 # -----------FILES-----------#
 
 MAIN 	=	main.c
+
+RAY		=	ray_create.c ray_at.c
 
 PARSING =	parse_arguments.c	parse_parameters.c	\
 			parse_ambient_lightning.c	parse_camera.c	parse_light.c	\
@@ -60,7 +63,8 @@ INC		=	miniRT.h
 SRCS =	$(addprefix $(SRCDIR), $(MAIN))\
 		$(addprefix $(PARSDIR), $(PARSING))\
 		$(addprefix $(ERRDIR), $(ERRORS))\
-		$(addprefix $(UTILSDIR), $(UTILS))
+		$(addprefix $(UTILSDIR), $(UTILS))\
+		$(addprefix $(RAYDIR), $(RAY))
 
 # -----------LIBS------------#
 
