@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 14:38:13 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/19 16:47:10 by secros           ###   ########.fr       */
+/*   Updated: 2025/06/19 18:30:25 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,14 @@ int	main(int argc, const char *argv[])
 	t_mlx			*screen;
 
 	ft_bzero(&scene, sizeof(t_context));
+
+	while (argc > 2)
+	{	
+		int pid = fork();
+		if (!pid)
+			argv[1] = argv[argc];
+		argc--;
+	}
 	parse_arguments(argc, argv, &scene);
 	parse_and_load_parameters(&scene);
 	get_image_dimensions(scene.img);
@@ -54,6 +62,7 @@ int	main(int argc, const char *argv[])
 		}
 	}
 	mlx_put_image_to_window(screen->mlx_ptr, screen->win_ptr, screen->img->img_ptr, 0, 0);
+	//exit(0);
 
 	mlx_loop(screen->mlx_ptr);
 	// debug_display_scene_param(&scene);

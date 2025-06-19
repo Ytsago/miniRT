@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:43:52 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/19 17:13:04 by secros           ###   ########.fr       */
+/*   Updated: 2025/06/19 17:28:43 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	get_camera(t_camera	*params, short img[2])
 
 	params->viewport[H] = 2.0;
 	params->viewport[W] = params->viewport[H] * x;
-	printf("%f", params->viewport[W]);
 	params->focal = (t_vect3){0, 0, 1.0};
 	params->prout = (t_vect3){params->view_point[0], params->view_point[1], params->view_point[2]};
 	params->viewport_u = (t_vect3){params->viewport[W], 0, 0};
