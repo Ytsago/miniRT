@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 13:24:23 by secros            #+#    #+#             */
-/*   Updated: 2025/06/14 15:07:24 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/19 11:50:45 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	print_vect(void *vect)
 	t_vect3	print;
 
 	print = *((t_vect3 *) vect);
-	printf("Vect3 : %s%f, %f, %f%s",FG_GREEN, print.x, print.y, print.z, RESET);
+	printf("Vect3 : %s%f, %f, %f%s\n",FG_GREEN, print.x, print.y, print.z, RESET);
 }
 
 void	print_obj_lst(t_list *head)
