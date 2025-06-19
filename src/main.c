@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 14:38:13 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/18 20:17:52 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/19 16:47:10 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	main(int argc, const char *argv[])
 
 	//Render
 	t_vect3	pixel_center;
+
 	unsigned int *pixel_ptr = (unsigned int *)screen->img->addr;
 	for (int i = 0; i < scene.img[1]; i++)
 	{
