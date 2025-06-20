@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:20:16 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/20 16:32:38 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/20 21:11:00 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_vect3	sphere_shade(t_ray ray, t_object sphere, double t)
 
 	normal = vect3_unit(vect3_sub(ray_at(ray, t), sphere.pos));
 	return (vect3_const_div((t_vect3){normal.coords[X] +1, normal.coords[Y] +1, \
-		normal.coords[Z] +1 }, 2));
+	normal.coords[Z] +1}, 2));
 }
 
 t_color	ray_color(t_ray ray, t_list *objects)
@@ -51,7 +51,8 @@ t_color	ray_color(t_ray ray, t_list *objects)
 			{
 				rgb = sphere_shade(ray, sphere, t);
 				return ((t_color){.r = 255.99 * rgb.coords[X], \
-					.g = 255.99 * rgb.coords[Y], .b = 255.99 * rgb.coords[Z], .a = 0});
+					.g = 255.99 * rgb.coords[Y], \
+					.b = 255.99 * rgb.coords[Z], .a = 0});
 			}
 		}
 		objects = objects->next;

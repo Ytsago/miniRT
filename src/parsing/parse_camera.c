@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:38:37 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/20 16:10:41 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/20 21:10:10 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ bool	parse_camera(char *line, t_context *scene)
 
 static void	get_view_point(t_context *scene, char **line, double p[3], short i)
 
-{	
+{
 	char	*end;
 
 	p[i] = ft_strtod(*line, &end, NULL);

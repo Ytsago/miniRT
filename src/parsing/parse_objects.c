@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 11:29:39 by secros            #+#    #+#             */
-/*   Updated: 2025/06/20 16:11:50 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/20 21:09:51 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ t_object	*new_object(t_context *scene, char **line, enum e_obj type)
 		return (free(new), NULL);
 	jump_spaces(line);
 	if ((type == SPHERE && get_unique_value(scene, line, &new->size.coords[X]))
-		|| (type == CYLINDER && (get_unique_value(scene, line, &new->size.coords[X])
+		|| (type == CYLINDER && \
+		(get_unique_value(scene, line, &new->size.coords[X])
 				|| get_unique_value(scene, line, &new->size.coords[Y]))))
 		return (free(new), NULL);
 	jump_spaces(line);
