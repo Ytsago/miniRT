@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:54:55 by secros            #+#    #+#             */
-/*   Updated: 2025/06/19 17:12:49 by secros           ###   ########.fr       */
+/*   Updated: 2025/06/20 08:47:40 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,62 @@
 # define BLUE 2
 
 typedef struct s_object		t_object;
+typedef struct s_viewport	t_viewport;
+typedef struct s_sphere		t_sphere;
+typedef struct s_cylinder	t_cylinder;
+typedef struct s_plane		t_plane;
 
 enum e_obj
 {
 	SPHERE,
 	CYLINDER,
 	PLANE,
+};
+
+struct	s_object
+{
+	enum e_obj	type;
+	t_point3	pos;
+	t_vect3		orientation;
+	t_color		color;
+	t_vect3		size;
+};
+
+struct	s_sphere
+{
+	enum e_obj	type;
+	double		radius;
+	t_color		color;
+	t_point3	pos;
+};
+
+struct	s_cylinder
+{
+	enum e_obj	type;
+	double		diameter;
+	double		height;
+	t_point3	pos;
+	t_vect3		orientation;
+	t_color		color;
+};
+
+struct	s_plane
+{
+	enum e_obj	type;
+	t_point3	pos;
+	t_vect3		orientation;
+	t_color		color;	
+};
+
+struct	s_viewport
+{
+	double	viewport[2];
+	t_vect3	viewport_u;
+	t_vect3	viewport_v;
+	t_vect3	viewport_upper_left;
+	t_vect3	pixel_delta_u;
+	t_vect3	pixel_delta_v;
+	t_vect3	pixel_zero;
 };
 
 typedef struct s_ambient_lightning
@@ -45,18 +95,12 @@ typedef struct s_ambient_lightning
 
 typedef struct s_camera
 {
-	float	view_point[3];
-	t_vect3	prout;
-	t_vect3	orientation_vector;
-	short	horizontal_fov;
-	double	viewport[2];
-	t_vect3	focal;
-	t_vect3	viewport_u;
-	t_vect3	viewport_v;
-	t_vect3	pixel_delta_u;
-	t_vect3	pixel_delta_v;
-	t_vect3	viewport_upper_left;
-	t_vect3	pixel_zero;
+	float		view_point[3];
+	t_vect3		prout;
+	t_vect3		orientation_vector;
+	short		horizontal_fov;
+	t_vect3		focal;
+	t_viewport	viewport;
 }	t_camera;
 
 typedef struct s_light
@@ -79,16 +123,6 @@ typedef struct s_context
 	unsigned int		line_number;
 	bool				element_has_been_declared[3];
 }	t_context;
-
-struct	s_object
-{
-	enum e_obj	type;
-	t_point3	pos;
-	t_vect3		orientation;
-	t_color		color;
-	t_vect3		size;
-};
-
 
 int			main(int argc, const char *argv[]);
 
