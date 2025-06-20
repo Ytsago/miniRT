@@ -6,17 +6,18 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:38:37 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/14 20:56:46 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/20 16:10:41 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 #include "libft.h"
+#include "vect3.h"
 #include "../../inc/errors.h"
 #define PARS_CAMERA_ERR "camera parsing error after setting horizontal fov\n"
 
 bool		parse_camera(char *line, t_context *scene);
-static void	get_view_point(t_context *scene, char **line, float p[3], short i);
+static void	get_view_point(t_context *scene, char **line, double p[3], short i);
 static bool	get_nov(t_context *scene, char **line, t_vect3 *result);
 static void	get_horizontal_fov(t_context *s, char **line, short *horizon_fov);
 
@@ -29,7 +30,7 @@ bool	parse_camera(char *line, t_context *scene)
 		multiple_declarations_error(scene, "camera");
 	jump_spaces(&line);
 	parameters = &scene->camera;
-	get_view_point(scene, &line, parameters->view_point, 0);
+	get_view_point(scene, &line, parameters->view_point.coords, 0);
 	if (!get_nov(scene, &line, &parameters->orientation_vector))
 		return (false);
 	jump_spaces(&line);
@@ -40,9 +41,9 @@ bool	parse_camera(char *line, t_context *scene)
 	return (true);
 }
 
-static void	get_view_point(t_context *scene, char **line, float p[3], short i)
+static void	get_view_point(t_context *scene, char **line, double p[3], short i)
 
-{
+{	
 	char	*end;
 
 	p[i] = ft_strtod(*line, &end, NULL);
@@ -64,11 +65,11 @@ static bool	get_nov(t_context *scene, char **line, t_vect3 *result)
 		(*line)++;
 	if (!get_vect3_value(scene, line, result))
 		return (false);
-	if (result->x < -1.0 || result->x > 1.0)
+	if (result->coords[X] < -1.0 || result->coords[X] > 1.0)
 		range_error(scene, "camera 3d normalized orientation vec", "-1", "1");
-	if (result->y < -1.0 || result->y > 1.0)
+	if (result->coords[Y] < -1.0 || result->coords[Y] > 1.0)
 		range_error(scene, "camera 3d normalized orientation vec", "-1", "1");
-	if (result->z < -1.0 || result->z > 1.0)
+	if (result->coords[Z] < -1.0 || result->coords[Z] > 1.0)
 		range_error(scene, "camera 3d normalized orientation vec", "-1", "1");
 	if (**line != ' ')
 		no_space_error(scene);

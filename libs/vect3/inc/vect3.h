@@ -6,12 +6,15 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 09:42:39 by secros            #+#    #+#             */
-/*   Updated: 2025/05/23 15:57:55 by secros           ###   ########.fr       */
+/*   Updated: 2025/06/20 16:02:49 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECT3_H
 # define VECT3_H
+# define X 0
+# define Y 1
+# define Z 2
 
 # include "math.h"
 
@@ -29,9 +32,7 @@ typedef t_vect3			t_point3;
 
 struct s_vect3
 {
-	double	x;
-	double	y;
-	double	z;
+	double	coords[3];
 };
 
 /**

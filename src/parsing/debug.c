@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 13:24:23 by secros            #+#    #+#             */
-/*   Updated: 2025/06/14 15:07:24 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/20 16:26:56 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@
 void	print_vect(void *vect)
 {
 	t_vect3	print;
+	double	*arr;
 
 	print = *((t_vect3 *) vect);
-	printf("Vect3 : %s%f, %f, %f%s",FG_GREEN, print.x, print.y, print.z, RESET);
+	arr = print.coords;
+	printf("Vect3 : %s%f, %f, %f%s",FG_GREEN, arr[0], arr[1], arr[2], RESET);
 }
 
 void	print_obj_lst(t_list *head)
@@ -56,7 +58,7 @@ void	debug_display_scene_param(t_context *scene)
 {
 	printf("////DEBUG\\\\\\\\\n");
 	printf("Ambient light :RGB = %s%d, %d, %d%s\nRatio :%s%f%s\n\n", FG_RED, scene->ambient_lightning.color.r, scene->ambient_lightning.color.g, scene->ambient_lightning.color.b, RESET, FG_GREEN, scene->ambient_lightning.ratio, RESET);
-	printf("Camera :\nViewpoint : %s%f, %f, %f%s,  FOV : %s%d%s\nOrientation : ", FG_GREEN, scene->camera.view_point[0], scene->camera.view_point[1], scene->camera.view_point[2], RESET, FG_RED, scene->camera.horizontal_fov, RESET);
+	printf("Camera :\nViewpoint : %s%f, %f, %f%s,  FOV : %s%d%s\nOrientation : ", FG_GREEN, scene->camera.view_point.coords[0], scene->camera.view_point.coords[1], scene->camera.view_point.coords[2], RESET, FG_RED, scene->camera.horizontal_fov, RESET);
 	print_vect(&scene->camera.orientation_vector);
 	printf("\n\nLight :\nBrightness ratio : %s%f%s\nPosition : ", FG_RED, scene->light.brightness_ratio, RESET);
 	print_vect(&scene->light.light_point);

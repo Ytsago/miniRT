@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 14:38:13 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/20 09:02:08 by secros           ###   ########.fr       */
+/*   Updated: 2025/06/20 16:33:15 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 #define RATIO 1.778
 #define W 0
 #define H 1
+#define U 0
+#define V 1
 
 void	raytraycer(t_context *scene, t_mlx *screen)
 {
@@ -41,11 +43,11 @@ void	raytraycer(t_context *scene, t_mlx *screen)
 		while (index[X] < scene->img[X])
 		{
 			pixel_center = vect3_add(view->pixel_zero, \
-				vect3_add(vect3_const_mult(view->pixel_delta_u, index[X]), \
-				vect3_const_mult(view->pixel_delta_v, index[Y])));
-			ray_dir = vect3_sub(pixel_center, scene->camera.prout);
+				vect3_add(vect3_const_mult(view->pixel_deltas[U], index[X]), \
+				vect3_const_mult(view->pixel_deltas[V], index[Y])));
+			ray_dir = vect3_sub(pixel_center, scene->camera.view_point);
 			*pixel_ptr = ray_color(\
-				(t_ray){scene->camera.prout, ray_dir}, scene->objects).color;
+				(t_ray){scene->camera.view_point, ray_dir}, scene->objects).color;
 			pixel_ptr++;
 			index[X]++;
 		}
@@ -68,6 +70,7 @@ int	main(int argc, const char *argv[])
 	raytraycer(&scene, screen);
 	mlx_put_image_to_window(screen->mlx_ptr, screen->win_ptr, \
 		screen->img->img_ptr, 0, 0);
+	exit(0);
 	mlx_loop(screen->mlx_ptr);
 }
 

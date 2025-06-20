@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 10:32:35 by secros            #+#    #+#             */
-/*   Updated: 2025/05/26 11:32:08 by secros           ###   ########.fr       */
+/*   Updated: 2025/06/20 16:21:03 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,21 @@
 
 double	vect3_scalar(t_vect3 first, t_vect3 second)
 {
-	double	scalar;
+	const double	*f = first.coords;
+	const double	*s = second.coords;
 
-	scalar = first.x * second.x + first.y * second.y + first.z * second.z;
-	return (scalar);
+	return (f[X] * s[X] + f[Y] * s[Y] + f[Z] * s[Z]);
 }
 
 t_vect3	vect3_cross(t_vect3 first, t_vect3 second)
 {
 	t_vect3	product;
+	const double	*f = first.coords;
+	const double	*s = second.coords;
 
-	product.x = first.y * second.z - first.z * second.y;
-	product.y = first.z * second.x - first.x * second.z;
-	product.z = first.x * second.y - first.y * second.x;
+	product.coords[X] = f[Y] * s[Z] - f[Z] * s[Y];
+	product.coords[Y] = f[Z] * s[X] - f[X] * s[Z];
+	product.coords[Z] = f[X] * s[Y] - f[Y]* s[X];
 	return (product);
 }
 

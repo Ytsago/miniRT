@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:54:55 by secros            #+#    #+#             */
-/*   Updated: 2025/06/20 08:47:40 by secros           ###   ########.fr       */
+/*   Updated: 2025/06/20 15:43:53 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,9 @@ struct	s_plane
 struct	s_viewport
 {
 	double	viewport[2];
-	t_vect3	viewport_u;
-	t_vect3	viewport_v;
+	t_vect3	viewport_vect[2];
+	t_vect3	pixel_deltas[2];
 	t_vect3	viewport_upper_left;
-	t_vect3	pixel_delta_u;
-	t_vect3	pixel_delta_v;
 	t_vect3	pixel_zero;
 };
 
@@ -95,8 +93,7 @@ typedef struct s_ambient_lightning
 
 typedef struct s_camera
 {
-	float		view_point[3];
-	t_vect3		prout;
+	t_vect3		view_point;
 	t_vect3		orientation_vector;
 	short		horizontal_fov;
 	t_vect3		focal;
