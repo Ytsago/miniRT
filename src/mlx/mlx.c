@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:08:53 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/18 19:14:45 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/20 10:47:25 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include "mlx_struct.h"
 
 int	destroy_display(t_mlx *display)
-
 {
 	mlx_loop_end(display->mlx_ptr);
 	mlx_destroy_window(display->mlx_ptr, display->win_ptr);
@@ -26,7 +25,6 @@ int	destroy_display(t_mlx *display)
 }
 
 t_mlx	*get_display(int height, int width, char *title)
-
 {
 	t_mlx	*new;
 
@@ -52,7 +50,6 @@ t_mlx	*get_display(int height, int width, char *title)
 }
 
 t_pict	*new_image(t_mlx *display, int width, int height)
-
 {
 	t_pict	*new;
 
@@ -65,7 +62,8 @@ t_pict	*new_image(t_mlx *display, int width, int height)
 		free(new);
 		return (NULL);
 	}
-	new->addr = mlx_get_data_addr(new->img_ptr, &new->bbp, &new->l_size, &new->endian);
+	new->addr = mlx_get_data_addr(new->img_ptr, &new->bbp, &new->l_size, \
+		&new->endian);
 	if (!new->addr)
 	{
 		mlx_destroy_image(display->mlx_ptr, new->img_ptr);
