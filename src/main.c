@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 14:38:13 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/20 19:28:56 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/21 18:29:51 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 #define H 1
 #define U 0
 #define V 1
+#define SUCCESS 0
 
 void	raytraycer(t_context *scene, t_mlx *screen)
 {
@@ -46,8 +47,7 @@ void	raytraycer(t_context *scene, t_mlx *screen)
 				vect3_add(vect3_const_mult(view->pixel_deltas[U], index[X]), \
 				vect3_const_mult(view->pixel_deltas[V], index[Y])));
 			ray_dir = vect3_sub(pixel_center, scene->camera.view_point);
-			*pixel_ptr = ray_color(\
-				(t_ray){scene->camera.view_point, ray_dir}, scene->objects).color;
+			*pixel_ptr = ray_color((t_ray){scene->camera.view_point, ray_dir}, scene).color;
 			pixel_ptr++;
 			index[X]++;
 		}
@@ -71,6 +71,6 @@ int	main(int argc, const char *argv[])
 	mlx_put_image_to_window(screen->mlx_ptr, screen->win_ptr, \
 		screen->img->img_ptr, 0, 0);
 	mlx_loop(screen->mlx_ptr);
+	ft_lstclear(&scene.objects, free);
+	return (SUCCESS);
 }
-
-// ft_lstclear(&scene.objects, free);

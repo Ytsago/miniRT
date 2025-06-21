@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 10:32:35 by secros            #+#    #+#             */
-/*   Updated: 2025/06/20 16:21:03 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/21 14:38:13 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,10 @@ t_vect3	vect3_cross(t_vect3 first, t_vect3 second)
 t_vect3	vect3_unit(t_vect3 vect)
 {
 	return (vect3_const_div(vect, vect3_norm(vect)));
+}
+
+t_vect3	vect3_negate(t_vect3 v)
+
+{
+	return ((t_vect3){-v.coords[X], -v.coords[Y], -v.coords[Z]});
 }

@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:54:55 by secros            #+#    #+#             */
-/*   Updated: 2025/06/20 15:43:53 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/21 17:41:43 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,5 +142,8 @@ bool		get_color(t_context *scene, char **line, t_color *color);
 
 void		get_image_dimensions(short image[2]);
 void		get_camera(t_camera *params, short img[2]);
+
+t_vect3		color_to_vec(t_color c);
+t_color		vec_to_color(t_vect3 v);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:29:29 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/17 11:02:07 by secros           ###   ########.fr       */
+/*   Updated: 2025/06/21 18:28:26 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ static bool	parse_objects(char *line, t_context *scene)
 		return (add_object(scene, new_object(scene, &line, PLANE)));
 	if (!ft_strncmp("cy ", line, 3))
 		return (add_object(scene, new_object(scene, &line, CYLINDER)));
-	else
+	else if (!empty_line(line))
 	{
 		print(STDERR, "%sline %d ", X_ERROR, scene->line_number);
 		print(STDERR, "starts with an unknown identifier\n");
