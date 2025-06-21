@@ -6,7 +6,7 @@
 #    By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/21 17:28:29 by yabokhar          #+#    #+#              #
-#    Updated: 2025/06/21 17:28:39 by yabokhar         ###   ########.fr        #
+#    Updated: 2025/06/21 20:44:27 by yabokhar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,8 +27,7 @@ OBJDIR = .Obj/
 
 # -----------FILES-----------#
 
-MAIN =		vect3_const.c	vect3_math.c	vect3_operator.c
-
+MAIN =		vect3_const.c	vect3_math.c	vect3_operator.c 
 INC =		Vect3.h
 
 # -----------SRCS-----------#

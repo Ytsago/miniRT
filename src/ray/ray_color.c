@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:20:16 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/21 18:39:01 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/21 20:47:55 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ t_vect3	get_light_dir(t_point3 light_point, t_point3 ray_point)
 	double	light_dist;
 
 	light_dir = vect3_sub(light_point, ray_point);
-	light_dist = vect3_norm(light_dir);
+	light_dist = vect3_norm(light_dir.coords);
 	return (vect3_unit(light_dir));
 }
 
@@ -78,8 +78,8 @@ t_vect3	lighting(t_context *scene, t_point3 p, t_vect3 n, t_color obj_color)
 	const t_vect3	v_obj_color = color_to_vec(obj_color);
 	const t_vect3	v_amb_light = color_to_vec(scene->ambient_lightning.color);
 	const t_vect3	ambient = vect3_mult(vect3_const_mult(v_amb_light, scene->ambient_lightning.ratio), v_obj_color);
-	const t_vect3	light_dir = get_light_dir(scene->light.light_point, p);
-	const double	light_dist = vect3_norm(light_dir);
+	t_vect3	light_dir = get_light_dir(scene->light.light_point, p);
+	double	light_dist = vect3_norm(light_dir.coords);
 	const t_ray		shadow_ray = (t_ray){vect3_add(p, vect3_const_mult(n, BIAS)), light_dir};
 	const t_vect3	light_color = color_to_vec(scene->light.color);
 	t_vect3			v_reflections[2];

@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 09:42:39 by secros            #+#    #+#             */
-/*   Updated: 2025/06/21 17:30:55 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/21 20:46:08 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define Z 2
 
 # include "math.h"
+# include <stdbool.h>
 
 /**
  * @brief A 3D object that contain coordinate, x, y, z
@@ -95,7 +96,7 @@ t_vect3	vect3_const_div(t_vect3 first, double t);
  * @param vect A 3D vector of type t_vect3
  * @return Euclidian norm (lenght) of the Vector (double)
  */
-double	vect3_norm(t_vect3 vect);
+double	vect3_norm(double v[3]);
 
 /**
  * @brief Compute the scalar product U.V (Dot product) of two 3D Vector.
@@ -140,5 +141,10 @@ t_vect3	vect3_negate(t_vect3 v);
  * @param c -> color structure RGB,
  * @return t_vect3 ...,
  */
+
+double			opt_div(double x, double y);
+bool			no_fractionnal_part(double x, double y);
+unsigned int	power_of_two(int y);
+
 
 #endif
