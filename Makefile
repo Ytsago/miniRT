@@ -6,7 +6,7 @@
 #    By: secros <secros@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/07 17:10:22 by yabokhar          #+#    #+#              #
-#    Updated: 2025/06/21 17:31:19 by yabokhar         ###   ########.fr        #
+#    Updated: 2025/06/23 18:08:01 by yabokhar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ MAIN 	=	main.c
 
 MLX		=	mlx.c
 
-IMAGE	=	get_image_dimensions.c get_camera.c
+IMAGE	=	get_camera.c
 
 RAY		=	ray_create.c ray_at.c ray_color.c hit_sphere.c
 

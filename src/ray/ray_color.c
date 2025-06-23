@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:20:16 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/21 20:47:55 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/23 19:07:41 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,10 @@
 #define BIAS 1e-4
 #define DBL_MAX 1.79769e+308
 
-t_vect3	background_shade(t_ray ray)
+t_vect3	background_shade(void)
 {
-	t_vect3			unit_direction;
-	const double	a = 0.5 * (unit_direction.coords[Y] + 1.0);
-
-	unit_direction = vect3_unit(ray.direction);
-	return (vect3_add(vect3_const_mult(((t_vect3){1.0, 1.0, 1.0}), (1.0 - a)), \
-		vect3_const_mult(((t_vect3){0.5, 0.7, 1.0}), a)));
+	return (vect3_add(vect3_const_mult(((t_vect3){1.0, 1.0, 1.0}), 0.5), \
+		vect3_const_mult(((t_vect3){0.5, 0.7, 1.0}), 0.5)));
 }
 
 t_vect3	sphere_shade(t_ray ray, t_object sphere, double t)
@@ -141,5 +137,5 @@ t_color	ray_color(t_ray ray, t_context *scene)
 			normal = vect3_negate(normal);
 		return (vec_to_color(lighting(scene, p, normal, closest_obj->color)));
 	}
-	return (vec_to_color(background_shade(ray)));
+	return (vec_to_color(background_shade()));
 }

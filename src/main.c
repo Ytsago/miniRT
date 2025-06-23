@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 14:38:13 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/21 20:32:55 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/23 19:07:07 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include "ray.h"
 
 #define WIDTH 1920
-#define RATIO 1.778
+#define HEIGHT 1080
 #define W 0
 #define H 1
 #define U 0
@@ -48,10 +48,10 @@ void	raytraycer(t_context *scene, t_mlx *screen)
 				vect3_const_mult(view->pixel_deltas[V], index[Y])));
 			ray_dir = vect3_sub(pixel_center, scene->camera.view_point);
 			*pixel_ptr = ray_color((t_ray){scene->camera.view_point, ray_dir}, scene).color;
-			pixel_ptr++;
-			index[X]++;
+			++pixel_ptr;
+			++index[X];
 		}
-		index[Y]++;
+		++index[Y];
 	}
 }
 
@@ -63,14 +63,15 @@ int	main(int argc, const char *argv[])
 	ft_bzero(&scene, sizeof(t_context));
 	parse_arguments(argc, argv, &scene);
 	parse_and_load_parameters(&scene);
-	get_image_dimensions(scene.img);
+	scene.img[W] = WIDTH;
+	scene.img[H] = HEIGHT;
 	get_camera(&scene.camera, scene.img);
 	screen = get_display(scene.img[1], scene.img[0], "miniRT");
 	screen->img = new_image(screen, scene.img[0], scene.img[1]);
 	raytraycer(&scene, screen);
 	mlx_put_image_to_window(screen->mlx_ptr, screen->win_ptr, \
 		screen->img->img_ptr, 0, 0);
-	exit(0);
+	//exit(0);
 	mlx_loop(screen->mlx_ptr);
 	ft_lstclear(&scene.objects, free);
 	return (SUCCESS);
