@@ -101,6 +101,6 @@ bool	get_vect3_value(t_context *scene, char **line, void *element)
 			no_comma_error(scene);
 		i++;
 	}
-	*((t_vect3 *) element) = (t_vect3){coord[X], coord[Y], coord[Z]};
+	*((t_vect3 *) element) = (t_vect3){{coord[X], coord[Y], coord[Z]}};
 	return (true);
 }

@@ -17,7 +17,7 @@
 t_vect3	color_to_vec(t_color c)
 
 {
-	return ((t_vect3){c.r / 255.0, c.g / 255.0, c.b / 255.0});
+	return ((t_vect3){{c.r / 255.0, c.g / 255.0, c.b / 255.0}});
 }
 
 t_color	vec_to_color(t_vect3 v)

@@ -14,12 +14,12 @@
 
 t_vect3	vect3_const_mult(t_vect3 first, double t)
 {
-	return ((t_vect3){first.coords[X] * t, first.coords[Y] * t,
-		first.coords[Z] * t});
+	return ((t_vect3){{first.coords[X] * t, first.coords[Y] * t,
+			first.coords[Z] * t}});
 }
 
 t_vect3	vect3_const_div(t_vect3 first, double t)
 {
-	return ((t_vect3){first.coords[X] / t, first.coords[Y] / t,
-		first.coords[Z] / t});
+	return ((t_vect3){{first.coords[X] / t, first.coords[Y] / t,
+			first.coords[Z] / t}});
 }

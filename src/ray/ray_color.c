@@ -19,8 +19,11 @@
 
 t_vect3	background_shade(void)
 {
-	return (vect3_add(vect3_const_mult(((t_vect3){1.0, 1.0, 1.0}), 0.5), \
-		vect3_const_mult(((t_vect3){0.5, 0.7, 1.0}), 0.5)));
+	t_color c;
+	c.r = 199;
+	c.g = 193,
+	c.b = 221;
+	return (color_to_vec(c));
 }
 
 t_vect3	sphere_shade(t_ray ray, t_object sphere, double t)
@@ -28,8 +31,8 @@ t_vect3	sphere_shade(t_ray ray, t_object sphere, double t)
 	t_vect3	normal;
 
 	normal = vect3_unit(vect3_sub(ray_at(ray, t), sphere.pos));
-	return (vect3_const_div((t_vect3){normal.coords[X] +1, normal.coords[Y] +1, \
-	normal.coords[Z] +1}, 2));
+	return (vect3_const_div((t_vect3){{normal.coords[X] +1, normal.coords[Y] +1, \
+	normal.coords[Z] +1}}, 2));
 }
 
 bool	in_shadow(t_context *scene, t_ray ray, double max_dist)
@@ -58,12 +61,7 @@ bool	in_shadow(t_context *scene, t_ray ray, double max_dist)
 t_vect3	get_light_dir(t_point3 light_point, t_point3 ray_point)
 
 {
-	t_vect3	light_dir;
-	double	light_dist;
-
-	light_dir = vect3_sub(light_point, ray_point);
-	light_dist = vect3_norm(light_dir.coords);
-	return (vect3_unit(light_dir));
+	return (vect3_unit(vect3_sub(light_point, ray_point)));
 }
 
 #define DIFF 0
@@ -74,7 +72,7 @@ t_vect3	lighting(t_context *scene, t_point3 p, t_vect3 n, t_color obj_color)
 	const t_vect3	v_obj_color = color_to_vec(obj_color);
 	const t_vect3	v_amb_light = color_to_vec(scene->ambient_lightning.color);
 	const t_vect3	ambient = vect3_mult(vect3_const_mult(v_amb_light, scene->ambient_lightning.ratio), v_obj_color);
-	t_vect3	light_dir = get_light_dir(scene->light.light_point, p);
+	t_vect3	light_dir = vect3_unit(vect3_sub(scene->light.light_point, p));
 	double	light_dist = vect3_norm(light_dir.coords);
 	const t_ray		shadow_ray = (t_ray){vect3_add(p, vect3_const_mult(n, BIAS)), light_dir};
 	const t_vect3	light_color = color_to_vec(scene->light.color);

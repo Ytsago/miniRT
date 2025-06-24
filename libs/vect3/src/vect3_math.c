@@ -39,5 +39,5 @@ t_vect3	vect3_unit(t_vect3 vect)
 t_vect3	vect3_negate(t_vect3 v)
 
 {
-	return ((t_vect3){-v.coords[X], -v.coords[Y], -v.coords[Z]});
+	return ((t_vect3){{-v.coords[X], -v.coords[Y], -v.coords[Z]}});
 }

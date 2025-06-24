@@ -44,9 +44,9 @@ void	get_camera(t_camera	*params, short img[2])
 	screen = &params->viewport;
 	screen->viewport[H] = 2.0;
 	screen->viewport[W] = screen->viewport[H] * img[W] / img[H];
-	params->focal = (t_vect3){0, 0, 1.0};
-	screen->viewport_vect[U] = (t_vect3){screen->viewport[W], 0, 0};
-	screen->viewport_vect[V] = (t_vect3){0, -screen->viewport[H], 0};
+	params->focal = (t_vect3){{0, 0, 1.0}};
+	screen->viewport_vect[U] = (t_vect3){{screen->viewport[W], 0, 0}};
+	screen->viewport_vect[V] = (t_vect3){{0, -screen->viewport[H], 0}};
 	screen->pixel_deltas[U] = vect3_const_div(screen->viewport_vect[U], img[W]);
 	screen->pixel_deltas[V] = vect3_const_div(screen->viewport_vect[V], img[H]);
 	get_viewport_upper_left(screen, params);

@@ -21,7 +21,7 @@ RESET  = \033[0m
 # -----------RULES-----------#
 
 CFLAGS = -Wall -Wextra -Werror -MMD -MP -g3
-MLXFLAG = -lbsd -lX11 -lm -lXext 
+MLXFLAG = libs/vect3/vect3.a libs/libft/libft.a libs/libmlx/libmlx.a -lbsd -lX11 -lXext -lm
 CC = cc
 AR = ar
 ARFLAG = -rcs
