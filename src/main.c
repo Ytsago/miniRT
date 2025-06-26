@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 14:38:13 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/23 19:07:07 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/26 15:12:27 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	main(int argc, const char *argv[])
 	raytraycer(&scene, screen);
 	mlx_put_image_to_window(screen->mlx_ptr, screen->win_ptr, \
 		screen->img->img_ptr, 0, 0);
-	//exit(0);
+	exit(0);
 	mlx_loop(screen->mlx_ptr);
 	ft_lstclear(&scene.objects, free);
 	return (SUCCESS);

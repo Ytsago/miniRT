@@ -6,7 +6,7 @@
 #    By: secros <secros@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/07 17:10:22 by yabokhar          #+#    #+#              #
-#    Updated: 2025/06/23 18:08:01 by yabokhar         ###   ########.fr        #
+#    Updated: 2025/06/26 15:12:42 by yabokhar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ RAY		=	ray_create.c ray_at.c ray_color.c hit_sphere.c
 PARSING =	parse_arguments.c	parse_parameters.c	\
 			parse_ambient_lightning.c	parse_camera.c	parse_light.c	\
 			process_characters.c	parse_objects.c	get_values.c	debug.c
-UTILS	=	print.c vect3_convert.c
+UTILS	=	print.c vect3_convert.c ft_bzero_vect3.c
 
 ERRORS 	=	parsing_error_reporting.c parsing_error_reporting_bis.c
 
