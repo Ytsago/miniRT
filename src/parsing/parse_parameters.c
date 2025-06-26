@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:29:29 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/21 18:28:26 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/25 15:48:50 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ static bool	parse_elements(char *line, t_context *scene)
 
 {
 	jump_spaces(&line);
+	if (*line == '#')
+		return (true);
 	if (parse_general_elements(line, scene))
 		return (true);
 	else if (parse_objects(line, scene))

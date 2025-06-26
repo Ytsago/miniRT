@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 15:26:15 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/21 15:10:05 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/25 15:28:37 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ typedef struct s_ray
 }	t_ray;
 
 double	hit_sphere(t_point3 pos, double radius, t_ray ray);
+double	hit_plane(t_point3 pos, t_vect3 normal, t_ray ray);
+
 t_color	ray_color(t_ray dir, t_context *objects);
 t_vect3	ray_at(t_ray r, double t);
 

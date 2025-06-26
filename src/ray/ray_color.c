@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:20:16 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/23 19:07:41 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/25 15:46:01 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ t_vect3	sphere_shade(t_ray ray, t_object sphere, double t)
 }
 
 bool	in_shadow(t_context *scene, t_ray ray, double max_dist)
-
 {
 	const t_list	*objs = scene->objects;
 	t_object		*curr;
@@ -59,7 +58,6 @@ bool	in_shadow(t_context *scene, t_ray ray, double max_dist)
 }
 
 t_vect3	get_light_dir(t_point3 light_point, t_point3 ray_point)
-
 {
 	return (vect3_unit(vect3_sub(light_point, ray_point)));
 }
@@ -93,7 +91,6 @@ t_vect3	lighting(t_context *scene, t_point3 p, t_vect3 n, t_color obj_color)
 }
 
 void	find_closest_sp(const t_list *o, t_ray r, t_object **c_obj, double *c_t)
-
 {
 	t_object	*curr;
 	double		radius;
@@ -106,11 +103,13 @@ void	find_closest_sp(const t_list *o, t_ray r, t_object **c_obj, double *c_t)
 		{
 			radius = curr->size.coords[X] / 2;
 			t = hit_sphere(curr->pos, radius, r);
-			if (t > BIAS && t < *c_t)
-			{
-				*c_t = t;
-				*c_obj = curr;
-			}
+		}
+		else if (curr->type == PLANE)
+			t = hit_plane(curr->pos, curr->orientation, r);
+		if (t > BIAS && t < *c_t)
+		{
+			*c_t = t;
+			*c_obj = curr;
 		}
 		o = o->next;
 	}
@@ -130,7 +129,10 @@ t_color	ray_color(t_ray ray, t_context *scene)
 	if (closest_obj)
 	{
 		p = ray_at(ray, closest_t);
-		normal = vect3_unit(vect3_sub(p, closest_obj->pos));
+		if (closest_obj->type == SPHERE)
+			normal = vect3_unit(vect3_sub(p, closest_obj->pos));
+		else
+			normal = closest_obj->orientation;
 		if (vect3_scalar(ray.direction, normal) > 0)
 			normal = vect3_negate(normal);
 		return (vec_to_color(lighting(scene, p, normal, closest_obj->color)));

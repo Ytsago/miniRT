@@ -6,12 +6,29 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:16:05 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/23 18:56:08 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/25 17:53:28 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vect3.h"
 #include "ray.h"
+
+# define EPSILON 1e-6
+# define T_MIN 1e-4
+
+double	hit_plane(t_point3 pos, t_vect3 normal, t_ray ray)
+{
+	const double	sum = vect3_scalar(normal, vect3_sub(pos, ray.origin));
+	const double	div = vect3_scalar(normal, ray.direction);
+	double			t;
+
+	if (div < EPSILON && div > -EPSILON)
+		return (-1);
+	t = sum / div;
+	if (t < T_MIN)
+		return (-1);
+	return (t);
+}
 
 double	hit_sphere(t_point3 pos, double radius, t_ray ray)
 {

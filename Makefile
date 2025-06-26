@@ -112,7 +112,7 @@ $(OBJDIR):
 $(LIBA): libs
 libs:
 	@for dir in $(LIBS); do \
-		echo "$(YELLOW)Compiling library $$dir$(RESET)" && $(MAKE) -C $$dir --no-print-directory; \
+		echo "$(YELLOW)Compiling library $$dir$(RESET)" && $(MAKE) -C $$dir --no-print-directory --silent; \
 	done
 
 # -----------UTILS-----------#

@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 09:42:39 by secros            #+#    #+#             */
-/*   Updated: 2025/06/21 20:46:08 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/06/25 18:02:19 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,22 @@
  * @brief A 3D object that contain coordinate, x, y, z
  * 
  */
-typedef struct s_vect3	t_vect3;
+typedef union u_vect3	t_vect3;
 
 /**
  * @brief Similar to t_vect3 but renamed for clarity
  * 
  */
-typedef t_vect3			t_point3;
-
-struct s_vect3
+typedef 	t_vect3		t_point3;
+union u_vect3
 {
 	double	coords[3];
+	struct
+	{
+		double x;
+		double y;
+		double z;
+	};
 };
 
 /**
