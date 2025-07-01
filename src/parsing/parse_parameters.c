@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:29:29 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/25 15:48:50 by secros           ###   ########.fr       */
+/*   Updated: 2025/07/01 17:39:02 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,11 @@ static bool	parse_objects(char *line, t_context *scene)
 
 {
 	if (!ft_strncmp("sp ", line, 3))
-		return (add_object(scene, new_object(scene, &line, SPHERE)));
+		return (add_object(scene, new_sphere(scene, &line)));
 	if (!ft_strncmp("pl ", line, 3))
-		return (add_object(scene, new_object(scene, &line, PLANE)));
+		return (add_object(scene, new_plane(scene, &line)));
 	if (!ft_strncmp("cy ", line, 3))
-		return (add_object(scene, new_object(scene, &line, CYLINDER)));
+		return (add_object(scene, new_cylinder(scene, &line)));
 	else if (!empty_line(line))
 	{
 		print(STDERR, "%sline %d ", X_ERROR, scene->line_number);

@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:20:16 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/26 15:17:40 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/07/01 17:59:17 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ bool	in_shadow(t_context *scene, t_ray ray, double max_dist)
 		if (curr->type == SPHERE)
 		{
 			radius = curr->size.coords[X] / 2;
-			t = hit_sphere(curr->pos, radius, ray);
+			t = hit_sphere((t_sphere *) curr, ray);
 			if (t > BIAS && t < max_dist)
 				return (true);
 		}
@@ -94,7 +94,6 @@ t_vect3	lighting(t_context *scene, t_point3 p, t_vect3 n, t_color obj_color)
 void	find_closest_sp(const t_list *o, t_ray r, t_object **c_obj, double *c_t)
 {
 	t_object	*curr;
-	double		radius;
 	double		t;
 
 	while (o)
@@ -102,11 +101,10 @@ void	find_closest_sp(const t_list *o, t_ray r, t_object **c_obj, double *c_t)
 		curr = (t_object *)o->content;
 		if (curr->type == SPHERE)
 		{
-			radius = curr->size.coords[X] / 2;
-			t = hit_sphere(curr->pos, radius, r);
+			t = hit_sphere((t_sphere *)curr, r);
 		}
 		else if (curr->type == PLANE)
-			t = hit_plane(curr->pos, curr->orientation, r);
+			t = hit_plane((t_plane *)curr, r);
 		if (t > BIAS && t < *c_t)
 		{
 			*c_t = t;

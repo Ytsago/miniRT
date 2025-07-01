@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 12:43:13 by secros            #+#    #+#             */
-/*   Updated: 2025/06/17 10:21:08 by secros           ###   ########.fr       */
+/*   Updated: 2025/07/01 17:48:48 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,12 @@ static bool	is_negative(char **line)
 	return (answer);
 }
 
-bool	get_unique_value(t_context *scene, char **line, double *value)
+bool	get_unique_value(char **line, double *value)
 {
 	bool	precision;
 	char	*end;
 
 	jump_spaces(line);
-	(void)scene;
 	*value = ft_strtod(*line, &end, &precision);
 	if (end == *line || precision)
 		return (1);

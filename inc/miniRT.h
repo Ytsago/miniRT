@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:54:55 by secros            #+#    #+#             */
-/*   Updated: 2025/06/26 15:11:47 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/07/01 17:44:26 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,12 +131,15 @@ bool		parse_light(char *line, t_context *scene);
 
 bool		add_object(t_context *scene, t_object *object); 
 t_object	*new_object(t_context *scene, char **line, enum e_obj type);
+t_object	*new_cylinder(t_context *scene, char **line);
+t_object	*new_plane(t_context *scene, char **line);
+t_object	*new_sphere(t_context *scene, char **line);
 
 void		jump_spaces(char **str);
 bool		empty_line(char *line);
 bool		verify_and_skip_comma(char **line);
 
-bool		get_unique_value(t_context *scene, char **line, double *value);
+bool		get_unique_value(char **line, double *value);
 bool		get_vect3_value(t_context *scene, char **line, void *element);
 bool		get_color(t_context *scene, char **line, t_color *color);
 
