@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:20:16 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/07/01 17:59:17 by secros           ###   ########.fr       */
+/*   Updated: 2025/07/01 18:45:05 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,12 @@ bool	in_shadow(t_context *scene, t_ray ray, double max_dist)
 	const t_list	*objs = scene->objects;
 	t_object		*curr;
 	double			t;
-	double			radius;
 
 	while (objs)
 	{
 		curr = (t_object *)objs->content;
 		if (curr->type == SPHERE)
 		{
-			radius = curr->size.coords[X] / 2;
 			t = hit_sphere((t_sphere *) curr, ray);
 			if (t > BIAS && t < max_dist)
 				return (true);
@@ -131,7 +129,7 @@ t_color	ray_color(t_ray ray, t_context *scene)
 		if (closest_obj->type == SPHERE)
 			normal = vect3_unit(vect3_sub(p, closest_obj->pos));
 		else
-			normal = closest_obj->orientation;
+			normal = ((t_plane *)closest_obj)->orientation;
 		if (vect3_scalar(ray.direction, normal) > 0)
 			normal = vect3_negate(normal);
 		return (vec_to_color(lighting(scene, p, normal, closest_obj->color)));

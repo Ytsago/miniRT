@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 13:24:23 by secros            #+#    #+#             */
-/*   Updated: 2025/06/20 16:26:56 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/07/01 18:44:16 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,7 @@ void	print_obj_lst(t_list *head)
 			printf("Type : plane\n");
 		printf("Position : ");
 		print_vect(&content.pos);
-		printf("\nOrientation : ");
-		print_vect(&content.orientation);
 		printf("\nSize : ");
-		print_vect(&content.size);
 		printf("\nColor : RGB : %s%d, %d, %d%s\n\n",FG_RED, content.color.r, content.color.g, content.color.b, RESET);
 		head = head->next;
 	}

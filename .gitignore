@@ -5,3 +5,4 @@ miniRT
 *.swp
 */*.swp
 */*/*.swp
+compile_commands.json
