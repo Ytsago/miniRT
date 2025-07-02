@@ -6,12 +6,14 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 10:32:35 by secros            #+#    #+#             */
-/*   Updated: 2025/06/21 20:52:10 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/07/02 13:46:11 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vect3.h"
-
+#include <immintrin.h>
+#include <unistd.h>
+ 
 double	vect3_scalar(t_vect3 f, t_vect3 s)
 {
 	return (f.coords[X] * s.coords[X] + \

@@ -6,15 +6,15 @@
 #    By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/21 17:28:29 by yabokhar          #+#    #+#              #
-#    Updated: 2025/06/21 20:44:27 by yabokhar         ###   ########.fr        #
+#    Updated: 2025/07/02 13:46:03 by secros           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # -----------RULES-----------#
 
-CFLAGS = -Wall -Wextra -Werror -MMD -MP 
+CFLAGS = -Wall -Wextra -Werror -MMD -MP
 LFLAGS = -lm
-CC = cc
+CC = gcc
 AR = ar
 ARFLAG = -rcs
 

@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 11:29:39 by secros            #+#    #+#             */
-/*   Updated: 2025/07/01 18:49:42 by secros           ###   ########.fr       */
+/*   Updated: 2025/07/02 13:24:53 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ t_object	*new_sphere(t_context *scene, char **line)
 	jump_spaces(line);
 	if (get_unique_value(line, &radius))
 		return (free_and_return_null(new));
-	new->radius = radius / 2;
+	new->radius = radius * 0.5;
 	jump_spaces(line);
 	if (!get_color(scene, line, &new->color))
 		return (free_and_return_null(new));
