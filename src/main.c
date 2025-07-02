@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 14:38:13 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/07/01 18:31:40 by secros           ###   ########.fr       */
+/*   Updated: 2025/07/02 08:43:13 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	main(int argc, const char *argv[])
 	get_camera(&scene.camera, scene.img);
 	screen = get_display(scene.img[1], scene.img[0], "miniRT");
 	screen->img = new_image(screen, scene.img[0], scene.img[1]);
-	debug_display_scene_param(&scene);
+	//debug_display_scene_param(&scene);
 	raytraycer(&scene, screen);
 	mlx_put_image_to_window(screen->mlx_ptr, screen->win_ptr, \
 		screen->img->img_ptr, 0, 0);
