@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:54:55 by secros            #+#    #+#             */
-/*   Updated: 2025/07/01 18:43:15 by secros           ###   ########.fr       */
+/*   Updated: 2025/07/03 11:28:27 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ struct	s_cylinder
 	enum e_obj	type;
 	t_point3	pos;
 	t_color		color;
-	double		diameter;
+	double		radius;
 	double		height;
 	t_vect3		orientation;
 };

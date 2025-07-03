@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 11:29:39 by secros            #+#    #+#             */
-/*   Updated: 2025/07/02 13:24:53 by secros           ###   ########.fr       */
+/*   Updated: 2025/07/03 11:29:22 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,9 @@ t_object	*new_cylinder(t_context *scene, char **line)
 	if (!get_vect3_value(scene, line, &new->orientation))
 		return (free_and_return_null(new));
 	jump_spaces(line);
-	if (!get_unique_value(line, &new->diameter))
+	if (!get_unique_value(line, &new->radius))
 		return (free_and_return_null(new));
+	new->radius = new->radius / 2;
 	jump_spaces(line);
 	if (!get_unique_value(line, &new->height))
 		return (free_and_return_null(new));

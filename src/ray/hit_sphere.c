@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:16:05 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/07/01 17:57:20 by secros           ###   ########.fr       */
+/*   Updated: 2025/07/03 11:28:00 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,27 @@ double	hit_plane(t_plane *plane, t_ray ray) {
 double	hit_sphere(t_sphere *sphere, t_ray ray)
 {
 	const t_vect3	oc = vect3_sub(sphere->pos, ray.origin);
-	const double	a = vect3_scalar(ray.direction, ray.direction);
+	//const double	a = vect3_scalar(ray.direction, ray.direction);
 	const double	h = vect3_scalar(ray.direction, oc);
 	const double	c = vect3_scalar(oc, oc) - sphere->radius * sphere->radius;
-	const double	discriminant = h * h - a * c;
+	const double	discriminant = h * h - c;
 
 	if (discriminant < 0)
 		return (-1);
-	return ((h - sqrt(discriminant)) / a);
+	return ((h - sqrt(discriminant)));
 }
 
-double hit_cylinder() { return (0); }
+double	hit_cylinder(t_cylinder *cyl, t_ray r)
+{
+	const t_vect3	w = vect3_sub(r.origin, cyl->pos);
+	const double	n = vect3_scalar(w, cyl->orientation);
+	const double	m = vect3_scalar(r.direction, cyl->orientation);
+	const double	a = 1 - (m * m);
+	const double	h = vect3_scalar(w, r.direction) - n * m;
+	const double	c = vect3_scalar(w, w) - n * n - cyl->radius * cyl->radius;
+	const double	delta = h * h - a * c;
+
+	if (delta < 0)
+		return (-1);
+	return ((-h - sqrt(delta)) / a);
+}

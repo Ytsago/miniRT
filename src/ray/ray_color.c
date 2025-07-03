@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:20:16 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/07/02 10:59:27 by secros           ###   ########.fr       */
+/*   Updated: 2025/07/03 11:34:29 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ void	find_closest_sp(const t_list *o, t_ray r, t_object **c_obj, double *c_t)
 		}
 		else if (curr->type == PLANE)
 			t = hit_plane((t_plane *)curr, r);
+		else
+			t = hit_cylinder((t_cylinder *)curr, r);
 		if (t > BIAS && t < *c_t)
 		{
 			*c_t = t;
@@ -127,8 +129,10 @@ t_color	ray_color(t_ray ray, t_context *scene)
 		p = ray_at(ray, closest_t);
 		if (closest_obj->type == SPHERE)
 			normal = vect3_unit(vect3_sub(p, closest_obj->pos));
-		else
+		else if (closest_obj->type == PLANE)
 			normal = ((t_plane *)closest_obj)->orientation;
+		else
+			normal = ((t_cylinder *)closest_obj)->orientation;
 		if (vect3_scalar(ray.direction, normal) > 0)
 			normal = vect3_negate(normal);
 		return (vec_to_color(lighting(scene, p, normal, closest_obj->color)));
