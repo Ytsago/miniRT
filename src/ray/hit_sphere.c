@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:16:05 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/07/03 11:28:00 by secros           ###   ########.fr       */
+/*   Updated: 2025/07/03 15:31:43 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,25 @@ double	hit_cylinder(t_cylinder *cyl, t_ray r)
 	const double	h = vect3_scalar(w, r.direction) - n * m;
 	const double	c = vect3_scalar(w, w) - n * n - cyl->radius * cyl->radius;
 	const double	delta = h * h - a * c;
+	double t1, t2;
 
 	if (delta < 0)
 		return (-1);
-	return ((-h - sqrt(delta)) / a);
+	t1 = (-h - sqrt(delta)) / a;
+	t2 = (-h + sqrt(delta)) / a;
+	if (t1 > t2)
+	{
+		double	tmp = t1;
+		t1 = t2;
+		t2 = tmp;
+	}
+	double	y1, y2;
+	y1 = n + t1 * m;
+	if (t1 > T_MIN && y1 >= cyl->height / -2 && y1 <= cyl->height / 2)
+		return (t1);
+	y2 = n + t2 * m;
+	if (t2 > T_MIN && y2 >= cyl->height / -2 && y2 <= cyl->height / 2)
+		return (t2);
+	return (-1);
 }
+

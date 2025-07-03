@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:20:16 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/07/03 11:34:29 by secros           ###   ########.fr       */
+/*   Updated: 2025/07/03 15:09:30 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,24 @@ void	find_closest_sp(const t_list *o, t_ray r, t_object **c_obj, double *c_t)
 	}
 }
 
+t_vect3	cylinder_normal(t_cylinder *cy, t_vect3 p)
+{
+	const t_vect3	w = vect3_sub(p, cy->pos);
+	const double	t = vect3_scalar(w, cy->orientation);
+	const t_vect3	q = vect3_add(cy->pos, vect3_const_mult(cy->orientation, t));
+	
+	return (vect3_unit(vect3_sub(p, q)));
+}
+
+t_color normal_to_color(t_vect3 n)
+{
+    return (t_color){
+        .r = (unsigned char)((n.x * 0.5 + 0.5) * 255),
+        .g = (unsigned char)((n.y * 0.5 + 0.5) * 255),
+        .b = (unsigned char)((n.z * 0.5 + 0.5) * 255),
+    };
+}
+
 t_color	ray_color(t_ray ray, t_context *scene)
 {
 	t_object		*closest_obj;
@@ -131,8 +149,10 @@ t_color	ray_color(t_ray ray, t_context *scene)
 			normal = vect3_unit(vect3_sub(p, closest_obj->pos));
 		else if (closest_obj->type == PLANE)
 			normal = ((t_plane *)closest_obj)->orientation;
+		else if (closest_obj->type == CYLINDER)
+			normal = cylinder_normal((t_cylinder *)closest_obj, p);
 		else
-			normal = ((t_cylinder *)closest_obj)->orientation;
+			return ((t_color) {0});
 		if (vect3_scalar(ray.direction, normal) > 0)
 			normal = vect3_negate(normal);
 		return (vec_to_color(lighting(scene, p, normal, closest_obj->color)));

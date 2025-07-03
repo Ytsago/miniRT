@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 11:29:39 by secros            #+#    #+#             */
-/*   Updated: 2025/07/03 11:29:22 by secros           ###   ########.fr       */
+/*   Updated: 2025/07/03 15:37:35 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ t_object	*new_plane(t_context *scene, char **line)
 	jump_spaces(line);
 	if (!get_vect3_value(scene, line, &new->orientation))
 		return (free_and_return_null(new));
+	new->orientation = vect3_unit(new->orientation);
 	jump_spaces(line);
 	if (!get_color(scene, line, &new->color))
 		return (free_and_return_null(new));
@@ -81,6 +82,7 @@ t_object	*new_cylinder(t_context *scene, char **line)
 	if (!new)
 		return (NULL);
 	ft_fbzero(new, sizeof(t_cylinder));
+	new->type = CYLINDER;
 	(*line) += 3;
 	jump_spaces(line);
 	if (!get_vect3_value(scene, line, &new->pos))
@@ -88,12 +90,13 @@ t_object	*new_cylinder(t_context *scene, char **line)
 	jump_spaces(line);
 	if (!get_vect3_value(scene, line, &new->orientation))
 		return (free_and_return_null(new));
+	new->orientation = vect3_unit(new->orientation);
 	jump_spaces(line);
-	if (!get_unique_value(line, &new->radius))
+	if (get_unique_value(line, &new->radius))
 		return (free_and_return_null(new));
 	new->radius = new->radius / 2;
 	jump_spaces(line);
-	if (!get_unique_value(line, &new->height))
+	if (get_unique_value(line, &new->height))
 		return (free_and_return_null(new));
 	jump_spaces(line);
 	if (!get_color(scene, line, &new->color))
@@ -140,3 +143,4 @@ bool	add_object(t_context *scene, t_object *object)
 	ft_lstadd_back(&scene->objects, new);
 	return (true);
 }
+

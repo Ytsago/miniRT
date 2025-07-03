@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 09:42:39 by secros            #+#    #+#             */
-/*   Updated: 2025/06/25 18:02:19 by secros           ###   ########.fr       */
+/*   Updated: 2025/07/03 16:28:30 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,14 +129,13 @@ t_vect3	vect3_cross(t_vect3 first, t_vect3 second);
  */
 t_vect3	vect3_unit(t_vect3 first);
 
-t_vect3	vect3_negate(t_vect3 v);
-
 /**
  * @brief Negate 3D vector,
  * 
  * @param v -> 3D vector,
  * @return t_vect3 The negated 3D Vector,
  */
+t_vect3	vect3_negate(t_vect3 v);
 
 /*t_vect3	color_to_vec(t_color c);
 
