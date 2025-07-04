@@ -6,3 +6,4 @@ miniRT
 */*.swp
 */*/*.swp
 compile_commands.json
+.cache/
