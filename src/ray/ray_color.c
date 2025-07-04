@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:20:16 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/07/03 15:09:30 by secros           ###   ########.fr       */
+/*   Updated: 2025/07/04 09:58:01 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_vect3	lighting(t_context *scene, t_point3 p, t_vect3 n, t_color obj_color)
 	t_vect3			v_reflections[2];
 	double			reflections[2];
 
-	memset(v_reflections, 0, 48);
+	ft_fbzero(v_reflections, sizeof(t_vect3) * 2);
 	if (!in_shadow(scene, shadow_ray, light_dist))
 	{
 		reflections[DIFF] = fmax(vect3_scalar(n, light_dir), 0.0);
