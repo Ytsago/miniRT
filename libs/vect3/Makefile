@@ -6,7 +6,7 @@
 #    By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/21 17:28:29 by yabokhar          #+#    #+#              #
-#    Updated: 2025/07/02 13:46:03 by secros           ###   ########.fr        #
+#    Updated: 2025/07/04 11:09:53 by secros           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 CFLAGS = -Wall -Wextra -Werror -MMD -MP
 LFLAGS = -lm
-CC = gcc
+CC = cc
 AR = ar
 ARFLAG = -rcs
 
