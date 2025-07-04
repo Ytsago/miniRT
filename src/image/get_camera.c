@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:43:52 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/07/02 13:44:54 by secros           ###   ########.fr       */
+/*   Updated: 2025/07/04 11:34:35 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,15 @@ void	get_viewport_upper_left(t_viewport *params, t_camera *cam)
 	const t_vect3	v = vect3_const_div(params->viewport_vect[V], 2);
 	const t_vect3	sum = vect3_add(u, v);
 
-	params->viewport_upper_left = vect3_sub(cam->view_point, vect3_add(sum, cam->focal));
+	params->viewport_upper_left = vect3_sub(cam->view_point, \
+		vect3_add(sum, cam->focal));
 }
 
 t_vect3	get_focal(int fov, double size, t_vect3 orientation)
 {
-	t_vect3	focal;
+	t_vect3			focal;
 	const double	demi_lenght = size / 2;
-	const double	alpha = (double) (fov) / 2 * M_PI / 180;
+	const double	alpha = (double)(fov) / 2 * M_PI / 180;
 	const double	focal_lenght = demi_lenght / tan(alpha);
 
 	ft_fbzero(&focal, sizeof(t_vect3));
@@ -57,7 +58,8 @@ void	get_camera(t_camera	*params, short img[2])
 	screen = &params->viewport;
 	screen->viewport[H] = 2;
 	screen->viewport[W] = screen->viewport[H] * img[W] / img[H];
-	params->focal = get_focal(params->horizontal_fov, screen->viewport[W], params->orientation_vector);
+	params->focal = get_focal(params->horizontal_fov, screen->viewport[W], \
+		params->orientation_vector);
 	screen->viewport_vect[U] = (t_vect3){{screen->viewport[W], 0, 0}};
 	screen->viewport_vect[V] = (t_vect3){{0, -screen->viewport[H], 0}};
 	screen->pixel_deltas[U] = vect3_const_div(screen->viewport_vect[U], img[W]);

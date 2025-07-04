@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:54:55 by secros            #+#    #+#             */
-/*   Updated: 2025/07/03 11:28:27 by secros           ###   ########.fr       */
+/*   Updated: 2025/07/04 13:44:07 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,6 @@
 # include "vect3.h"
 # include "mlx_struct.h"
 # include "libft.h"
-
-# define AMBIENT_LIGHTNING 0
-# define CAMERA 1
-# define LIGHT 2
-# define X 0
-# define Y 1
-# define Z 2
-# define RED 0
-# define GREEN 1
-# define BLUE 2
 
 typedef struct s_object		t_object;
 typedef struct s_viewport	t_viewport;
@@ -39,6 +29,31 @@ enum e_obj
 	SPHERE,
 	CYLINDER,
 	PLANE,
+};
+
+# ifndef e_geo
+#  define e_geo
+enum e_geo
+{
+	X,
+	Y,
+	Z,
+};
+
+# endif
+
+enum e_scene
+{
+	AMBIENT_LIGHTNING,
+	CAMERA,
+	LIGHT,
+};
+
+enum e_rgb
+{
+	RED,
+	GREEN,
+	BLUE,
 };
 
 struct	s_object

@@ -6,15 +6,12 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 09:42:39 by secros            #+#    #+#             */
-/*   Updated: 2025/07/03 16:28:30 by secros           ###   ########.fr       */
+/*   Updated: 2025/07/04 13:41:11 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECT3_H
 # define VECT3_H
-# define X 0
-# define Y 1
-# define Z 2
 
 # include "math.h"
 # include <stdbool.h>
@@ -29,15 +26,27 @@ typedef union u_vect3	t_vect3;
  * @brief Similar to t_vect3 but renamed for clarity
  * 
  */
-typedef 	t_vect3		t_point3;
+typedef t_vect3			t_point3;
+
+# ifndef e_geo
+#  define e_geo
+enum	e_geo
+{
+	X,
+	Y,
+	Z,
+};
+
+# endif
+
 union u_vect3
 {
 	double	coords[3];
 	struct
 	{
-		double x;
-		double y;
-		double z;
+		double	x;
+		double	y;
+		double	z;
 	};
 };
 
@@ -146,9 +155,9 @@ t_vect3	vect3_negate(t_vect3 v);
  * @return t_vect3 ...,
  */
 
+/*
 double			opt_div(double x, double y);
 bool			no_fractionnal_part(double x, double y);
 unsigned int	power_of_two(int y);
-
-
+*/
 #endif

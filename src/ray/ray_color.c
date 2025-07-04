@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:20:16 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/07/04 09:58:01 by secros           ###   ########.fr       */
+/*   Updated: 2025/07/04 11:41:47 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "vect3.h"
 #include "ray.h"
 #define SHININESS 50
-#define BIAS 1e-4
 #define DBL_MAX 1.79769e+308
 
 t_vect3	background_shade(void)
@@ -24,15 +23,6 @@ t_vect3	background_shade(void)
 	c.g = 193,
 	c.b = 221;
 	return (color_to_vec(c));
-}
-
-t_vect3	sphere_shade(t_ray ray, t_object sphere, double t)
-{
-	t_vect3	normal;
-
-	normal = vect3_unit(vect3_sub(ray_at(ray, t), sphere.pos));
-	return (vect3_const_div((t_vect3){{normal.coords[X] +1, normal.coords[Y] +1, \
-	normal.coords[Z] +1}}, 2));
 }
 
 bool	in_shadow(t_context *scene, t_ray ray, double max_dist)
@@ -47,7 +37,7 @@ bool	in_shadow(t_context *scene, t_ray ray, double max_dist)
 		if (curr->type == SPHERE)
 		{
 			t = hit_sphere((t_sphere *) curr, ray);
-			if (t > BIAS && t < max_dist)
+			if (t > T_MIN && t < max_dist)
 				return (true);
 		}
 		objs = objs->next;
@@ -60,9 +50,6 @@ t_vect3	get_light_dir(t_point3 light_point, t_point3 ray_point)
 	return (vect3_unit(vect3_sub(light_point, ray_point)));
 }
 
-#define DIFF 0
-#define SPEC 1
-
 t_vect3	lighting(t_context *scene, t_point3 p, t_vect3 n, t_color obj_color)
 {
 	const t_vect3	v_obj_color = color_to_vec(obj_color);
@@ -70,7 +57,7 @@ t_vect3	lighting(t_context *scene, t_point3 p, t_vect3 n, t_color obj_color)
 	const t_vect3	ambient = vect3_mult(vect3_const_mult(v_amb_light, scene->ambient_lightning.ratio), v_obj_color);
 	t_vect3	light_dir = vect3_unit(vect3_sub(scene->light.light_point, p));
 	double	light_dist = vect3_norm(light_dir.coords);
-	const t_ray		shadow_ray = (t_ray){vect3_add(p, vect3_const_mult(n, BIAS)), light_dir};
+	const t_ray		shadow_ray = (t_ray){vect3_add(p, vect3_const_mult(n, T_MIN)), light_dir};
 	const t_vect3	light_color = color_to_vec(scene->light.color);
 	t_vect3			v_reflections[2];
 	double			reflections[2];
@@ -104,7 +91,7 @@ void	find_closest_sp(const t_list *o, t_ray r, t_object **c_obj, double *c_t)
 			t = hit_plane((t_plane *)curr, r);
 		else
 			t = hit_cylinder((t_cylinder *)curr, r);
-		if (t > BIAS && t < *c_t)
+		if (t > T_MIN && t < *c_t)
 		{
 			*c_t = t;
 			*c_obj = curr;
@@ -120,15 +107,6 @@ t_vect3	cylinder_normal(t_cylinder *cy, t_vect3 p)
 	const t_vect3	q = vect3_add(cy->pos, vect3_const_mult(cy->orientation, t));
 	
 	return (vect3_unit(vect3_sub(p, q)));
-}
-
-t_color normal_to_color(t_vect3 n)
-{
-    return (t_color){
-        .r = (unsigned char)((n.x * 0.5 + 0.5) * 255),
-        .g = (unsigned char)((n.y * 0.5 + 0.5) * 255),
-        .b = (unsigned char)((n.z * 0.5 + 0.5) * 255),
-    };
 }
 
 t_color	ray_color(t_ray ray, t_context *scene)

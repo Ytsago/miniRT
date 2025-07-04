@@ -6,15 +6,15 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:39:38 by secros            #+#    #+#             */
-/*   Updated: 2025/07/01 17:50:07 by secros           ###   ########.fr       */
+/*   Updated: 2025/07/04 11:17:05 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-# ifndef MIN_BZERO_SIZE
-#  define MIN_BZERO_SIZE 16
-# endif
+#ifndef MIN_BZERO_SIZE
+# define MIN_BZERO_SIZE 16
+#endif
 
 void	ft_bzero(void *s, size_t n)
 {
@@ -69,4 +69,3 @@ void	ft_fbzero(void *s, size_t n)
 		n--;
 	}
 }
-

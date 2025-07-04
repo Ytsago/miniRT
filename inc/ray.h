@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 15:26:15 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/07/03 11:30:11 by secros           ###   ########.fr       */
+/*   Updated: 2025/07/04 13:44:13 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,24 @@
 # include "miniRT.h"
 # include "vect3.h"
 # include <stdbool.h>
+
+# define T_MIN		1e-4
+# define EPSILON	1e-6
+
+# define DIFF		0
+# define SPEC		1
+
+# define N 0
+# define M 1
+# define T1 0
+# define T2 1
+
+enum e_math
+{
+	A,
+	B,
+	C,
+};
 
 typedef struct s_ray
 {
