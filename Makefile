@@ -42,6 +42,7 @@ PARSDIR 	= $(SRCDIR)parsing/
 UTILSDIR	= $(SRCDIR)utils/
 ERRDIR 		= $(SRCDIR)errors/
 RAYDIR		= $(SRCDIR)ray/
+SPECDIR		= $(SRCDIR)spectator_mode/
 MLXDIR		= $(SRCDIR)mlx/
 IMGDIR		= $(SRCDIR)image/
 
@@ -54,6 +55,8 @@ MLX		=	mlx.c
 IMAGE	=	get_camera.c
 
 RAY		=	ray_create.c ray_at.c ray_color.c hit_sphere.c
+
+SPEC	=	move_camera.c
 
 PARSING =	parse_arguments.c	parse_parameters.c	\
 			parse_ambient_lightning.c	parse_camera.c	parse_light.c	\
@@ -71,6 +74,7 @@ SRCS =	$(addprefix $(SRCDIR), $(MAIN))\
 		$(addprefix $(ERRDIR), $(ERRORS))\
 		$(addprefix $(UTILSDIR), $(UTILS))\
 		$(addprefix $(MLXDIR), $(MLX))\
+		$(addprefix $(SPECDIR), $(SPEC))\
 		$(addprefix $(IMGDIR), $(IMAGE))\
 		$(addprefix $(RAYDIR), $(RAY))
 

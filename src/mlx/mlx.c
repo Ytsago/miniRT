@@ -13,6 +13,34 @@
 #include "miniRT.h"
 #include "mlx_int.h"
 #include "mlx_struct.h"
+# define ESC 65307
+# define KEY_W 119
+# define KEY_A 97
+# define KEY_S 115
+# define KEY_D 100
+# define KEY_T 116
+
+int	handle_key(int keycode, void *params)
+
+{
+	t_mlx		*screen;
+	t_context	*scene;
+	
+	screen = ((t_context *)params)->screen_ptr;
+	scene = params;
+	if (keycode == ESC)
+		destroy_display(screen);
+	else if (keycode == KEY_T)
+		scene->spectator_mode = !scene->spectator_mode;
+	else if (keycode == KEY_W || keycode == KEY_A || keycode == KEY_S || keycode == KEY_D)
+	{
+		scene->spectator_mode = true;
+		move_camera(&scene->camera, keycode);
+	}
+	raytracer(scene, screen);
+	mlx_put_image_to_window(screen->mlx_ptr, screen->win_ptr, screen->img->img_ptr, 0, 0);
+	return (0);
+}
 
 int	destroy_display(t_mlx *display)
 {

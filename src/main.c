@@ -27,7 +27,7 @@
 #define V 1
 #define SUCCESS 0
 
-void	raytraycer(t_context *scene, t_mlx *screen)
+void	raytracer(t_context *scene, t_mlx *screen)
 {
 	int				index[2];
 	t_vect3			pixel_center;
@@ -68,11 +68,12 @@ int	main(int argc, const char *argv[])
 	get_camera(&scene.camera, scene.img);
 	screen = get_display(scene.img[1], scene.img[0], "miniRT");
 	screen->img = new_image(screen, scene.img[0], scene.img[1]);
+	scene.screen_ptr = screen;
 	//debug_display_scene_param(&scene);
-	raytraycer(&scene, screen);
+	raytracer(&scene, screen);
 	mlx_put_image_to_window(screen->mlx_ptr, screen->win_ptr, \
 		screen->img->img_ptr, 0, 0);
-	exit(0);
+	mlx_key_hook(screen->win_ptr, handle_key, &scene);
 	mlx_loop(screen->mlx_ptr);
 	ft_lstclear(&scene.objects, free);
 	return (SUCCESS);

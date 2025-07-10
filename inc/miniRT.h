@@ -132,6 +132,8 @@ typedef struct s_context
 	char				*line;
 	unsigned int		line_number;
 	bool				element_has_been_declared[3];
+	bool				spectator_mode;
+	t_mlx				*screen_ptr;
 }	t_context;
 
 int			main(int argc, const char *argv[]);
@@ -155,6 +157,7 @@ bool		verify_and_skip_comma(char **line);
 bool		get_unique_value(char **line, double *value);
 bool		get_vect3_value(t_context *scene, char **line, void *element);
 bool		get_color(t_context *scene, char **line, t_color *color);
+void		raytracer(t_context *scene, t_mlx *screen);
 
 void		get_camera(t_camera *params, short img[2]);
 
@@ -162,5 +165,7 @@ t_vect3		color_to_vec(t_color c);
 t_color		vec_to_color(t_vect3 v);
 
 void	ft_bzero_vect3(t_vect3 *self);
+
+void	move_camera(t_camera *camera, int keycode);
 
 #endif

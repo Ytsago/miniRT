@@ -49,5 +49,6 @@ typedef union u_color
 t_mlx	*get_display(int height, int width, char *title);
 t_pict	*new_image(t_mlx *display, int width, int height);
 int		destroy_display(t_mlx *display);
+int		handle_key(int keycode, void *params);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_color.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:20:16 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/07/04 11:41:47 by secros           ###   ########.fr       */
+/*   Updated: 2025/07/09 20:20:04 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,8 @@ t_color	ray_color(t_ray ray, t_context *scene)
 	find_closest_sp(objs, ray, &closest_obj, &closest_t);
 	if (closest_obj)
 	{
+		if (scene->spectator_mode)
+			return (closest_obj->color);
 		p = ray_at(ray, closest_t);
 		if (closest_obj->type == SPHERE)
 			normal = vect3_unit(vect3_sub(p, closest_obj->pos));
