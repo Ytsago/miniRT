@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   move_camera.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yabokhar <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/18 10:08:22 by yabokhar          #+#    #+#             */
+/*   Updated: 2025/07/18 10:09:41 by yabokhar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "miniRT.h"
 # define KEY_W 119
 # define KEY_A 97
@@ -9,7 +21,7 @@ void	move_camera(t_camera *camera, int keycode)
 
 {
 	const double	step = 0.5;
-	t_vect3			up;
+	t_vect3			up = {{0, 0, 0}};
 	t_vect3			right;
 	
 	right = vect3_cross(camera->orientation_vector, up);
