@@ -6,7 +6,7 @@
 /*   By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:20:16 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/07/09 20:20:04 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/08/05 15:37:29 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,16 @@ bool	in_shadow(t_context *scene, t_ray ray, double max_dist)
 		{
 			t = hit_sphere((t_sphere *) curr, ray);
 			if (t > T_MIN && t < max_dist)
+				return (true);
+		}
+		if (curr->type == CYLINDER) {
+			t = hit_cylinder((t_cylinder *) curr, ray);
+			if (t > -1 && t < max_dist)
+				return (true);
+		}
+		if (curr->type == PLANE) {
+			t = hit_plane((t_plane *) curr, ray);
+			if (t > -1 && t < max_dist)
 				return (true);
 		}
 		objs = objs->next;

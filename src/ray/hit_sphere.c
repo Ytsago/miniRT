@@ -6,12 +6,11 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:16:05 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/07/04 13:47:32 by secros           ###   ########.fr       */
+/*   Updated: 2025/08/05 15:32:10 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ray.h"
-#include "vect3.h"
 
 double	hit_plane(t_plane *plane, t_ray ray)
 {

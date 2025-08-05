@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:43:52 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/07/04 11:34:35 by secros           ###   ########.fr       */
+/*   Updated: 2025/08/04 13:39:07 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ t_vect3	get_focal(int fov, double size, t_vect3 orientation)
 }
 
 void	get_camera(t_camera	*params, short img[2])
-
 {
 	t_viewport		*screen;
 
