@@ -6,17 +6,19 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 16:07:04 by secros            #+#    #+#             */
-/*   Updated: 2025/06/18 19:15:01 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/08/06 11:31:54 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MLX_STRUCT_H
 #define MLX_STRUCT_H
 
+# include <stdbool.h>
 # include "mlx.h"
 
 typedef struct s_mlx		t_mlx;
 typedef struct s_pict		t_pict;
+typedef struct s_context	t_context;
 
 struct s_pict
 {
@@ -31,7 +33,7 @@ struct s_mlx
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
-	t_pict	*img;
+	t_pict	img;
 };
 
 typedef union u_color
@@ -46,9 +48,9 @@ typedef union u_color
 	};
 } t_color;
 
-t_mlx	*get_display(int height, int width, char *title);
-t_pict	*new_image(t_mlx *display, int width, int height);
-int		destroy_display(t_mlx *display);
+bool	get_display(int height, int width, char *title, t_context *scene);
+bool	new_image(t_mlx *display, int width, int height);
+int		destroy_display(t_context *display);
 int		handle_key(int keycode, void *params);
 
 #endif

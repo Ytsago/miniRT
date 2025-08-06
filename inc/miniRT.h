@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:54:55 by secros            #+#    #+#             */
-/*   Updated: 2025/08/05 17:23:35 by secros           ###   ########.fr       */
+/*   Updated: 2025/08/06 09:16:56 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ typedef struct s_context
 	unsigned int		line_number;
 	bool				element_has_been_declared[3];
 	bool				spectator_mode;
-	t_mlx				*screen_ptr;
+	t_mlx				screen_ptr;
 }	t_context;
 
 int			main(int argc, const char *argv[]);

@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 14:38:13 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/05 15:51:19 by secros           ###   ########.fr       */
+/*   Updated: 2025/08/06 11:35:27 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 #include "debug.h"
 #include "ray.h"
 
-#define WIDTH 1920
-#define HEIGHT 1080
+#define WIDTH 720
+#define HEIGHT 480
 #define W 0
 #define H 1
 #define U 0
@@ -36,7 +36,7 @@ void	raytracer(t_context *scene, t_mlx *screen)
 	unsigned int	*pixel_ptr;
 
 	ft_bzero(index, 8);
-	pixel_ptr = (unsigned int *)screen->img->addr;
+	pixel_ptr = (unsigned int *)screen->img.addr;
 	view = &scene->camera.viewport;
 	while (index[Y] < scene->img[H])
 	{
@@ -58,7 +58,6 @@ void	raytracer(t_context *scene, t_mlx *screen)
 int	main(int argc, const char *argv[])
 {
 	t_context		scene;
-	t_mlx			*screen;
 
 	ft_bzero(&scene, sizeof(t_context));
 	parse_arguments(argc, argv, &scene);
@@ -66,15 +65,16 @@ int	main(int argc, const char *argv[])
 	scene.img[W] = WIDTH;
 	scene.img[H] = HEIGHT;
 	get_camera(&scene.camera, scene.img);
-	screen = get_display(scene.img[1], scene.img[0], "miniRT");
-	screen->img = new_image(screen, scene.img[0], scene.img[1]);
-	scene.screen_ptr = screen;
-	//debug_display_scene_param(&scene);
-	raytracer(&scene, screen);
-	mlx_put_image_to_window(screen->mlx_ptr, screen->win_ptr, \
-		screen->img->img_ptr, 0, 0);
-	mlx_key_hook(screen->win_ptr, handle_key, &scene);
-	mlx_loop(screen->mlx_ptr);
-	ft_lstclear(&scene.objects, free);
-	return (SUCCESS);
+	if (!get_display(scene.img[1], scene.img[0], "miniRT", &scene)
+		|| !new_image(&scene.screen_ptr, scene.img[W], scene.img[H]))
+	{
+		ft_lstclear(&scene.objects, free);
+		return (1);
+	}
+	raytracer(&scene, &scene.screen_ptr);
+	mlx_put_image_to_window(scene.screen_ptr.mlx_ptr, scene.screen_ptr.win_ptr, \
+		scene.screen_ptr.img.img_ptr, 0, 0);
+	mlx_key_hook(scene.screen_ptr.win_ptr, handle_key, &scene);
+	mlx_loop(scene.screen_ptr.mlx_ptr);
+	return (0);
 }
