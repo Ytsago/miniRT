@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:08:53 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/06 11:36:04 by secros           ###   ########.fr       */
+/*   Updated: 2025/08/06 16:39:44 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	handle_key(int keycode, void *params)
 		scene->spectator_mode = true;
 		move_camera(&scene->camera, keycode);
 	}
+	get_viewport_upper_left(&scene->camera.viewport, &scene->camera);
+	get_pixel_zero(&scene->camera.viewport);
 	raytracer(scene, screen);
 	mlx_put_image_to_window(screen->mlx_ptr, screen->win_ptr, screen->img.img_ptr, 0, 0);
 	return (0);

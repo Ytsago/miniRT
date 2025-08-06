@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:54:55 by secros            #+#    #+#             */
-/*   Updated: 2025/08/06 09:16:56 by secros           ###   ########.fr       */
+/*   Updated: 2025/08/06 16:38:02 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,5 +168,7 @@ t_color		vec_to_color(t_vect3 v);
 void	ft_bzero_vect3(t_vect3 *self);
 
 void	move_camera(t_camera *camera, int keycode);
+void	get_pixel_zero(t_viewport *params);
+void	get_viewport_upper_left(t_viewport *params, t_camera *cam);
 
 #endif
