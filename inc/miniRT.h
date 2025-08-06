@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:54:55 by secros            #+#    #+#             */
-/*   Updated: 2025/07/04 13:44:07 by secros           ###   ########.fr       */
+/*   Updated: 2025/08/05 17:23:35 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,9 @@ enum e_obj
 	PLANE,
 };
 
-# ifndef e_geo
-#  define e_geo
+# ifndef E_GEO
+#  define E_GEO
+
 enum e_geo
 {
 	X,

@@ -6,7 +6,7 @@
 /*   By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:20:16 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/05 15:37:29 by secros           ###   ########.fr       */
+/*   Updated: 2025/08/05 17:08:38 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@ bool	in_shadow(t_context *scene, t_ray ray, double max_dist)
 			if (t > -1 && t < max_dist)
 				return (true);
 		}
-		if (curr->type == PLANE) {
-			t = hit_plane((t_plane *) curr, ray);
-			if (t > -1 && t < max_dist)
-				return (true);
-		}
+		// if (curr->type == PLANE) {
+			// t = hit_plane((t_plane *) curr, ray);
+			// if (t > -1 && t < max_dist)
+				// return (true);
+		// }
 		objs = objs->next;
 	}
 	return (false);
