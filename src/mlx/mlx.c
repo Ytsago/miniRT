@@ -36,6 +36,7 @@ int	handle_key(int keycode, void *params)
 	{
 		scene->spectator_mode = true;
 		move_camera(&scene->camera, keycode);
+		get_camera(&scene->camera, scene->img);
 	}
 	raytracer(scene, screen);
 	mlx_put_image_to_window(screen->mlx_ptr, screen->win_ptr, screen->img.img_ptr, 0, 0);
