@@ -41,7 +41,7 @@ void	raytracer(t_context *scene, t_mlx *screen)
 	while (index[Y] < scene->img[H])
 	{
 		index[X] = 0;
-		while (index[X] < scene->img[X])
+		while (index[X] < scene->img[W])
 		{
 			pixel_center = vect3_add(view->pixel_zero, \
 				vect3_add(vect3_const_mult(view->pixel_deltas[U], index[X]), \
