@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:54:55 by secros            #+#    #+#             */
-/*   Updated: 2025/08/06 09:16:56 by secros           ###   ########.fr       */
+/*   Updated: 2025/08/20 21:26:15 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "vect3.h"
 # include "mlx_struct.h"
 # include "libft.h"
+# define THREAD_NUMBER 20
 
 typedef struct s_object		t_object;
 typedef struct s_viewport	t_viewport;
@@ -121,8 +122,17 @@ typedef struct s_light
 	t_color		color;
 }	t_light;
 
+typedef struct s_threads
+{
+	t_context			*scene;
+	short				index;
+	pthread_t			thread;
+	short				screen_parts[2];
+} t_threads;
+
 typedef struct s_context
 {
+	t_threads			threads[THREAD_NUMBER];
 	short				img[2];
 	t_ambient_lightning	ambient_lightning;
 	t_camera			camera;

@@ -6,7 +6,7 @@
 /*   By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:20:16 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/05 17:08:38 by secros           ###   ########.fr       */
+/*   Updated: 2025/08/20 20:26:26 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,8 +132,8 @@ t_color	ray_color(t_ray ray, t_context *scene)
 	find_closest_sp(objs, ray, &closest_obj, &closest_t);
 	if (closest_obj)
 	{
-		if (scene->spectator_mode)
-			return (closest_obj->color);
+		/*if (scene->spectator_mode)
+			return (closest_obj->color);*/
 		p = ray_at(ray, closest_t);
 		if (closest_obj->type == SPHERE)
 			normal = vect3_unit(vect3_sub(p, closest_obj->pos));
