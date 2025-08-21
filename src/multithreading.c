@@ -23,6 +23,7 @@ void	get_(long *online_processors)
 sysconf(_SC_NPROCESSORS_ONLN) returned %d.\n", (int)*online_processors);
 		*online_processors = 1;
 	}
+	print(1, "miniRT: %d threads available\n", *online_processors);
 }
 
 bool	attribute_threads(t_context *scene)

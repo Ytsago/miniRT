@@ -120,21 +120,27 @@ void *multithreaded_raytracer(void *argument)
 
 void	raytracer(t_context *scene, t_mlx *screen)
 {
-	short			index[2];
+	const long		online_processors = scene->online_processors;
+	
+	(void)screen;
+	for (short i = 0; i < online_processors; i++)
+	{
+		if (pthread_create(&scene->threads[i].thread, NULL, multithreaded_raytracer, &scene->threads[i]))
+			return ;
+	}
+	for (short i = 0; i < online_processors; i++)
+		pthread_join(scene->threads[i].thread, NULL);
+	/*short			index[2];
 	t_vect3			pixel_center;
 	t_vect3			ray_dir;
 	t_viewport		*view;
 	unsigned int	*pixel_ptr;
-	const long		online_processors = scene->online_processors;
 
+	const long		online_processors = scene->online_processors;
 	ft_bzero(index, 4);
 	view = &scene->camera.viewport;
 	pixel_ptr = (unsigned int *)screen->img.addr;
-	for (short i = 0; i < online_processors; i++)
-		pthread_create(&scene->threads[i].thread, NULL, multithreaded_raytracer, &scene->threads[i]);
-	for (short i = 0; i < online_processors; i++)
-		pthread_join(scene->threads[i].thread, NULL);
-	/*while (index[Y] < scene->img[H])
+	while (index[Y] < scene->img[H])
 	{
 		index[X] = 0;
 		while (index[X] < scene->img[W])
@@ -149,11 +155,7 @@ void	raytracer(t_context *scene, t_mlx *screen)
 		}
 		++index[Y];
 	}*/
-	(void)pixel_center;
-	(void)ray_dir;
 }
-
-#include <stdio.h>
 
 int	main(int argc, const char *argv[])
 {
