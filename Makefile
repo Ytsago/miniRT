@@ -6,7 +6,7 @@
 #    By: secros <secros@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/07 17:10:22 by yabokhar          #+#    #+#              #
-#    Updated: 2025/08/21 16:18:07 by yabokhar         ###   ########.fr        #
+#    Updated: 2025/08/21 17:32:15 by yabokhar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ OBJDIR = .Obj/
 
 PARSDIR 	= $(SRCDIR)parsing/
 UTILSDIR	= $(SRCDIR)utils/
+LISTSDIR	= $(SRCDIR)linked_lists/
 ERRDIR 		= $(SRCDIR)errors/
 RAYDIR		= $(SRCDIR)ray/
 SPECDIR		= $(SRCDIR)spectator_mode/
@@ -59,9 +60,11 @@ RAY		=	ray_create.c ray_at.c ray_color.c hit_sphere.c
 SPEC	=	move_camera.c
 
 PARSING =	parse_arguments.c	parse_parameters.c	\
-			parse_ambient_lightning.c	parse_camera.c	parse_light.c	\
+			parse_ambient_lightning.c	parse_camera.c	parse_lights.c	\
 			process_characters.c	parse_objects.c	get_values.c	debug.c
 UTILS	=	print.c vect3_convert.c ft_bzero_vect3.c
+
+LISTS	=	add_element.c
 
 THREADS	=	multithreading.c
 
@@ -76,6 +79,7 @@ SRCS =	$(addprefix $(SRCDIR), $(MAIN))\
 		$(addprefix $(SRCDIR), $(THREADS))\
 		$(addprefix $(ERRDIR), $(ERRORS))\
 		$(addprefix $(UTILSDIR), $(UTILS))\
+		$(addprefix $(LISTSDIR), $(LISTS))\
 		$(addprefix $(MLXDIR), $(MLX))\
 		$(addprefix $(SPECDIR), $(SPEC))\
 		$(addprefix $(IMGDIR), $(IMAGE))\

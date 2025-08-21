@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 11:29:39 by secros            #+#    #+#             */
-/*   Updated: 2025/07/04 11:32:20 by secros           ###   ########.fr       */
+/*   Updated: 2025/08/21 17:36:27 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ t_object	*new_sphere(t_context *scene, char **line)
 }
 
 bool	add_object(t_context *scene, t_object *object)
+
 {
 	t_list	*new;
 

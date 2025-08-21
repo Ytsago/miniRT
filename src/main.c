@@ -6,11 +6,12 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 14:38:13 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/21 16:37:31 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/08/21 18:22:23 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
+#include "errors.h" //THIS JUST TO INCLUDE PRINT FAUT QU ON BOUGE
 #include "mlx_struct.h"
 #include "libft.h"
 #include "ft_printf.h"
@@ -151,6 +152,8 @@ void	raytracer(t_context *scene, t_mlx *screen)
 	(void)pixel_center;
 	(void)ray_dir;
 }
+
+#include <stdio.h>
 
 int	main(int argc, const char *argv[])
 {

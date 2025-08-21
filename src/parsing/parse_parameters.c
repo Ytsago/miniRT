@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:29:29 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/07/03 11:48:50 by secros           ###   ########.fr       */
+/*   Updated: 2025/08/21 17:10:24 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,7 @@ static bool	parse_general_elements(char *line, t_context *scene)
 		return (scene->element_has_been_declared[CAMERA]);
 	}
 	else if (*line == 'L')
-	{
-		if (parse_light(line + 1, scene))
-			scene->element_has_been_declared[LIGHT] = true;
-		return (scene->element_has_been_declared[LIGHT]);
-	}
+		return (parse_light(line + 1, scene));
 	return (false);
 }
 

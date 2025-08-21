@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:54:55 by secros            #+#    #+#             */
-/*   Updated: 2025/08/21 16:41:57 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/08/21 17:44:37 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,9 +119,9 @@ typedef struct s_camera
 
 typedef struct s_light
 {
-	t_point3	light_point;
-	double		brightness_ratio;
-	t_color		color;
+	t_point3		light_point;
+	double			brightness_ratio;
+	t_color			color;
 }	t_light;
 
 typedef struct s_threads
@@ -138,14 +138,15 @@ typedef struct s_context
 	short				img[2];
 	t_ambient_lightning	ambient_lightning;
 	t_camera			camera;
-	t_light				light;
+	t_light				lights;
+	t_list				*lights_list;
 	t_list				*objects;
 	long				online_processors;
 	int					fd;
 	char				*file_name;
 	char				*line;
 	unsigned int		line_number;
-	bool				element_has_been_declared[3];
+	bool				element_has_been_declared[2];
 	bool				spectator_mode;
 	t_mlx				screen_ptr;
 }	t_context;
@@ -163,6 +164,7 @@ t_object	*new_object(t_context *scene, char **line, enum e_obj type);
 t_object	*new_cylinder(t_context *scene, char **line);
 t_object	*new_plane(t_context *scene, char **line);
 t_object	*new_sphere(t_context *scene, char **line);
+bool		add_element(t_context *scene, void *type);
 
 void		jump_spaces(char **str);
 bool		empty_line(char *line);
