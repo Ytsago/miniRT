@@ -6,13 +6,11 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:43:52 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/04 13:39:07 by secros           ###   ########.fr       */
+/*   Updated: 2025/08/21 16:25:01 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#define W 0
-#define H 1
 #define U 0
 #define V 1
 #include "vect3.h"

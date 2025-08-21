@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:08:53 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/06 11:36:04 by secros           ###   ########.fr       */
+/*   Updated: 2025/08/21 16:39:06 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	destroy_display(t_context *scene)
 {
 	mlx_destroy(&scene->screen_ptr);
 	ft_lstclear(&scene->objects, free);
+	free(scene->threads);
 	exit(1);
 }
 

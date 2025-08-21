@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 14:38:13 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/20 21:26:18 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/08/21 16:37:31 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@
 
 #define WIDTH 720
 #define HEIGHT 480
-#define W 0
-#define H 1
 #define U 0
 #define V 1
 #define SUCCESS 0
@@ -126,13 +124,14 @@ void	raytracer(t_context *scene, t_mlx *screen)
 	t_vect3			ray_dir;
 	t_viewport		*view;
 	unsigned int	*pixel_ptr;
+	const long		online_processors = scene->online_processors;
 
 	ft_bzero(index, 4);
 	view = &scene->camera.viewport;
 	pixel_ptr = (unsigned int *)screen->img.addr;
-	for (short i = 0; i < THREAD_NUMBER; i++)
+	for (short i = 0; i < online_processors; i++)
 		pthread_create(&scene->threads[i].thread, NULL, multithreaded_raytracer, &scene->threads[i]);
-	for (short i = 0; i < THREAD_NUMBER; i++)
+	for (short i = 0; i < online_processors; i++)
 		pthread_join(scene->threads[i].thread, NULL);
 	/*while (index[Y] < scene->img[H])
 	{
@@ -153,44 +152,26 @@ void	raytracer(t_context *scene, t_mlx *screen)
 	(void)ray_dir;
 }
 
-void attribute_threads(t_context *scene)
-
-{
-	t_threads	*threads;
-	const short	base_height = scene->img[H] / THREAD_NUMBER;
-	const short	remainder = scene->img[H] % THREAD_NUMBER;
-	short		i;
-
-	threads = scene->threads;
-	i = 0;
-	while (i < THREAD_NUMBER)
-	{
-		threads[i].index = i;
-		threads[i].scene = scene;
-		threads[i].screen_parts[H] = base_height + (i < remainder);
-		threads[i].screen_parts[W] = scene->img[W];
-		i++;
-	}
-}
-
-#include <stdio.h>
-
 int	main(int argc, const char *argv[])
 {
 	t_context		scene;
 
-	printf("THREAD_NUMBER = %d\n", THREAD_NUMBER);
 	ft_bzero(&scene, sizeof(t_context));
 	parse_arguments(argc, argv, &scene);
 	parse_and_load_parameters(&scene);
 	scene.img[W] = WIDTH;
 	scene.img[H] = HEIGHT;
-	attribute_threads(&scene);
+	if (!attribute_threads(&scene))
+	{
+		ft_lstclear(&scene.objects, free);
+		return (1);
+	}
 	get_camera(&scene.camera, scene.img);
 	if (!get_display(scene.img[1], scene.img[0], "miniRT", &scene)
 		|| !new_image(&scene.screen_ptr, scene.img[W], scene.img[H]))
 	{
 		ft_lstclear(&scene.objects, free);
+		free(scene.threads);
 		return (1);
 	}
 	raytracer(&scene, &scene.screen_ptr);

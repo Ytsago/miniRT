@@ -6,18 +6,20 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:54:55 by secros            #+#    #+#             */
-/*   Updated: 2025/08/20 21:26:15 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/08/21 16:41:57 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
+# define W 0
+# define H 1
+
 # include <stdbool.h>
 # include "vect3.h"
 # include "mlx_struct.h"
 # include "libft.h"
-# define THREAD_NUMBER 20
 
 typedef struct s_object		t_object;
 typedef struct s_viewport	t_viewport;
@@ -124,20 +126,21 @@ typedef struct s_light
 
 typedef struct s_threads
 {
-	t_context			*scene;
-	short				index;
-	pthread_t			thread;
 	short				screen_parts[2];
+	pthread_t			thread;
+	short				index;
+	t_context			*scene;
 } t_threads;
 
 typedef struct s_context
 {
-	t_threads			threads[THREAD_NUMBER];
+	t_threads			*threads;
 	short				img[2];
 	t_ambient_lightning	ambient_lightning;
 	t_camera			camera;
 	t_light				light;
 	t_list				*objects;
+	long				online_processors;
 	int					fd;
 	char				*file_name;
 	char				*line;
@@ -178,5 +181,7 @@ t_color		vec_to_color(t_vect3 v);
 void	ft_bzero_vect3(t_vect3 *self);
 
 void	move_camera(t_camera *camera, int keycode);
+
+bool	attribute_threads(t_context *scene);
 
 #endif

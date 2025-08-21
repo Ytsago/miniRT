@@ -6,7 +6,7 @@
 #    By: secros <secros@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/07 17:10:22 by yabokhar          #+#    #+#              #
-#    Updated: 2025/07/04 11:10:14 by secros           ###   ########.fr        #
+#    Updated: 2025/08/21 16:18:07 by yabokhar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,6 +63,8 @@ PARSING =	parse_arguments.c	parse_parameters.c	\
 			process_characters.c	parse_objects.c	get_values.c	debug.c
 UTILS	=	print.c vect3_convert.c ft_bzero_vect3.c
 
+THREADS	=	multithreading.c
+
 ERRORS 	=	parsing_error_reporting.c parsing_error_reporting_bis.c
 
 INC		=	miniRT.h
@@ -71,6 +73,7 @@ INC		=	miniRT.h
 
 SRCS =	$(addprefix $(SRCDIR), $(MAIN))\
 		$(addprefix $(PARSDIR), $(PARSING))\
+		$(addprefix $(SRCDIR), $(THREADS))\
 		$(addprefix $(ERRDIR), $(ERRORS))\
 		$(addprefix $(UTILSDIR), $(UTILS))\
 		$(addprefix $(MLXDIR), $(MLX))\
