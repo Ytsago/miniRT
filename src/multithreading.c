@@ -6,7 +6,7 @@
 /*   By: yabokhar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 16:01:35 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/21 16:49:47 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/08/21 17:06:03 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@ void	get_(long *online_processors)
 {
 	*online_processors = sysconf(_SC_NPROCESSORS_ONLN);
 	if (*online_processors < 1)
+	{
 		print(2, "Warning:\nminiRT: shall create an unique thread as \
-sysconf(_SC_NPROCESSORS_ONLN) returned 0.\n");
-	*online_processors = 1;
+sysconf(_SC_NPROCESSORS_ONLN) returned %d.\n", (int)*online_processors);
+		*online_processors = 1;
+	}
 }
 
 bool	attribute_threads(t_context *scene)
