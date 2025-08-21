@@ -88,18 +88,22 @@ void	find_closest_sp(const t_list *o, t_ray r, t_object **c_obj, double *c_t)
 {
 	t_object	*curr;
 	double		t;
+	double		t2;
 
 	while (o)
 	{
 		curr = (t_object *)o->content;
-		if (curr->type == SPHERE)
-		{
-			t = hit_sphere((t_sphere *)curr, r);
-		}
-		else if (curr->type == PLANE)
+		if (curr->type == PLANE)
 			t = hit_plane((t_plane *)curr, r);
-		else
+		else if (curr->type == SPHERE)
+			t = hit_sphere((t_sphere *)curr, r);
+		else if (curr->type == CYLINDER)
+		{
 			t = hit_cylinder((t_cylinder *)curr, r);
+			t2 = hit_cylinder_caps((t_cylinder *)curr, r);
+			if (t < 0 || (t2 > T_MIN && t2 < t))
+				t = t2;
+		}
 		if (t > T_MIN && t < *c_t)
 		{
 			*c_t = t;

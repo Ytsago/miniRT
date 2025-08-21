@@ -12,6 +12,37 @@
 
 #include "ray.h"
 
+static double	hit_disk(t_ray r, t_point3 c, t_vect3 n, double rad)
+{
+	double	denom;
+	double	t;
+	t_vect3	p;
+
+	denom = vect3_scalar(n, r.direction);
+	if (denom > -EPSILON && denom < EPSILON)
+		return (-1);
+	t = vect3_scalar(n, vect3_sub(c, r.origin)) / denom;
+	if (t < T_MIN)
+		return (-1);
+	p = ray_at(r, t);
+	if (vect3_norm(vect3_sub(p, c).coords) > rad)
+		return (-1);
+	return (t);
+}
+
+double	hit_cylinder_caps(t_cylinder *cy, t_ray r)
+
+{
+	const t_point3	bot = vect3_sub(cy->pos, vect3_const_mult(cy->orientation, cy->height / 2));
+	const t_point3	top = vect3_add(cy->pos, vect3_const_mult(cy->orientation, cy->height / 2));
+	const double	t1 = hit_disk(r, bot, vect3_negate(cy->orientation), cy->radius);
+	const double	t2 = hit_disk(r, top, cy->orientation, cy->radius);
+
+	if (t1 > 0 && (t2 < 0 || t1 < t2))
+		return (t1);
+	return (t2);
+}
+
 double	hit_plane(t_plane *plane, t_ray ray)
 {
 	const double	sum = vect3_scalar(plane->orientation, \

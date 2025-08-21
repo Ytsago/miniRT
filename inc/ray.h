@@ -41,9 +41,10 @@ typedef struct s_ray
 	t_vect3	direction;
 }	t_ray;
 
-double	hit_sphere(t_sphere *sphere, t_ray ray);
-double	hit_plane(t_plane *plane, t_ray ray);
-double	hit_cylinder(t_cylinder *cyl, t_ray r);
+double	hit_sphere(t_sphere *sp, t_ray ray);
+double	hit_plane(t_plane *pl, t_ray ray);
+double	hit_cylinder(t_cylinder *cy, t_ray r);
+double	hit_cylinder_caps(t_cylinder *cy, t_ray r);
 
 t_color	ray_color(t_ray dir, t_context *objects);
 t_vect3	ray_at(t_ray r, double t);
