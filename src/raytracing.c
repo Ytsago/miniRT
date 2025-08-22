@@ -27,6 +27,8 @@
 
 void			rt(t_context *scene);
 static void		*raytracer(void *argument);
+static void		get_colors(t_context *scene, int16_t *values, \
+const t_viewport *view, unsigned int *img_ptr);
 static int16_t	*get_values(const t_context *scene, const t_threads thread);
 static short	get_start_y(t_context *scene, short thread_index);
 
@@ -37,7 +39,8 @@ void	rt(t_context *scene)
 
 	i = -1;
 	while (++i < online_processors)
-		if (pthread_create(&scene->threads[i].thread, NULL, raytracer, &scene->threads[i]))
+		if (pthread_create(&scene->threads[i].thread, NULL, \
+		raytracer, &scene->threads[i]))
 			print(2, "Warning\nminiRT: failed to create thread #%d\n", i);
 	i = -1;
 	while (++i < online_processors)
@@ -51,40 +54,38 @@ static void	*raytracer(void *argument)
 	const t_context		*scene = thread->scene;
 	const t_viewport	*view = (t_viewport *)&scene->camera.viewport;
 	int16_t				*values;
-	t_vect3				v[2];
-	unsigned int		*img;
 
 	values = get_values(scene, *thread);
 	if (!values)
 		return (NULL);
-	img = (unsigned int *)scene->screen_ptr.img.addr;
-	get_colors(values, view, (unsigned int *)scene->screen_ptr.img.addr);
+	get_colors((t_context *)scene, values, \
+	view, (unsigned int *)scene->screen_ptr.img.addr);
+	free(values);
 	return (NULL);
 }
 
-static void	get_colors(int16_t *values, const t_viewport *view, unsigned int *img_ptr)
+static void	get_colors(t_context *scene, int16_t *values, \
+const t_viewport *view, unsigned int *img_ptr)
 
 {
 	t_vect3	pixel_center;
 	t_vect3	ray_dir;
 
-	while (values[INDEX_Y] < values[END_Y])
+	while (++values[INDEX_Y] < values[END_Y])
 	{
-		values[INDEX_X] = 0;
-		while (values[INDEX_X] < values[IMG_WIDTH])
+		values[INDEX_X] = -1;
+		while (++values[INDEX_X] < values[IMG_WIDTH])
 		{
-			pixel_center = vect3_add(view->pixel_zero, vect3_add(
-					vect3_const_mult(view->pixel_deltas[U], values[INDEX_X]),
-					vect3_const_mult(view->pixel_deltas[V], values[INDEX_Y])
-				));
-			ray_dir = vect3_unit(vect3_sub(v[PIXEL_CENTER], scene->camera.view_point));
-
-			img[values[INDEX_Y] * values[IMG_WIDTH] + values[INDEX_X]] =
-				ray_color((t_ray){scene->camera.view_point, ray_dir}, (t_context *)scene).color;
-
-			values[INDEX_X]++;
+			pixel_center = vect3_add(view->pixel_zero, \
+			vect3_add(vect3_const_mult(view->pixel_deltas[U], \
+			values[INDEX_X]), \
+			vect3_const_mult(view->pixel_deltas[V], values[INDEX_Y])));
+			ray_dir = vect3_unit(vect3_sub(pixel_center, \
+			scene->camera.view_point));
+			img_ptr[values[INDEX_Y] * values[IMG_WIDTH] + values[INDEX_X]] \
+			= ray_color((t_ray){scene->camera.view_point, ray_dir}, \
+			(t_context *)scene).color;
 		}
-		values[INDEX_Y]++;
 	}
 }
 
@@ -100,8 +101,8 @@ static int16_t	*get_values(const t_context *scene, const t_threads thread)
 	values[IMG_HEIGHT] = scene->img[IMG_HEIGHT];
 	values[START_Y] = get_start_y((t_context *)scene, thread.index);
 	values[END_Y] = values[START_Y] + thread.screen_parts[H];
-	values[INDEX_X] = 0;
-	values[INDEX_Y] = values[START_Y];
+	values[INDEX_X] = -1;
+	values[INDEX_Y] = values[START_Y] - 1;
 	return (values);
 }
 
