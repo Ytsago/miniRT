@@ -6,12 +6,15 @@
 /*   By: yabokhar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 16:01:35 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/22 11:31:31 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/08/22 13:01:20 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 #include "errors.h"
+
+#define W 0
+#define H 1
 
 void		attribute_threads(t_context *scene, short img_width);
 static void	get_(long *online_processors);

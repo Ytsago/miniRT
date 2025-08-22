@@ -6,15 +6,18 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:54:55 by secros            #+#    #+#             */
-/*   Updated: 2025/08/22 12:35:27 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/08/22 13:00:32 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
-# define W 0
-# define H 1
+# define WIDTH 720
+# define HEIGHT 480
+
+# define U 0
+# define V 1
 
 # include <stdint.h>
 # include <stdbool.h>
@@ -174,7 +177,7 @@ bool		verify_and_skip_comma(char **line);
 bool		get_unique_value(char **line, double *value);
 bool		get_vect3_value(t_context *scene, char **line, void *element);
 bool		get_color(t_context *scene, char **line, t_color *color);
-void		raytracer(t_context *scene);
+void		rt(t_context *scene);
 
 void		get_camera(t_camera *params, short img[2]);
 

@@ -6,13 +6,16 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:08:53 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/22 12:36:02 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/08/22 13:01:44 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 #include "mlx_int.h"
 #include "mlx_struct.h"
+
+#define W 0
+#define H 1
 #define ESC 65307
 #define KEY_W 119
 #define KEY_A 97
@@ -97,7 +100,7 @@ int	handle_key(int keycode, void *params)
 		move_camera(&scene->camera, keycode);
 		get_camera(&scene->camera, scene->img);
 	}
-	raytracer(scene);
+	rt(scene);
 	mlx_put_image_to_window(screen->mlx_ptr, screen->win_ptr, screen->img.img_ptr, 0, 0);
 	return (0);
 }
