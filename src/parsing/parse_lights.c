@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:38:43 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/21 18:49:16 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/08/22 11:10:11 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,26 @@ static bool	get_brightness_ratio(t_context *scene, char **line, double *ratio);
 bool	parse_light(char *line, t_context *scene)
 
 {
-	t_light	new_light;
+	t_light	*new_light;
 
-	jump_spaces(&line);
-	if (!get_light_point_coords(scene, &line, &new_light.light_point))
+	new_light = malloc(sizeof(t_light));
+	if (!new_light)
 		return (false);
 	jump_spaces(&line);
-	if (!get_brightness_ratio(scene, &line, &new_light.brightness_ratio))
+	if (!get_light_point_coords(scene, &line, &new_light->light_point))
 		return (false);
 	jump_spaces(&line);
-	if (!get_color(scene, &line, &new_light.color))
+	if (!get_brightness_ratio(scene, &line, &new_light->brightness_ratio))
+		return (false);
+	jump_spaces(&line);
+	if (!get_color(scene, &line, &new_light->color))
 		return (false);
 	jump_spaces(&line);
 	if (*line != '\0' && *line != '\n')
 		excessive_params_error(scene, "light", '2');
-	if (!add_element(scene, &new_light))
+	if (!add_element(scene, new_light))
 		return (false);
-	scene->lights = new_light;
+	scene->lights = *new_light;
 	return (true);
 }
 

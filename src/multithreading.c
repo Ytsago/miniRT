@@ -6,7 +6,7 @@
 /*   By: yabokhar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 16:01:35 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/22 10:35:57 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/08/22 11:06:34 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ bool	attribute_threads(t_context *scene)
 	base_height = scene->img[H] / online_processors;
 	remainder = scene->img[H] % online_processors;
 	scene->online_processors = online_processors;
-	scene->threads = malloc(sizeof(t_threads) * online_processors);
+	scene->threads = NULL ; //malloc(sizeof(t_threads) * online_processors);
 	if (!scene->threads)
 		return (false);
 	threads = scene->threads;
