@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:54:55 by secros            #+#    #+#             */
-/*   Updated: 2025/08/22 11:14:09 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/08/22 12:35:27 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,7 @@ bool		verify_and_skip_comma(char **line);
 bool		get_unique_value(char **line, double *value);
 bool		get_vect3_value(t_context *scene, char **line, void *element);
 bool		get_color(t_context *scene, char **line, t_color *color);
-void		raytracer(t_context *scene, t_mlx *screen);
+void		raytracer(t_context *scene);
 
 void		get_camera(t_camera *params, short img[2]);
 
@@ -185,7 +185,7 @@ void	ft_bzero_vect3(t_vect3 *self);
 
 void	move_camera(t_camera *camera, int keycode);
 
-bool	attribute_threads(t_context *scene);
+void	attribute_threads(t_context *scene, short img_width);
 void    print(int fd, const char *format, ...);
 
 #endif

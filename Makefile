@@ -6,7 +6,7 @@
 #    By: secros <secros@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/07 17:10:22 by yabokhar          #+#    #+#              #
-#    Updated: 2025/08/22 10:41:32 by yabokhar         ###   ########.fr        #
+#    Updated: 2025/08/22 12:32:38 by yabokhar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,7 @@ LISTS	=	add_element.c
 THREADS	=	multithreading.c
 
 ERRORS 	=	parsing_error_reporting.c parsing_error_reporting_bis.c \
-			multithreading_error_malloc.c
+			multithreading_error_malloc.c mlx_error_reporting.c
 
 INC		=	miniRT.h
 

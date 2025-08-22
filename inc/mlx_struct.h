@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 16:07:04 by secros            #+#    #+#             */
-/*   Updated: 2025/08/06 11:31:54 by secros           ###   ########.fr       */
+/*   Updated: 2025/08/22 12:29:37 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,10 @@ typedef union u_color
 	};
 } t_color;
 
-bool	get_display(int height, int width, char *title, t_context *scene);
-bool	new_image(t_mlx *display, int width, int height);
-int		destroy_display(t_context *display);
+void	get_display_and_new_image(t_context *scene, short img[2]);
+int		destroy_display(t_context *scene);
+void	mlx_destroy(t_mlx *display);
+void	error_failure_from_mlx_new_image(t_context *scene, t_mlx *display);
 int		handle_key(int keycode, void *params);
 
 #endif

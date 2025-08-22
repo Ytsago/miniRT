@@ -6,12 +6,11 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 14:38:13 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/22 10:45:42 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/08/22 12:35:41 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
-#include "errors.h" //THIS JUST TO INCLUDE PRINT FAUT QU ON BOUGE
 #include "mlx_struct.h"
 #include "libft.h"
 #include "ft_printf.h"
@@ -118,11 +117,10 @@ void *multithreaded_raytracer(void *argument)
 	return (NULL);
 }
 
-void	raytracer(t_context *scene, t_mlx *screen)
+void	raytracer(t_context *scene)
 {
 	const long		online_processors = scene->online_processors;
 	
-	(void)screen;
 	for (short i = 0; i < online_processors; i++)
 	{
 		if (pthread_create(&scene->threads[i].thread, NULL, multithreaded_raytracer, &scene->threads[i]))
@@ -130,31 +128,6 @@ void	raytracer(t_context *scene, t_mlx *screen)
 	}
 	for (short i = 0; i < online_processors; i++)
 		pthread_join(scene->threads[i].thread, NULL);
-	/*short			index[2];
-	t_vect3			pixel_center;
-	t_vect3			ray_dir;
-	t_viewport		*view;
-	unsigned int	*pixel_ptr;
-
-	const long		online_processors = scene->online_processors;
-	ft_bzero(index, 4);
-	view = &scene->camera.viewport;
-	pixel_ptr = (unsigned int *)screen->img.addr;
-	while (index[Y] < scene->img[H])
-	{
-		index[X] = 0;
-		while (index[X] < scene->img[W])
-		{
-			pixel_center = vect3_add(view->pixel_zero, \
-				vect3_add(vect3_const_mult(view->pixel_deltas[U], index[X]), \
-				vect3_const_mult(view->pixel_deltas[V], index[Y])));
-			ray_dir = vect3_unit(vect3_sub(pixel_center, scene->camera.view_point));
-			*pixel_ptr = ray_color((t_ray){scene->camera.view_point, ray_dir}, scene).color;
-			++pixel_ptr;
-			++index[X];
-		}
-		++index[Y];
-	}*/
 }
 
 int	main(int argc, const char *argv[])
@@ -166,17 +139,10 @@ int	main(int argc, const char *argv[])
 	parse_and_load_parameters(&scene);
 	scene.img[W] = WIDTH;
 	scene.img[H] = HEIGHT;
-	if (!attribute_threads(&scene))
-		return (error_malloc_failure_for_threads_array(&scene));
+	attribute_threads(&scene, scene.img[W]);
 	get_camera(&scene.camera, scene.img);
-	if (!get_display(scene.img[1], scene.img[0], "miniRT", &scene)
-		|| !new_image(&scene.screen_ptr, scene.img[W], scene.img[H]))
-	{
-		ft_lstclear(&scene.objects, free);
-		free(scene.threads);
-		return (1);
-	}
-	raytracer(&scene, &scene.screen_ptr);
+	get_display_and_new_image(&scene, scene.img);
+	raytracer(&scene);
 	mlx_put_image_to_window(scene.screen_ptr.mlx_ptr, scene.screen_ptr.win_ptr, \
 		scene.screen_ptr.img.img_ptr, 0, 0);
 	mlx_key_hook(scene.screen_ptr.win_ptr, handle_key, &scene);
