@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 15:26:15 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/07/20 14:10:21 by secros           ###   ########.fr       */
+/*   Updated: 2025/08/22 10:12:20 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ double	hit_sphere(t_sphere *sp, t_ray ray);
 double	hit_plane(t_plane *pl, t_ray ray);
 double	hit_cylinder(t_cylinder *cy, t_ray r);
 double	hit_cylinder_caps(t_cylinder *cy, t_ray r);
+t_vect3    get_cylinder_normal(t_cylinder *cy, t_ray r, double t);
 
 t_color	ray_color(t_ray dir, t_context *objects);
 t_vect3	ray_at(t_ray r, double t);

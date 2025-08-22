@@ -6,7 +6,7 @@
 /*   By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:20:16 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/21 18:51:26 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/08/22 10:22:49 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ t_vect3	lighting(t_context *scene, t_point3 p, t_vect3 n, t_color obj_color)
         v_reflections[DIFF] = vect3_mult(vect3_const_mult(light_color, scene->lights.brightness_ratio * reflections[DIFF]), v_obj_color);
         t_vect3 view_dir = vect3_unit(vect3_sub(scene->camera.view_point, p));
         t_vect3 halfway_dir = vect3_unit(vect3_add(light_dir, view_dir));
-        reflections[SPEC] = pow(fmax(vect3_scalar(n, halfway_dir), 0.0), 42);
+        reflections[SPEC] = pow(fmax(vect3_scalar(n, halfway_dir), 0.0), 12);
         v_reflections[SPEC] = vect3_const_mult(light_color, scene->lights.brightness_ratio * reflections[SPEC]);
 	}
 	return (vect3_add(vect3_add(ambient, v_reflections[DIFF]), v_reflections[SPEC]));
@@ -113,15 +113,6 @@ void	find_closest_sp(const t_list *o, t_ray r, t_object **c_obj, double *c_t)
 	}
 }
 
-t_vect3	cylinder_normal(t_cylinder *cy, t_vect3 p)
-{
-	const t_vect3	w = vect3_sub(p, cy->pos);
-	const double	t = vect3_scalar(w, cy->orientation);
-	const t_vect3	q = vect3_add(cy->pos, vect3_const_mult(cy->orientation, t));
-	
-	return (vect3_unit(vect3_sub(p, q)));
-}
-
 t_color	ray_color(t_ray ray, t_context *scene)
 {
 	t_object		*closest_obj;
@@ -143,7 +134,7 @@ t_color	ray_color(t_ray ray, t_context *scene)
 		else if (closest_obj->type == PLANE)
 			normal = ((t_plane *)closest_obj)->orientation;
 		else if (closest_obj->type == CYLINDER)
-			normal = cylinder_normal((t_cylinder *)closest_obj, p);
+			normal = get_cylinder_normal((t_cylinder *)closest_obj, ray, closest_t);
 		else
 			return ((t_color) {0});
 		if (vect3_scalar(ray.direction, normal) > 0)

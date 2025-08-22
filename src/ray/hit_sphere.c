@@ -6,17 +6,40 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:16:05 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/06 08:43:02 by secros           ###   ########.fr       */
+/*   Updated: 2025/08/22 10:29:41 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ray.h"
+#include "miniRT.h"
+#include "vect3.h"
+
+t_vect3	cylinder_normal(t_cylinder *cy, t_vect3 p)
+{
+	const t_vect3	w = vect3_sub(p, cy->pos);
+	const double	t = vect3_scalar(w, cy->orientation);
+	const t_vect3	q = vect3_add(cy->pos, vect3_const_mult(cy->orientation, t));
+
+	return (vect3_unit(vect3_sub(p, q)));
+}
+
+t_vect3    get_cylinder_normal(t_cylinder *cy, t_ray r, double t)
+{
+    const t_point3	p = ray_at(r, t);
+    const t_point3	top = vect3_add(cy->pos, vect3_const_mult(cy->orientation, cy->height / 2));
+    const t_point3	bot = vect3_sub(cy->pos, vect3_const_mult(cy->orientation, cy->height / 2));
+
+    if (fabs(vect3_scalar(vect3_sub(p, bot), cy->orientation)) < EPSILON)
+        return (vect3_negate(cy->orientation));
+    if (fabs(vect3_scalar(vect3_sub(p, top), cy->orientation)) < EPSILON)
+        return (cy->orientation);
+    return (cylinder_normal(cy, p));
+}
 
 static double	hit_disk(t_ray r, t_point3 c, t_vect3 n, double rad)
 {
 	double	denom;
 	double	t;
-	t_vect3	p;
 
 	denom = vect3_scalar(n, r.direction);
 	if (denom > -EPSILON && denom < EPSILON)
@@ -24,8 +47,7 @@ static double	hit_disk(t_ray r, t_point3 c, t_vect3 n, double rad)
 	t = vect3_scalar(n, vect3_sub(c, r.origin)) / denom;
 	if (t < T_MIN)
 		return (-1);
-	p = ray_at(r, t);
-	if (vect3_norm(vect3_sub(p, c).coords) > rad)
+	if (vect3_norm(vect3_sub(ray_at(r, t), c).coords) > rad)
 		return (-1);
 	return (t);
 }
