@@ -6,7 +6,7 @@
 /*   By: yabokhar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:48:44 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/22 13:33:23 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/08/22 14:44:33 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,26 +55,37 @@ static void	*raytracer(void *argument)
 	unsigned int		*img;
 
 	values = get_values(scene, *thread);
+	if (!values)
+		return (NULL);
 	img = (unsigned int *)scene->screen_ptr.img.addr;
+	get_colors(values, view, (unsigned int *)scene->screen_ptr.img.addr);
+	return (NULL);
+}
+
+static void	get_colors(int16_t *values, const t_viewport *view, unsigned int *img_ptr)
+
+{
+	t_vect3	pixel_center;
+	t_vect3	ray_dir;
+
 	while (values[INDEX_Y] < values[END_Y])
 	{
 		values[INDEX_X] = 0;
 		while (values[INDEX_X] < values[IMG_WIDTH])
 		{
-			v[PIXEL_CENTER] = vect3_add(view->pixel_zero, vect3_add(
+			pixel_center = vect3_add(view->pixel_zero, vect3_add(
 					vect3_const_mult(view->pixel_deltas[U], values[INDEX_X]),
 					vect3_const_mult(view->pixel_deltas[V], values[INDEX_Y])
 				));
-			v[RAY_DIR] = vect3_unit(vect3_sub(v[PIXEL_CENTER], scene->camera.view_point));
+			ray_dir = vect3_unit(vect3_sub(v[PIXEL_CENTER], scene->camera.view_point));
 
 			img[values[INDEX_Y] * values[IMG_WIDTH] + values[INDEX_X]] =
-				ray_color((t_ray){scene->camera.view_point, v[RAY_DIR]}, (t_context *)scene).color;
+				ray_color((t_ray){scene->camera.view_point, ray_dir}, (t_context *)scene).color;
 
 			values[INDEX_X]++;
 		}
 		values[INDEX_Y]++;
 	}
-	return (NULL);
 }
 
 static int16_t	*get_values(const t_context *scene, const t_threads thread)
@@ -83,6 +94,8 @@ static int16_t	*get_values(const t_context *scene, const t_threads thread)
 	int16_t	*values;
 
 	values = malloc(sizeof(int16_t) * 6);
+	if (!values)
+		return (NULL);
 	values[IMG_WIDTH] = scene->img[IMG_WIDTH];
 	values[IMG_HEIGHT] = scene->img[IMG_HEIGHT];
 	values[START_Y] = get_start_y((t_context *)scene, thread.index);
