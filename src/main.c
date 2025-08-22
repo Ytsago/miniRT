@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 14:38:13 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/21 18:22:23 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/08/22 10:40:52 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,10 +167,7 @@ int	main(int argc, const char *argv[])
 	scene.img[W] = WIDTH;
 	scene.img[H] = HEIGHT;
 	if (!attribute_threads(&scene))
-	{
-		ft_lstclear(&scene.objects, free);
-		return (1);
-	}
+		error_malloc_failure_for_threads_array(&scene);
 	get_camera(&scene.camera, scene.img);
 	if (!get_display(scene.img[1], scene.img[0], "miniRT", &scene)
 		|| !new_image(&scene.screen_ptr, scene.img[W], scene.img[H]))

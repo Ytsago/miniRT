@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:54:55 by secros            #+#    #+#             */
-/*   Updated: 2025/08/21 17:44:37 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/08/22 10:44:19 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # define W 0
 # define H 1
 
+# include <stdint.h>
 # include <stdbool.h>
 # include "vect3.h"
 # include "mlx_struct.h"
@@ -185,5 +186,6 @@ void	ft_bzero_vect3(t_vect3 *self);
 void	move_camera(t_camera *camera, int keycode);
 
 bool	attribute_threads(t_context *scene);
+void    print(int fd, const char *format, ...);
 
 #endif

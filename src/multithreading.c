@@ -6,25 +6,15 @@
 /*   By: yabokhar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 16:01:35 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/21 17:06:03 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/08/22 10:35:57 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 #include "errors.h"
 
-void	get_(long *online_processors)
-
-{
-	*online_processors = sysconf(_SC_NPROCESSORS_ONLN);
-	if (*online_processors < 1)
-	{
-		print(2, "Warning:\nminiRT: shall create an unique thread as \
-sysconf(_SC_NPROCESSORS_ONLN) returned %d.\n", (int)*online_processors);
-		*online_processors = 1;
-	}
-	print(1, "miniRT: %d threads available\n", *online_processors);
-}
+bool		attribute_threads(t_context *scene);
+static void	get_(long *online_processors);
 
 bool	attribute_threads(t_context *scene)
 
@@ -53,4 +43,17 @@ bool	attribute_threads(t_context *scene)
 		i++;
 	}
 	return (true);
+}
+
+static void	get_(long *online_processors)
+
+{
+	*online_processors = sysconf(_SC_NPROCESSORS_ONLN);
+	if (*online_processors < 1)
+	{
+		print(2, "Warning:\nminiRT: shall create an unique thread as \
+sysconf(_SC_NPROCESSORS_ONLN) returned %d.\n", (int)*online_processors);
+		*online_processors = 1;
+	}
+	print(1, "miniRT: %d threads available\n", *online_processors);
 }
