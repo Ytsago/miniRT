@@ -6,7 +6,7 @@
 /*   By: yabokhar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 16:06:16 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/23 17:21:44 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/08/23 17:30:05 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 #define R1 30
 #define G1 144
 #define B1 255
-#define R2 248
-#define G2 142
-#define B2 85
+#define R2 255
+#define G2 154
+#define B2 0
 
 t_color	bg_shade(double direction_y)
 
@@ -32,7 +32,7 @@ t_color	bg_shade(double direction_y)
 	float		gradient;
 
 	t = 0.5 * (direction_y + 1.0);
-	gradient = (1 - cosf(t * M_PI)) / 2.0f;
+	gradient = (1 - cosf(t * M_PI)) / 2.5f;
 	pixel_color.r = (R1 + (R2 - R1) * gradient);
 	pixel_color.g = (G1 + (G2 - G1) * gradient);
 	pixel_color.b = (B1 + (B2 - B1) * gradient);
