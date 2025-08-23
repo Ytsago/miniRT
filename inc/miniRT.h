@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:54:55 by secros            #+#    #+#             */
-/*   Updated: 2025/08/23 17:18:52 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/08/23 18:58:47 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,5 +192,7 @@ void	attribute_threads(t_context *scene, short img_width);
 void    print(int fd, const char *format, ...);
 
 t_color	bg_shade(double direction_y);
+
+void	swap_doubles(double *v1, double *v2);
 
 #endif

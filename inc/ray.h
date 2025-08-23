@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 15:26:15 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/22 10:12:20 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/08/23 18:37:19 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,6 @@ t_vect3    get_cylinder_normal(t_cylinder *cy, t_ray r, double t);
 
 t_color	ray_color(t_ray dir, t_context *objects);
 t_vect3	ray_at(t_ray r, double t);
+t_vect3    cylinder_normal(t_cylinder *cy, t_ray r, double t);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:20:16 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/23 17:23:55 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/08/23 18:42:16 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,22 +110,16 @@ t_color	ray_color(t_ray ray, t_context *scene)
 	closest_obj = NULL;
 	closest_t = DBL_MAX;
 	find_closest_sp(objs, ray, &closest_obj, &closest_t);
-	if (closest_obj)
-	{
-		if (scene->brut_mode)
-			return (closest_obj->color);
-		p = ray_at(ray, closest_t);
-		if (closest_obj->type == PLANE)
-			normal = ((t_plane *)closest_obj)->orientation;
-		else if (closest_obj->type == SPHERE)
-			normal = vect3_unit(vect3_sub(p, closest_obj->pos));
-		else if (closest_obj->type == CYLINDER)
-			normal = get_cylinder_normal((t_cylinder *)closest_obj, ray, closest_t);
-		else
-			return ((t_color) {0});
-		if (vect3_scalar(ray.direction, normal) > 0)
-			normal = vect3_negate(normal);
-		return (vec_to_color(lighting(scene, p, normal, closest_obj->color)));
-	}
-	return (bg_shade(ray.direction.coords[Y]));
+	if (!closest_obj)
+		return (bg_shade(ray.direction.coords[Y]));
+	if (scene->brut_mode)
+		return (closest_obj->color);
+	p = ray_at(ray, closest_t);
+	if (closest_obj->type == PLANE)
+		normal = ((t_plane *)closest_obj)->orientation;
+	else if (closest_obj->type == SPHERE)
+		normal = vect3_unit(vect3_sub(p, closest_obj->pos));
+	else
+		normal = cylinder_normal((t_cylinder *)closest_obj, ray, closest_t);
+	return (vec_to_color(lighting(scene, p, normal, closest_obj->color)));
 }
