@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:54:55 by secros            #+#    #+#             */
-/*   Updated: 2025/08/22 13:00:32 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/08/23 17:18:52 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ typedef struct s_context
 	char				*line;
 	unsigned int		line_number;
 	bool				element_has_been_declared[2];
-	bool				spectator_mode;
+	bool				brut_mode;
 	t_mlx				screen_ptr;
 }	t_context;
 
@@ -190,5 +190,7 @@ void	move_camera(t_camera *camera, int keycode);
 
 void	attribute_threads(t_context *scene, short img_width);
 void    print(int fd, const char *format, ...);
+
+t_color	bg_shade(double direction_y);
 
 #endif

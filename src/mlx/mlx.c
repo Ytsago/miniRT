@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:08:53 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/22 13:01:44 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/08/23 15:52:16 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,15 +92,16 @@ int	handle_key(int keycode, void *params)
 	screen = &scene->screen_ptr;
 	if (keycode == ESC)
 		destroy_display(scene);
-	else if (keycode == KEY_T)
-		scene->spectator_mode = !scene->spectator_mode;
-	else if (keycode == KEY_W || keycode == KEY_A || keycode == KEY_S || keycode == KEY_D)
+	if (keycode == KEY_T)
+		scene->brut_mode = !scene->brut_mode;
+	if (keycode == KEY_W || keycode == KEY_A || \
+		keycode == KEY_S || keycode == KEY_D)
 	{
-		scene->spectator_mode = true;
 		move_camera(&scene->camera, keycode);
 		get_camera(&scene->camera, scene->img);
 	}
 	rt(scene);
-	mlx_put_image_to_window(screen->mlx_ptr, screen->win_ptr, screen->img.img_ptr, 0, 0);
+	mlx_put_image_to_window(screen->mlx_ptr, screen->win_ptr, \
+	screen->img.img_ptr, 0, 0);
 	return (0);
 }

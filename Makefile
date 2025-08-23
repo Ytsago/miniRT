@@ -6,7 +6,7 @@
 #    By: secros <secros@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/07 17:10:22 by yabokhar          #+#    #+#              #
-#    Updated: 2025/08/22 12:51:16 by yabokhar         ###   ########.fr        #
+#    Updated: 2025/08/23 16:34:05 by yabokhar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,7 @@ IMAGE	=	get_camera.c
 
 RT		=	raytracing.c
 
-RAY		=	ray_create.c ray_at.c ray_color.c hit_sphere.c
+RAY		=	background_shade.c ray_create.c ray_at.c ray_color.c hit_sphere.c
 
 SPEC	=	move_camera.c
 

@@ -6,7 +6,7 @@
 /*   By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:20:16 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/22 10:22:49 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/08/23 17:23:55 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,6 @@
 #include "vect3.h"
 #include "ray.h"
 #define DBL_MAX 1.79769e+308
-
-t_vect3	background_shade(void)
-{
-	t_color c;
-	c.r = 199;
-	c.g = 193,
-	c.b = 221;
-	return (color_to_vec(c));
-}
 
 bool	in_shadow(t_context *scene, t_ray ray, double max_dist)
 {
@@ -44,11 +35,6 @@ bool	in_shadow(t_context *scene, t_ray ray, double max_dist)
 			if (t > -1 && t < max_dist)
 				return (true);
 		}
-		// if (curr->type == PLANE) {
-			// t = hit_plane((t_plane *) curr, ray);
-			// if (t > -1 && t < max_dist)
-				// return (true);
-		// }
 		objs = objs->next;
 	}
 	return (false);
@@ -126,13 +112,13 @@ t_color	ray_color(t_ray ray, t_context *scene)
 	find_closest_sp(objs, ray, &closest_obj, &closest_t);
 	if (closest_obj)
 	{
-		/*if (scene->spectator_mode)
-			return (closest_obj->color);*/
+		if (scene->brut_mode)
+			return (closest_obj->color);
 		p = ray_at(ray, closest_t);
-		if (closest_obj->type == SPHERE)
-			normal = vect3_unit(vect3_sub(p, closest_obj->pos));
-		else if (closest_obj->type == PLANE)
+		if (closest_obj->type == PLANE)
 			normal = ((t_plane *)closest_obj)->orientation;
+		else if (closest_obj->type == SPHERE)
+			normal = vect3_unit(vect3_sub(p, closest_obj->pos));
 		else if (closest_obj->type == CYLINDER)
 			normal = get_cylinder_normal((t_cylinder *)closest_obj, ray, closest_t);
 		else
@@ -141,5 +127,5 @@ t_color	ray_color(t_ray ray, t_context *scene)
 			normal = vect3_negate(normal);
 		return (vec_to_color(lighting(scene, p, normal, closest_obj->color)));
 	}
-	return (vec_to_color(background_shade()));
+	return (bg_shade(ray.direction.coords[Y]));
 }
