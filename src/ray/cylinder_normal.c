@@ -6,7 +6,7 @@
 /*   By: yabokhar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 19:00:43 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/23 19:35:16 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/08/23 21:38:19 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,11 @@ t_vect3	cylinder_normal(t_cylinder *cy, t_ray r, double t)
 	double			t2;
 	t_vect3			q;
 
-	if (fabs(vect3_scalar(vect3_sub(p, cy->bot), cy->orientation)) < EPSILON)
+	if (fabs(vect3_scalar(vect3_sub(p, cy->bot), cy->orientation)) \
+	< EPSILON)
 		return (vect3_negate(cy->orientation));
-	if (fabs(vect3_scalar(vect3_sub(p, cy->top), cy->orientation)) < EPSILON)
+	if (fabs(vect3_scalar(vect3_sub(p, cy->top), cy->orientation)) \
+	< EPSILON)
 		return (cy->orientation);
 	w = vect3_sub(p, cy->pos);
 	t2 = vect3_scalar(w, cy->orientation);

@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:16:05 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/23 19:52:36 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/08/23 21:37:55 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ double	hit_cylinder_caps(t_cylinder *cy, t_ray r)
 {
 	const double	t1 = hit_disk(r, cy->bot, \
 	vect3_negate(cy->orientation), cy->radius);
-	const double	t2 = hit_disk(r, cy->top, cy->orientation, cy->radius);
+	const double	t2 = hit_disk(r, cy->top, \
+	cy->orientation, cy->radius);
 
 	if (t1 > 0 && (t2 < 0 || t1 < t2))
 		return (t1);

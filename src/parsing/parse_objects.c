@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 11:29:39 by secros            #+#    #+#             */
-/*   Updated: 2025/08/23 20:10:52 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/08/23 21:42:19 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,41 +16,6 @@
 #include "color.h"
 #include "debug.h"
 #include "vect3.h"
-/*
-t_object	*new_object(t_context *scene, char **line, enum e_obj type)
-{
-	t_object	*new;
-
-	new = malloc(sizeof(t_object));
-	if (!new)
-		return (NULL);
-	ft_bzero(new, sizeof(t_object));
-	new->type = type;
-	(*line) += 3;
-	jump_spaces(line);
-	if (!get_vect3_value(scene, line, &new->pos))
-		return (free(new), NULL);
-	if (type != SPHERE && !get_vect3_value(scene, line, &new->orientation))
-		return (free(new), NULL);
-	jump_spaces(line);
-	if ((type == SPHERE && get_unique_value(scene, line, &new->size.coords[X]))
-		|| (type == CYLINDER && \
-		(get_unique_value(scene, line, &new->size.coords[X])
-				|| get_unique_value(scene, line, &new->size.coords[Y]))))
-		return (free(new), NULL);
-	jump_spaces(line);
-	if (!get_color(scene, line, &new->color))
-		return (free(new), NULL);
-	if (!empty_line(*line))
-		return (free(new), write(2, "objects params\n", 14), NULL);
-	return (new);
-}
-*/
-void	*free_and_return_null(void *pt)
-{
-	free(pt);
-	return (NULL);
-}
 
 t_object	*new_plane(t_context *scene, char **line)
 {

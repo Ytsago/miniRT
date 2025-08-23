@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:54:55 by secros            #+#    #+#             */
-/*   Updated: 2025/08/23 20:46:42 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/08/23 21:37:24 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ struct	s_cylinder
 	t_point3	bot;
 	t_point3	top;
 	double		height;
-
 };
 
 struct	s_plane
@@ -195,5 +194,6 @@ void		swap_doubles(double *v1, double *v2);
 t_vect3		color_to_vec(t_color c);
 t_color		vec_to_color(t_vect3 v);
 void		ft_bzero_vect3(t_vect3 *self);
+void		*free_and_return_null(void *pointer);
 
 #endif
