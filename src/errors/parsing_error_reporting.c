@@ -16,15 +16,15 @@
 void	print_error_then_exit_failure(const char *error_description)
 
 {
-	print(STDERR, "%s%s", X_ERROR, error_description);
-	exit(FAILURE);
+	print(2, "%s%s", X_ERROR, error_description);
+	exit(1);
 }
 
 void	print_error_from_open_function_then_exit_failure(const char *path)
 
 {
-	print(STDERR, "%s%s: %s\n", X_ERROR, path, strerror(errno));
-	exit(FAILURE);
+	print(2, "%s%s: %s\n", X_ERROR, path, strerror(errno));
+	exit(1);
 }
 
 void	multiple_declarations_error(t_context *scene, const char *element)
@@ -33,12 +33,13 @@ void	multiple_declarations_error(t_context *scene, const char *element)
 	const char			*file_name = scene->file_name;
 	const unsigned int	line_no = scene->line_number;
 
-	print(STDERR, "%s%s: line %d: *** ", X_ERROR, file_name, line_no);
-	print(STDERR, "multiple declarations of general element %s\n", element);
+	print(2, \
+	"%s%s: line %d: *** multiple declarations of general element %s\n", \
+	X_ERROR, file_name, line_no, element);
 	close(scene->fd);
 	free(scene->line);
 	ft_lstclear(&scene->objects, free);
-	exit(FAILURE);
+	exit(1);
 }
 
 void	precision_lost_error(t_context *scene, const char *elem, const char *p)
@@ -47,12 +48,13 @@ void	precision_lost_error(t_context *scene, const char *elem, const char *p)
 	const char			*file_name = scene->file_name;
 	const unsigned int	line_no = scene->line_number;
 
-	print(STDERR, "%s%s: line %d: *** ", X_ERROR, file_name, line_no);
-	print(STDERR, "%s %s precision lost (too many digits)\n", elem, p);
+	print(2, \
+	"%s%s: line %d: *** %s %s precision lost (too many digits)\n", \
+	X_ERROR, file_name, line_no, elem, p);
 	close(scene->fd);
 	free(scene->line);
 	ft_lstclear(&scene->objects, free);
-	exit(FAILURE);
+	exit(1);
 }
 
 void	range_error(t_context *scene, const char *elem, char *min, char *max)
@@ -61,10 +63,11 @@ void	range_error(t_context *scene, const char *elem, char *min, char *max)
 	const char			*file_name = scene->file_name;
 	const unsigned int	line_no = scene->line_number;
 
-	print(STDERR, "%s%s: line %d: *** ", X_ERROR, file_name, line_no);
-	print(STDERR, "%s must be in range [%s,%s]\n", elem, min, max);
+	print(2, \
+	"%s%s: line %d: *** %s must be in range [%s,%s]\n", \
+	X_ERROR, file_name, line_no, elem, min, max);
 	close(scene->fd);
 	free(scene->line);
 	ft_lstclear(&scene->objects, free);
-	exit(FAILURE);
+	exit(1);
 }

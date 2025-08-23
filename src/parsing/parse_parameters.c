@@ -95,14 +95,10 @@ static bool	parse_objects(char *line, t_context *scene)
 	else if (!ft_strncmp("cy ", line, 3))
 		error = add_object(scene, new_cylinder(scene, &line));
 	else if (!empty_line(line))
-	{
-		print(STDERR, "%sline %d ", X_ERROR, scene->line_number);
-		print(STDERR, "starts with an unknown identifier\n");
-	}
+		print(2, "%sline %d starts with an unknown identifier\n", \
+		X_ERROR, scene->line_number);
 	if (!error)
-	{
-		print(STDERR, "%sline %d ", X_ERROR, scene->line_number);
-		print(STDERR, "Error while parsing an object\n");
-	}
+		print(2, "%sline %d Error while parsing an object\n", \
+		X_ERROR, scene->line_number);
 	return (error);
 }

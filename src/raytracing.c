@@ -16,6 +16,8 @@
 
 #define W 0
 #define H 1
+#define U 0
+#define V 1
 #define IMG_WIDTH 0
 #define IMG_HEIGHT 1
 #define START_Y 2

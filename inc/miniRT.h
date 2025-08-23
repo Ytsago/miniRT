@@ -16,9 +16,6 @@
 # define WIDTH 720
 # define HEIGHT 480
 
-# define U 0
-# define V 1
-
 # include <stdint.h>
 # include <stdbool.h>
 # include "vect3.h"
@@ -189,7 +186,7 @@ t_color		bg_shade(double direction_y);
 t_vect3		lightning(t_context *scene, t_point3 p, t_vect3 normal, \
 t_vect3 obj_color);
 
-void    	print(int fd, const char *format, ...);
+void		print(int fd, const char *format, ...);
 void		swap_doubles(double *v1, double *v2);
 t_vect3		color_to_vec(t_color c);
 t_color		vec_to_color(t_vect3 v);

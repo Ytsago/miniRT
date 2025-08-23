@@ -14,6 +14,14 @@
 #include "miniRT.h"
 #include "vect3.h"
 
+#define N 0
+#define M 1
+#define T1 0
+#define T2 1
+#define A 0
+#define B 1
+#define C 2
+
 static double	hit_disk(t_ray r, t_point3 cap_pos, t_vect3 n, double rad)
 
 {

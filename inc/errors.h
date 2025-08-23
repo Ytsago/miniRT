@@ -12,21 +12,15 @@
 
 #ifndef ERRORS_H
 # define ERRORS_H
-# define FAILURE 1
-# define STDERR 2
 # define X_ERROR "Error\nminiRT: "
 # define NO_SPACE "each parameter must be separated by a space\n"
 
-#include <stddef.h>
-#include <sys/types.h>
-#include <stdbool.h>
-#include <errno.h>
-#include "miniRT.h"
+# include "miniRT.h"
 
 short	ft_strcpy(char *dest, const char *src);
 short	ft_strcat(char *dest, const char *src);
 short	ft_strcmp(const char *s1, const char *s2);
-ssize_t write(int fildes, const void *buf, size_t nbyte);
+ssize_t	write(int fildes, const void *buf, size_t nbyte);
 void	exit(int status);
 char	*strerror(int errnum);
 

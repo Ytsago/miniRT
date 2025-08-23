@@ -13,6 +13,8 @@
 #include "miniRT.h"
 #include "vect3.h"
 #include "ray.h"
+
+#define T_MIN 1e-4
 #define DBL_MAX 1.79769e+308
 
 t_color		ray_color(t_ray ray, t_context *scene);
@@ -51,26 +53,25 @@ t_object **current_object, double *current_t)
 
 {
 	t_object	*curr;
-	double		t;
-	double		t2;
+	double		t[2];
 
 	while (objects)
 	{
 		curr = (t_object *)objects->content;
 		if (curr->type == PLANE)
-			t = hit_plane((t_plane *)curr, r);
+			t[0] = hit_plane((t_plane *)curr, r);
 		else if (curr->type == SPHERE)
-			t = hit_sphere((t_sphere *)curr, r);
-		else if (curr->type == CYLINDER)
+			t[0] = hit_sphere((t_sphere *)curr, r);
+		else
 		{
-			t = hit_cylinder((t_cylinder *)curr, r);
-			t2 = hit_cylinder_caps((t_cylinder *)curr, r);
-			if (t < 0 || (t2 > T_MIN && t2 < t))
-				t = t2;
+			t[0] = hit_cylinder((t_cylinder *)curr, r);
+			t[1] = hit_cylinder_caps((t_cylinder *)curr, r);
+			if (t[0] < 0 || (t[1] > T_MIN && t[1] < t[0]))
+				t[0] = t[1];
 		}
-		if (t > T_MIN && t < *current_t)
+		if (t[0] > T_MIN && t[0] < *current_t)
 		{
-			*current_t = t;
+			*current_t = t[0];
 			*current_object = curr;
 		}
 		objects = objects->next;

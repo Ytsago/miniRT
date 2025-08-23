@@ -11,9 +11,10 @@
 /* ************************************************************************** */
 
 #ifndef MLX_STRUCT_H
-#define MLX_STRUCT_H
+# define MLX_STRUCT_H
 
 # include <stdbool.h>
+# include <stdint.h>
 # include "mlx.h"
 
 typedef struct s_mlx		t_mlx;
@@ -38,15 +39,15 @@ struct s_mlx
 
 typedef union u_color
 {
-	unsigned int	color;
+	uint32_t	color;
 	struct
 	{
-		unsigned char b;
-		unsigned char g;
-		unsigned char r;
-		unsigned char a;
+		uint8_t	b;
+		uint8_t	g;
+		uint8_t	r;
+		uint8_t	a;
 	};
-} t_color;
+}	t_color;
 
 void	get_display_and_new_image(t_context *scene, short img[2]);
 int		destroy_display(t_context *scene);

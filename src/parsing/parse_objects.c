@@ -38,6 +38,20 @@ t_object	*new_plane(t_context *scene, char **line)
 	return ((t_object *) new);
 }
 
+static void	precalculate_cylinder_values(t_cylinder *new)
+
+{
+	t_vect3			orientation;
+	const double	half = new->height * 0.5;
+	const t_point3	pos = new->pos;
+
+	new->orientation = vect3_unit(new->orientation);
+	orientation = new->orientation;
+	new->radius *= 0.5;
+	new->bot = vect3_sub(pos, vect3_const_mult(orientation, half));
+	new->top = vect3_add(pos, vect3_const_mult(orientation, half));
+}
+
 t_object	*new_cylinder(t_context *scene, char **line)
 {
 	t_cylinder	*new;
@@ -59,12 +73,7 @@ t_object	*new_cylinder(t_context *scene, char **line)
 	jump_spaces(line);
 	if (!get_color(scene, line, &new->color))
 		return (free_and_return_null(new));
-	new->orientation = vect3_unit(new->orientation);
-	new->radius *= 0.5;
-	new->bot = vect3_sub(new->pos, \
-	vect3_const_mult(new->orientation, new->height / 2));
-	new->top = vect3_add(new->pos, \
-	vect3_const_mult(new->orientation, new->height / 2));
+	precalculate_cylinder_values(new);
 	return ((t_object *) new);
 }
 

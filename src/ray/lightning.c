@@ -16,6 +16,10 @@
 
 #define VIEW 0
 #define HALFWAY 1
+#define DIFF 0
+#define SPEC 1
+#define T_MIN 1e-4
+#define EPSILON 1e-6
 
 t_vect3		lightning(t_context *scene, \
 t_point3 p, t_vect3 n, t_vect3 obj_color);
