@@ -27,15 +27,14 @@
 
 void			rt(t_context *scene);
 static void		*raytracer(void *argument);
-static void		get_colors(t_context *scene, int16_t *values, \
+static void		get_colors(t_context *scene, int16_t values[6], \
 const t_viewport *view, unsigned int *img_ptr);
-static int16_t	*get_values(const t_context *scene, const t_threads thread);
 static short	get_start_y(t_context *scene, short thread_index);
 
 void	rt(t_context *scene)
 {
 	const long		online_processors = scene->online_processors;
-	int8_t			i;
+	int16_t			i;
 
 	i = -1;
 	while (++i < online_processors)
@@ -53,18 +52,20 @@ static void	*raytracer(void *argument)
 	const t_threads		*thread = (t_threads *)argument;
 	const t_context		*scene = thread->scene;
 	const t_viewport	*view = (t_viewport *)&scene->camera.viewport;
-	int16_t				*values;
+	int16_t				values[6];
 
-	values = get_values(scene, *thread);
-	if (!values)
-		return (NULL);
+	values[IMG_WIDTH] = scene->img[IMG_WIDTH];
+	values[IMG_HEIGHT] = scene->img[IMG_HEIGHT];
+	values[START_Y] = get_start_y((t_context *)scene, thread->index);
+	values[END_Y] = values[START_Y] + thread->screen_parts[H];
+	values[INDEX_X] = -1;
+	values[INDEX_Y] = values[START_Y] - 1;
 	get_colors((t_context *)scene, values, \
 	view, (unsigned int *)scene->screen_ptr.img.addr);
-	free(values);
 	return (NULL);
 }
 
-static void	get_colors(t_context *scene, int16_t *values, \
+static void	get_colors(t_context *scene, int16_t values[6], \
 const t_viewport *view, unsigned int *img_ptr)
 
 {
@@ -84,26 +85,9 @@ const t_viewport *view, unsigned int *img_ptr)
 			scene->camera.view_point));
 			img_ptr[values[INDEX_Y] * values[IMG_WIDTH] + values[INDEX_X]] \
 			= ray_color((t_ray){scene->camera.view_point, ray_dir}, \
-			(t_context *)scene).color;
+			scene).color;
 		}
 	}
-}
-
-static int16_t	*get_values(const t_context *scene, const t_threads thread)
-
-{
-	int16_t	*values;
-
-	values = malloc(sizeof(int16_t) * 6);
-	if (!values)
-		return (NULL);
-	values[IMG_WIDTH] = scene->img[IMG_WIDTH];
-	values[IMG_HEIGHT] = scene->img[IMG_HEIGHT];
-	values[START_Y] = get_start_y((t_context *)scene, thread.index);
-	values[END_Y] = values[START_Y] + thread.screen_parts[H];
-	values[INDEX_X] = -1;
-	values[INDEX_Y] = values[START_Y] - 1;
-	return (values);
 }
 
 static short	get_start_y(t_context *scene, short thread_index)
