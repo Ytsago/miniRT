@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   background_shade.c                                 :+:      :+:    :+:   */
+/*   hit_plane.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yabokhar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/23 16:06:16 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/23 20:10:04 by yabokhar         ###   ########.fr       */
+/*   Created: 2025/08/23 19:50:10 by yabokhar          #+#    #+#             */
+/*   Updated: 2025/08/23 19:50:14 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ray.h"
 #include "miniRT.h"
-#include "mlx_struct.h"
-#include <math.h>
+#include "vect3.h"
 
-#define R1 30
-#define G1 144
-#define B1 144
-#define R2 255
-#define G2 154
-#define B2 154
-
-t_color	bg_shade(double direction_y)
+double	hit_plane(t_plane *plane, t_ray ray)
 
 {
-	const float	gradient = (1 - cosf(0.5 * (direction_y + 1.0) * M_PI)) / 2.5f;
+	const double	sum = vect3_scalar(plane->orientation, \
+		vect3_sub(plane->pos, ray.origin));
+	const double	div = vect3_scalar(plane->orientation, ray.direction);
+	double			t;
 
-	return ((t_color){.r = (uint8_t)(R1 + (R2 - R1) * gradient), \
-	.g = (uint8_t)(G1 + (G2 - G1) * gradient), \
-	.b = (uint8_t)(B1 + (B2 - B1) * gradient), \
-	.a = (uint8_t)0});
+	if (div < EPSILON && div > -EPSILON)
+		return (-1);
+	t = sum / div;
+	if (t < T_MIN)
+		return (-1);
+	return (t);
 }

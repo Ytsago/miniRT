@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hit_object.c                                       :+:      :+:    :+:   */
+/*   hit_cylinder.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:16:05 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/23 19:05:01 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/08/23 19:52:36 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,7 @@
 #include "miniRT.h"
 #include "vect3.h"
 
-double	hit_plane(t_plane *plane, t_ray ray)
-
-{
-	const double	sum = vect3_scalar(plane->orientation, \
-		vect3_sub(plane->pos, ray.origin));
-	const double	div = vect3_scalar(plane->orientation, ray.direction);
-	double			t;
-
-	if (div < EPSILON && div > -EPSILON)
-		return (-1);
-	t = sum / div;
-	if (t < T_MIN)
-		return (-1);
-	return (t);
-}
-
-double	hit_sphere(t_sphere *sphere, t_ray ray)
-{
-	const t_vect3	oc = vect3_sub(sphere->pos, ray.origin);
-	const double	h = vect3_scalar(ray.direction, oc);
-	const double	c = vect3_scalar(oc, oc) - sphere->radius * sphere->radius;
-	const double	discriminant = h * h - c;
-
-	if (discriminant < 0)
-		return (-1);
-	return ((h - sqrt(discriminant)));
-}
-
-static double	hit_disk(t_ray r, t_point3 c, t_vect3 n, double rad)
+static double	hit_disk(t_ray r, t_point3 cap_pos, t_vect3 n, double rad)
 
 {
 	double	denom;
@@ -51,10 +23,10 @@ static double	hit_disk(t_ray r, t_point3 c, t_vect3 n, double rad)
 	denom = vect3_scalar(n, r.direction);
 	if (denom > -EPSILON && denom < EPSILON)
 		return (-1);
-	t = vect3_scalar(n, vect3_sub(c, r.origin)) / denom;
+	t = vect3_scalar(n, vect3_sub(cap_pos, r.origin)) / denom;
 	if (t < T_MIN)
 		return (-1);
-	if (vect3_norm(vect3_sub(ray_at(r, t), c).coords) > rad)
+	if (vect3_norm(vect3_sub(ray_at(r, t), cap_pos).coords) > rad)
 		return (-1);
 	return (t);
 }
@@ -62,10 +34,9 @@ static double	hit_disk(t_ray r, t_point3 c, t_vect3 n, double rad)
 double	hit_cylinder_caps(t_cylinder *cy, t_ray r)
 
 {
-	const t_point3	bot = vect3_sub(cy->pos, vect3_const_mult(cy->orientation, cy->height / 2));
-	const t_point3	top = vect3_add(cy->pos, vect3_const_mult(cy->orientation, cy->height / 2));
-	const double	t1 = hit_disk(r, bot, vect3_negate(cy->orientation), cy->radius);
-	const double	t2 = hit_disk(r, top, cy->orientation, cy->radius);
+	const double	t1 = hit_disk(r, cy->bot, \
+	vect3_negate(cy->orientation), cy->radius);
+	const double	t2 = hit_disk(r, cy->top, cy->orientation, cy->radius);
 
 	if (t1 > 0 && (t2 < 0 || t1 < t2))
 		return (t1);

@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:54:55 by secros            #+#    #+#             */
-/*   Updated: 2025/08/23 18:58:47 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/08/23 20:46:42 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,12 @@ struct	s_cylinder
 	enum e_obj	type;
 	t_point3	pos;
 	t_color		color;
-	double		radius;
-	double		height;
 	t_vect3		orientation;
+	double		radius;
+	t_point3	bot;
+	t_point3	top;
+	double		height;
+
 };
 
 struct	s_plane
@@ -134,7 +137,7 @@ typedef struct s_threads
 	pthread_t			thread;
 	short				index;
 	t_context			*scene;
-} t_threads;
+}	t_threads;
 
 typedef struct s_context
 {
@@ -159,11 +162,11 @@ int			main(int argc, const char *argv[]);
 
 void		parse_arguments(int ac, const char *av[], t_context *s);
 void		parse_and_load_parameters(t_context *scene);
-bool   		parse_ambient_lightning(char *line, t_context *scene);
+bool		parse_ambient_lightning(char *line, t_context *scene);
 bool		parse_camera(char *line, t_context *scene);
 bool		parse_light(char *line, t_context *scene);
 
-bool		add_object(t_context *scene, t_object *object); 
+bool		add_object(t_context *scene, t_object *object);
 t_object	*new_object(t_context *scene, char **line, enum e_obj type);
 t_object	*new_cylinder(t_context *scene, char **line);
 t_object	*new_plane(t_context *scene, char **line);
@@ -173,26 +176,24 @@ bool		add_element(t_context *scene, void *type);
 void		jump_spaces(char **str);
 bool		empty_line(char *line);
 bool		verify_and_skip_comma(char **line);
-
 bool		get_unique_value(char **line, double *value);
 bool		get_vect3_value(t_context *scene, char **line, void *element);
 bool		get_color(t_context *scene, char **line, t_color *color);
-void		rt(t_context *scene);
 
 void		get_camera(t_camera *params, short img[2]);
+void		move_camera(t_camera *camera, int keycode);
 
+void		rt(t_context *scene);
+void		attribute_threads(t_context *scene, short img_width);
+
+t_color		bg_shade(double direction_y);
+t_vect3		lightning(t_context *scene, t_point3 p, t_vect3 normal, \
+t_vect3 obj_color);
+
+void    	print(int fd, const char *format, ...);
+void		swap_doubles(double *v1, double *v2);
 t_vect3		color_to_vec(t_color c);
 t_color		vec_to_color(t_vect3 v);
-
-void	ft_bzero_vect3(t_vect3 *self);
-
-void	move_camera(t_camera *camera, int keycode);
-
-void	attribute_threads(t_context *scene, short img_width);
-void    print(int fd, const char *format, ...);
-
-t_color	bg_shade(double direction_y);
-
-void	swap_doubles(double *v1, double *v2);
+void		ft_bzero_vect3(t_vect3 *self);
 
 #endif

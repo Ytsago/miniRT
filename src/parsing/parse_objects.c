@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 11:29:39 by secros            #+#    #+#             */
-/*   Updated: 2025/08/21 17:36:27 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/08/23 20:10:52 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <stdio.h>
 #include "color.h"
 #include "debug.h"
+#include "vect3.h"
 /*
 t_object	*new_object(t_context *scene, char **line, enum e_obj type)
 {
@@ -86,15 +87,19 @@ t_object	*new_cylinder(t_context *scene, char **line)
 		return (free_and_return_null(new));
 	if (!get_vect3_value(scene, line, &new->orientation))
 		return (free_and_return_null(new));
-	new->orientation = vect3_unit(new->orientation);
 	if (get_unique_value(line, &new->radius))
 		return (free_and_return_null(new));
-	new->radius = new->radius / 2;
 	if (get_unique_value(line, &new->height))
 		return (free_and_return_null(new));
 	jump_spaces(line);
 	if (!get_color(scene, line, &new->color))
 		return (free_and_return_null(new));
+	new->orientation = vect3_unit(new->orientation);
+	new->radius *= 0.5;
+	new->bot = vect3_sub(new->pos, \
+	vect3_const_mult(new->orientation, new->height / 2));
+	new->top = vect3_add(new->pos, \
+	vect3_const_mult(new->orientation, new->height / 2));
 	return ((t_object *) new);
 }
 
