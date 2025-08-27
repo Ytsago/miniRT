@@ -6,13 +6,16 @@
 /*   By: yabokhar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 19:50:10 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/23 19:50:14 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/08/27 20:58:49 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ray.h"
 #include "miniRT.h"
 #include "vect3.h"
+
+#define EPSILON 1e-4
+#define T_MIN 1e-6
 
 double	hit_plane(t_plane *plane, t_ray ray)
 

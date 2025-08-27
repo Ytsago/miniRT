@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:16:05 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/23 21:37:55 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/08/27 20:59:28 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 #define A 0
 #define B 1
 #define C 2
+#define EPSILON 1e-4
+#define T_MIN 1e-6
 
 static double	hit_disk(t_ray r, t_point3 cap_pos, t_vect3 n, double rad)
 

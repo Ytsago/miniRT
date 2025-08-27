@@ -6,7 +6,7 @@
 /*   By: yabokhar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 19:00:43 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/23 21:38:19 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/08/27 20:59:08 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 #define BOT 0
 #define TOP 1
+#define EPSILON 1e-4
+#define T_MIN 1e-6
 
 t_vect3	cylinder_normal(t_cylinder *cy, t_ray r, double t)
 
