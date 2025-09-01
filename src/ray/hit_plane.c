@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hit_sphere.c                                       :+:      :+:    :+:   */
+/*   hit_plane.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yabokhar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/23 19:51:12 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/23 19:51:26 by yabokhar         ###   ########.fr       */
+/*   Created: 2025/08/23 19:50:10 by yabokhar          #+#    #+#             */
+/*   Updated: 2025/08/27 20:58:49 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,21 @@
 #include "miniRT.h"
 #include "vect3.h"
 
-double	hit_sphere(t_sphere *sphere, t_ray ray)
+#define EPSILON 1e-4
+#define T_MIN 1e-6
+
+double	hit_plane(t_plane *plane, t_ray ray)
 
 {
-	const t_vect3	oc = vect3_sub(sphere->pos, ray.origin);
-	const double	h = vect3_scalar(ray.direction, oc);
-	const double	c = vect3_scalar(oc, oc) - sphere->radius * sphere->radius;
-	const double	discriminant = h * h - c;
+	const double	sum = vect3_scalar(plane->orientation, \
+		vect3_sub(plane->pos, ray.origin));
+	const double	div = vect3_scalar(plane->orientation, ray.direction);
+	double			t;
 
-	if (discriminant < 0)
+	if (div < EPSILON && div > -EPSILON)
 		return (-1);
-	return ((h - sqrt(discriminant)));
+	t = sum / div;
+	if (t < T_MIN)
+		return (-1);
+	return (t);
 }

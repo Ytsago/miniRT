@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hit_sphere.c                                       :+:      :+:    :+:   */
+/*   background_shade.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yabokhar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/23 19:51:12 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/23 19:51:26 by yabokhar         ###   ########.fr       */
+/*   Created: 2025/08/23 16:06:16 by yabokhar          #+#    #+#             */
+/*   Updated: 2025/08/23 20:10:04 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ray.h"
 #include "miniRT.h"
-#include "vect3.h"
+#include "mlx_struct.h"
+#include <math.h>
 
-double	hit_sphere(t_sphere *sphere, t_ray ray)
+#define R1 30
+#define G1 144
+#define B1 144
+#define R2 255
+#define G2 154
+#define B2 154
+
+t_color	bg_shade(double direction_y)
 
 {
-	const t_vect3	oc = vect3_sub(sphere->pos, ray.origin);
-	const double	h = vect3_scalar(ray.direction, oc);
-	const double	c = vect3_scalar(oc, oc) - sphere->radius * sphere->radius;
-	const double	discriminant = h * h - c;
+	const float	gradient = (1 - cosf(0.5 * (direction_y + 1.0) * M_PI)) / 2.5f;
 
-	if (discriminant < 0)
-		return (-1);
-	return ((h - sqrt(discriminant)));
+	return ((t_color){.r = (uint8_t)(R1 + (R2 - R1) * gradient), \
+	.g = (uint8_t)(G1 + (G2 - G1) * gradient), \
+	.b = (uint8_t)(B1 + (B2 - B1) * gradient), \
+	.a = (uint8_t)0});
 }

@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 11:29:39 by secros            #+#    #+#             */
-/*   Updated: 2025/07/04 11:32:20 by secros           ###   ########.fr       */
+/*   Updated: 2025/08/23 21:42:19 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,41 +15,7 @@
 #include <stdio.h>
 #include "color.h"
 #include "debug.h"
-/*
-t_object	*new_object(t_context *scene, char **line, enum e_obj type)
-{
-	t_object	*new;
-
-	new = malloc(sizeof(t_object));
-	if (!new)
-		return (NULL);
-	ft_bzero(new, sizeof(t_object));
-	new->type = type;
-	(*line) += 3;
-	jump_spaces(line);
-	if (!get_vect3_value(scene, line, &new->pos))
-		return (free(new), NULL);
-	if (type != SPHERE && !get_vect3_value(scene, line, &new->orientation))
-		return (free(new), NULL);
-	jump_spaces(line);
-	if ((type == SPHERE && get_unique_value(scene, line, &new->size.coords[X]))
-		|| (type == CYLINDER && \
-		(get_unique_value(scene, line, &new->size.coords[X])
-				|| get_unique_value(scene, line, &new->size.coords[Y]))))
-		return (free(new), NULL);
-	jump_spaces(line);
-	if (!get_color(scene, line, &new->color))
-		return (free(new), NULL);
-	if (!empty_line(*line))
-		return (free(new), write(2, "objects params\n", 14), NULL);
-	return (new);
-}
-*/
-void	*free_and_return_null(void *pt)
-{
-	free(pt);
-	return (NULL);
-}
+#include "vect3.h"
 
 t_object	*new_plane(t_context *scene, char **line)
 {
@@ -72,6 +38,20 @@ t_object	*new_plane(t_context *scene, char **line)
 	return ((t_object *) new);
 }
 
+static void	precalculate_cylinder_values(t_cylinder *new)
+
+{
+	t_vect3			orientation;
+	const double	half = new->height * 0.5;
+	const t_point3	pos = new->pos;
+
+	new->orientation = vect3_unit(new->orientation);
+	orientation = new->orientation;
+	new->radius *= 0.5;
+	new->bot = vect3_sub(pos, vect3_const_mult(orientation, half));
+	new->top = vect3_add(pos, vect3_const_mult(orientation, half));
+}
+
 t_object	*new_cylinder(t_context *scene, char **line)
 {
 	t_cylinder	*new;
@@ -86,15 +66,14 @@ t_object	*new_cylinder(t_context *scene, char **line)
 		return (free_and_return_null(new));
 	if (!get_vect3_value(scene, line, &new->orientation))
 		return (free_and_return_null(new));
-	new->orientation = vect3_unit(new->orientation);
 	if (get_unique_value(line, &new->radius))
 		return (free_and_return_null(new));
-	new->radius = new->radius / 2;
 	if (get_unique_value(line, &new->height))
 		return (free_and_return_null(new));
 	jump_spaces(line);
 	if (!get_color(scene, line, &new->color))
 		return (free_and_return_null(new));
+	precalculate_cylinder_values(new);
 	return ((t_object *) new);
 }
 
@@ -121,6 +100,7 @@ t_object	*new_sphere(t_context *scene, char **line)
 }
 
 bool	add_object(t_context *scene, t_object *object)
+
 {
 	t_list	*new;
 

@@ -6,7 +6,7 @@
 #    By: secros <secros@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/07 17:10:22 by yabokhar          #+#    #+#              #
-#    Updated: 2025/07/04 11:10:14 by secros           ###   ########.fr        #
+#    Updated: 2025/08/23 21:29:22 by yabokhar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ OBJDIR = .Obj/
 
 PARSDIR 	= $(SRCDIR)parsing/
 UTILSDIR	= $(SRCDIR)utils/
+LISTSDIR	= $(SRCDIR)linked_lists/
 ERRDIR 		= $(SRCDIR)errors/
 RAYDIR		= $(SRCDIR)ray/
 SPECDIR		= $(SRCDIR)spectator_mode/
@@ -54,16 +55,25 @@ MLX		=	mlx.c
 
 IMAGE	=	get_camera.c
 
-RAY		=	ray_create.c ray_at.c ray_color.c hit_sphere.c
+RT		=	raytracing.c
+
+RAY		=	background_shade.c ray_create.c ray_at.c lightning.c ray_color.c \
+			hit_plane.c	cylinder_normal.c hit_sphere.c hit_cylinder.c 
 
 SPEC	=	move_camera.c
 
 PARSING =	parse_arguments.c	parse_parameters.c	\
-			parse_ambient_lightning.c	parse_camera.c	parse_light.c	\
+			parse_ambient_lightning.c	parse_camera.c	parse_lights.c	\
 			process_characters.c	parse_objects.c	get_values.c	debug.c
-UTILS	=	print.c vect3_convert.c ft_bzero_vect3.c
+UTILS	=	print.c vect3_convert.c ft_bzero_vect3.c swap_doubles.c	\
+			free_and_return_null.c
 
-ERRORS 	=	parsing_error_reporting.c parsing_error_reporting_bis.c
+LISTS	=	add_element.c
+
+THREADS	=	multithreading.c
+
+ERRORS 	=	parsing_error_reporting.c parsing_error_reporting_bis.c \
+			multithreading_error_malloc.c mlx_error_reporting.c
 
 INC		=	miniRT.h
 
@@ -71,8 +81,11 @@ INC		=	miniRT.h
 
 SRCS =	$(addprefix $(SRCDIR), $(MAIN))\
 		$(addprefix $(PARSDIR), $(PARSING))\
+		$(addprefix $(SRCDIR), $(THREADS))\
+		$(addprefix $(SRCDIR), $(RT))\
 		$(addprefix $(ERRDIR), $(ERRORS))\
 		$(addprefix $(UTILSDIR), $(UTILS))\
+		$(addprefix $(LISTSDIR), $(LISTS))\
 		$(addprefix $(MLXDIR), $(MLX))\
 		$(addprefix $(SPECDIR), $(SPEC))\
 		$(addprefix $(IMGDIR), $(IMAGE))\

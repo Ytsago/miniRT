@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hit_sphere.c                                       :+:      :+:    :+:   */
+/*   swap_doubles.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yabokhar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/23 19:51:12 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/23 19:51:26 by yabokhar         ###   ########.fr       */
+/*   Created: 2025/08/23 18:57:41 by yabokhar          #+#    #+#             */
+/*   Updated: 2025/08/23 18:58:21 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ray.h"
-#include "miniRT.h"
-#include "vect3.h"
-
-double	hit_sphere(t_sphere *sphere, t_ray ray)
+void	swap_doubles(double *v1, double *v2)
 
 {
-	const t_vect3	oc = vect3_sub(sphere->pos, ray.origin);
-	const double	h = vect3_scalar(ray.direction, oc);
-	const double	c = vect3_scalar(oc, oc) - sphere->radius * sphere->radius;
-	const double	discriminant = h * h - c;
+	const double	temp = *v1;
 
-	if (discriminant < 0)
-		return (-1);
-	return ((h - sqrt(discriminant)));
+	*v1 = *v2;
+	*v2 = temp;
 }

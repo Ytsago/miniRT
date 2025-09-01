@@ -19,12 +19,12 @@ void	excessive_params_error(t_context *scene, const char *element, char n)
 	const char			*file_name = scene->file_name;
 	const unsigned int	line_no = scene->line_number;
 
-	print(STDERR, "%s%s: line %d: *** %s has more than %d parameters\n" \
+	print(2, "%s%s: line %d: *** %s has more than %d parameters\n" \
 		, X_ERROR, file_name, line_no, element, n);
 	close(scene->fd);
 	free(scene->line);
 	ft_lstclear(&scene->objects, free);
-	exit(FAILURE);
+	exit(1);
 }
 
 void	no_space_error(t_context *scene)
@@ -33,12 +33,13 @@ void	no_space_error(t_context *scene)
 	const char			*file_name = scene->file_name;
 	const unsigned int	line_no = scene->line_number;
 
-	print(STDERR, "%s%s: line %d: *** ", X_ERROR, file_name, line_no);
-	print(STDERR, "parameters must be separated by a space\n");
+	print(2, \
+	"%s%s: line %d: *** parameters must be separated by a space\n", \
+	X_ERROR, file_name, line_no);
 	close(scene->fd);
 	free(scene->line);
 	ft_lstclear(&scene->objects, free);
-	exit(FAILURE);
+	exit(1);
 }
 
 void	no_comma_error(t_context *scene)
@@ -47,10 +48,11 @@ void	no_comma_error(t_context *scene)
 	const char			*file_name = scene->file_name;
 	const unsigned int	line_no = scene->line_number;
 
-	print(STDERR, "%s%s: line %d: *** ", X_ERROR, file_name, line_no);
-	print(STDERR, "parameters values must be separated by a comma\n");
+	print(2, \
+	"%s%s: line %d: *** parameters values must be separated by a comma\n", \
+	X_ERROR, file_name, line_no);
 	close(scene->fd);
 	free(scene->line);
 	ft_lstclear(&scene->objects, free);
-	exit(FAILURE);
+	exit(1);
 }

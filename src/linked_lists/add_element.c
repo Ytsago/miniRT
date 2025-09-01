@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hit_sphere.c                                       :+:      :+:    :+:   */
+/*   add_element.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yabokhar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/23 19:51:12 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/23 19:51:26 by yabokhar         ###   ########.fr       */
+/*   Created: 2025/08/21 17:32:23 by yabokhar          #+#    #+#             */
+/*   Updated: 2025/08/22 11:09:13 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ray.h"
 #include "miniRT.h"
-#include "vect3.h"
+#include "libft.h"
 
-double	hit_sphere(t_sphere *sphere, t_ray ray)
+bool	add_element(t_context *scene, void *type)
 
 {
-	const t_vect3	oc = vect3_sub(sphere->pos, ray.origin);
-	const double	h = vect3_scalar(ray.direction, oc);
-	const double	c = vect3_scalar(oc, oc) - sphere->radius * sphere->radius;
-	const double	discriminant = h * h - c;
+	t_list	*new_element;
 
-	if (discriminant < 0)
-		return (-1);
-	return ((h - sqrt(discriminant)));
+	if (!type)
+		return (false);
+	new_element = ft_lstnew(type);
+	if (!new_element)
+	{
+		free(type);
+		return (false);
+	}
+	ft_lstadd_back(&scene->lights_list, new_element);
+	return (true);
 }

@@ -6,61 +6,42 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:08:53 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/06 16:39:44 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/01 10:00:52 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 #include "mlx_int.h"
 #include "mlx_struct.h"
-# define ESC 65307
-# define KEY_W 119
-# define KEY_A 97
-# define KEY_S 115
-# define KEY_D 100
-# define KEY_T 116
 
-int	handle_key(int keycode, void *params)
+#define W 0
+#define H 1
+#define ESC 65307
+#define KEY_W 119
+#define KEY_A 97
+#define KEY_S 115
+#define KEY_D 100
+#define KEY_T 116
+
+void		get_display_and_new_image(t_context *scene, short img[2]);
+static bool	get_display(t_context *scene, short img[2]);
+static bool	new_image(t_context *scene, short img[2]);
+
+void	get_display_and_new_image(t_context *scene, short img[2])
 
 {
-	t_mlx		*screen;
-	t_context	*scene;
-	
-	scene = params;
-	screen = &scene->screen_ptr;
-	if (keycode == ESC)
-		destroy_display(scene);
-	else if (keycode == KEY_T)
-		scene->spectator_mode = !scene->spectator_mode;
-	else if (keycode == KEY_W || keycode == KEY_A || keycode == KEY_S || keycode == KEY_D)
+	if (!get_display(scene, img))
 	{
-		scene->spectator_mode = true;
-		move_camera(&scene->camera, keycode);
+		ft_lstclear(&scene->objects, free);
+		ft_lstclear(&scene->lights_list, free);
+		free(scene->threads);
+		exit(1);
 	}
-	get_viewport_upper_left(&scene->camera.viewport, &scene->camera);
-	get_pixel_zero(&scene->camera.viewport);
-	raytracer(scene, screen);
-	mlx_put_image_to_window(screen->mlx_ptr, screen->win_ptr, screen->img.img_ptr, 0, 0);
-	return (0);
+	if (!new_image(scene, img))
+		mlx_destroy(&scene->screen_ptr);
 }
 
-void	mlx_destroy(t_mlx *display)
-{
-	mlx_loop_end(display->mlx_ptr);
-	mlx_destroy_window(display->mlx_ptr, display->win_ptr);
-	mlx_destroy_image(display->mlx_ptr, display->img.img_ptr);
-	mlx_destroy_display(display->mlx_ptr);
-	free(display->mlx_ptr);
-}
-
-int	destroy_display(t_context *scene)
-{
-	mlx_destroy(&scene->screen_ptr);
-	ft_lstclear(&scene->objects, free);
-	exit(1);
-}
-
-bool	get_display(int height, int width, char *title, t_context* scene)
+static bool	get_display(t_context *scene, short img[2])
 {
 	t_mlx	*new;
 
@@ -69,7 +50,7 @@ bool	get_display(int height, int width, char *title, t_context* scene)
 	new->mlx_ptr = mlx_init();
 	if (!new->mlx_ptr)
 		return (false);
-	new->win_ptr = mlx_new_window(new->mlx_ptr, width, height, title);
+	new->win_ptr = mlx_new_window(new->mlx_ptr, img[W], img[H], "miniRT");
 	if (!new->win_ptr)
 	{
 		mlx_destroy_display(new->mlx_ptr);
@@ -80,20 +61,47 @@ bool	get_display(int height, int width, char *title, t_context* scene)
 	return (true);
 }
 
-bool	new_image(t_mlx *display, int width, int height)
+static bool	new_image(t_context *scene, short img[2])
 {
+	t_mlx	*display;
 	t_pict	*new;
 
+	display = &scene->screen_ptr;
 	new = &display->img;
-	new->img_ptr = mlx_new_image(display->mlx_ptr, width, height);
+	(void)img;
+	new->img_ptr = mlx_new_image(display->mlx_ptr, img[W], img[H]);
 	if (!new->img_ptr)
-		return (false);
+		error_failure_from_mlx_new_image(scene, display);
 	new->addr = mlx_get_data_addr(new->img_ptr, &new->bbp, &new->l_size, \
 		&new->endian);
 	if (!new->addr)
 	{
-		mlx_destroy(display);
+		destroy_display(scene);
 		return (false);
 	}
 	return (true);
+}
+
+int	handle_key(int keycode, void *params)
+
+{
+	t_mlx		*screen;
+	t_context	*scene;
+
+	scene = params;
+	screen = &scene->screen_ptr;
+	if (keycode == ESC)
+		destroy_display(scene);
+	if (keycode == KEY_T)
+		scene->brut_mode = !scene->brut_mode;
+	if (keycode == KEY_W || keycode == KEY_A || \
+		keycode == KEY_S || keycode == KEY_D)
+	{
+		move_camera(&scene->camera, keycode);
+		get_camera(&scene->camera, scene->img);
+	}
+	rt(scene);
+	mlx_put_image_to_window(screen->mlx_ptr, screen->win_ptr, \
+	screen->img.img_ptr, 0, 0);
+	return (0);
 }

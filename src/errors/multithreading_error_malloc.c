@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hit_sphere.c                                       :+:      :+:    :+:   */
+/*   multithreading_error_malloc.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yabokhar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/23 19:51:12 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/23 19:51:26 by yabokhar         ###   ########.fr       */
+/*   Created: 2025/08/22 10:37:03 by yabokhar          #+#    #+#             */
+/*   Updated: 2025/08/23 15:31:55 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ray.h"
 #include "miniRT.h"
-#include "vect3.h"
 
-double	hit_sphere(t_sphere *sphere, t_ray ray)
+void	error_malloc_failure_for_threads_array(t_context *scene)
 
 {
-	const t_vect3	oc = vect3_sub(sphere->pos, ray.origin);
-	const double	h = vect3_scalar(ray.direction, oc);
-	const double	c = vect3_scalar(oc, oc) - sphere->radius * sphere->radius;
-	const double	discriminant = h * h - c;
-
-	if (discriminant < 0)
-		return (-1);
-	return ((h - sqrt(discriminant)));
+	print(2, "Error\nminiRT: malloc: %s\n", strerror(errno));
+	ft_lstclear(&scene->objects, free);
+	ft_lstclear(&scene->lights_list, free);
+	exit(1);
 }
