@@ -6,7 +6,7 @@
 /*   By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:20:16 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/09/01 15:07:14 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/01 17:58:02 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@ t_color		ray_color(t_ray ray, t_context *scene);
 static void	find_closest_object(const t_list *objects, t_ray r, \
 t_object **current_object, double *current_t);
 
+unsigned int	get_color_from_img(t_pict *img, int x, int y)
+{
+	return (img->addr[y * img->l_size + x * (img->bbp / 8)]);
+}
+
 t_vect3	get_normal_map(t_pict *map, double u, double v)
 {
 	const int	pixel_x = u * map->size[0];
@@ -28,8 +33,7 @@ t_vect3	get_normal_map(t_pict *map, double u, double v)
 	t_color		c_normal;
 	t_vect3		normal;
 
-	c_normal.color = ((unsigned int ) \
-		map->addr[pixel_y * map->l_size + pixel_x * (map->bbp / 8)]);
+	c_normal.color = get_color_from_img(map, pixel_x, pixel_y);
 	normal = color_to_vec(c_normal);
 	normal = vect3_const_mult(normal, 2);
 	normal = vect3_add(normal, (t_vect3) {{-1, -1, -1}});
@@ -42,8 +46,7 @@ t_vect3	get_texture(t_pict *map, double u, double v)
 	const int	pixel_y = v * map->size[1];
 	t_color		p_color;
 
-	p_color.color = ((unsigned int ) \
-		map->addr[pixel_y * map->l_size + (pixel_x * map->bbp / 8)]);
+	p_color.color = get_color_from_img(map, pixel_x, pixel_y);
 	return (color_to_vec(p_color));
 }
 
@@ -55,8 +58,6 @@ t_vect3	sphere_mapping(t_object *obj, t_point3 p, t_vect3* normal)
 
 	to_center = vect3_sub(p, obj->pos);
 	to_center = vect3_const_div(to_center, ((t_sphere *)obj)->radius);
-	/*u = acos(to_center.y) / M_PI;
-	v = (atan2(to_center.x, to_center.z) + M_PI) / (2 * M_PI);*/
 	u = 0.5 + atan2(to_center.z, to_center.x) / (2 * M_PI);
 	v = 0.5 - asin(to_center.y) / M_PI;
 	if (obj->texture[1])

@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 09:42:39 by secros            #+#    #+#             */
-/*   Updated: 2025/08/06 08:43:45 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/01 17:59:31 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ typedef union u_vect3	t_vect3;
  * 
  */
 typedef t_vect3			t_point3;
+
+typedef t_vect3			t_color3;
 
 # ifndef E_GEO
 #  define E_GEO
