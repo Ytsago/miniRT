@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 16:07:04 by secros            #+#    #+#             */
-/*   Updated: 2025/08/22 12:29:37 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/09/01 13:23:40 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ struct s_pict
 	int		l_size;
 	int		bbp;
 	int		endian;
+	int		size[2];
 };
 
 struct s_mlx
@@ -54,5 +55,6 @@ int		destroy_display(t_context *scene);
 void	mlx_destroy(t_mlx *display);
 void	error_failure_from_mlx_new_image(t_context *scene, t_mlx *display);
 int		handle_key(int keycode, void *params);
+t_pict	*load_image(t_mlx *display, char *addr);
 
 #endif

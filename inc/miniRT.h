@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:54:55 by secros            #+#    #+#             */
-/*   Updated: 2025/09/01 09:58:16 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/01 12:59:17 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ struct	s_object
 	enum e_obj	type;
 	t_point3	pos;
 	t_color		color;
+	t_pict		*texture[2];
 };
 
 struct	s_sphere
@@ -73,6 +74,7 @@ struct	s_sphere
 	enum e_obj	type;
 	t_point3	pos;
 	t_color		color;
+	t_pict		*texture[2];
 	double		radius;
 };
 
@@ -81,6 +83,7 @@ struct	s_cylinder
 	enum e_obj	type;
 	t_point3	pos;
 	t_color		color;
+	t_pict		*texture[2];
 	t_vect3		orientation;
 	double		radius;
 	t_point3	bot;
@@ -93,6 +96,7 @@ struct	s_plane
 	enum e_obj	type;
 	t_point3	pos;
 	t_color		color;
+	t_pict		*texture[2];
 	t_vect3		orientation;
 };
 

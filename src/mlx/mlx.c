@@ -6,10 +6,11 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:08:53 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/09/01 10:00:52 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/01 14:32:49 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "mlx.h"
 #include "miniRT.h"
 #include "mlx_int.h"
 #include "mlx_struct.h"
@@ -59,6 +60,28 @@ static bool	get_display(t_context *scene, short img[2])
 	}
 	mlx_hook(new->win_ptr, DestroyNotify, 0, destroy_display, scene);
 	return (true);
+}
+
+t_pict	*load_image(t_mlx *display, char *addr)
+{
+	t_pict	*new;
+
+	new = ft_calloc(sizeof(t_pict), 1);
+	if (!new)
+		return (NULL);
+	new->img_ptr = mlx_xpm_file_to_image(display->mlx_ptr, addr, \
+									  &new->size[W], &new->size[H]);
+	if (!new->img_ptr)
+		return (free_and_return_null(new));
+	new->addr = mlx_get_data_addr(new->img_ptr, &new->bbp, &new->l_size, \
+							   &new->endian);
+	if (!new->addr)
+	{
+		mlx_destroy_image(display->mlx_ptr, new->img_ptr);
+		return (free_and_return_null(new));
+	}
+	ft_putendl_fd("Hello", 1);
+	return (new);
 }
 
 static bool	new_image(t_context *scene, short img[2])
