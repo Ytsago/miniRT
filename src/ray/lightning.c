@@ -6,7 +6,7 @@
 /*   By: yabokhar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 20:18:33 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/09/02 11:46:30 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/02 16:37:06 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ t_vect3	lightning(t_context *scene, t_point3 p, t_vect3 n, t_vect3 obj_color)
 	while (light)
 	{
 		current_light = light->content;
-		light_dir = vect3_unit(vect3_sub(current_light->light_point, p));
+		light_dir = vect3_sub(current_light->light_point, p);
 		light_dist = vect3_norm((double *)light_dir.coords); 
+		light_dir = vect3_unit(light_dir);
 		light_color = color_to_vec(current_light->color);
 		if (!in_shadow(scene->objects, \
 		(t_ray){vect3_add(p, vect3_const_mult(n, T_MIN)), light_dir}, light_dist))
