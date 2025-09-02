@@ -6,7 +6,7 @@
 #    By: secros <secros@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/07 17:10:22 by yabokhar          #+#    #+#              #
-#    Updated: 2025/08/23 21:29:22 by yabokhar         ###   ########.fr        #
+#    Updated: 2025/09/02 11:09:17 by secros           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,19 +46,22 @@ RAYDIR		= $(SRCDIR)ray/
 SPECDIR		= $(SRCDIR)spectator_mode/
 MLXDIR		= $(SRCDIR)mlx/
 IMGDIR		= $(SRCDIR)image/
+OBJEDIR		= $(SRCDIR)object/
 
 # -----------FILES-----------#
 
 MAIN 	=	main.c
 
-MLX		=	mlx.c
+MLX		=	mlx_event.c mlx_display.c mlx_helpers.c
 
 IMAGE	=	get_camera.c
 
 RT		=	raytracing.c
 
-RAY		=	background_shade.c ray_create.c ray_at.c lightning.c ray_color.c \
-			hit_plane.c	cylinder_normal.c hit_sphere.c hit_cylinder.c 
+RAY		=	bumpmapping.c background_shade.c ray_create.c ray_at.c lightning.c\
+			ray_color.c 
+
+OBJECT	=	hit_cylinder.c hit_sphere.c hit_plane.c cylinder_normal.c
 
 SPEC	=	move_camera.c
 
@@ -89,7 +92,8 @@ SRCS =	$(addprefix $(SRCDIR), $(MAIN))\
 		$(addprefix $(MLXDIR), $(MLX))\
 		$(addprefix $(SPECDIR), $(SPEC))\
 		$(addprefix $(IMGDIR), $(IMAGE))\
-		$(addprefix $(RAYDIR), $(RAY))
+		$(addprefix $(RAYDIR), $(RAY))\
+		$(addprefix $(OBJEDIR), $(OBJECT))
 
 # -----------LIBS------------#
 

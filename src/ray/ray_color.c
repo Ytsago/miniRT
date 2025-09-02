@@ -6,7 +6,7 @@
 /*   By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:20:16 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/09/01 17:58:02 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/02 10:57:06 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,67 +17,33 @@
 #define T_MIN 1e-4
 #define DBL_MAX 1.79769e+308
 
-t_color		ray_color(t_ray ray, t_context *scene);
 static void	find_closest_object(const t_list *objects, t_ray r, \
-t_object **current_object, double *current_t);
-
-unsigned int	get_color_from_img(t_pict *img, int x, int y)
+t_object **current_object, double *current_t)
 {
-	return (img->addr[y * img->l_size + x * (img->bbp / 8)]);
-}
+	t_object	*curr;
+	double		t[2];
 
-t_vect3	get_normal_map(t_pict *map, double u, double v)
-{
-	const int	pixel_x = u * map->size[0];
-	const int	pixel_y = v * map->size[1];
-	t_color		c_normal;
-	t_vect3		normal;
-
-	c_normal.color = get_color_from_img(map, pixel_x, pixel_y);
-	normal = color_to_vec(c_normal);
-	normal = vect3_const_mult(normal, 2);
-	normal = vect3_add(normal, (t_vect3) {{-1, -1, -1}});
-	return (vect3_unit(normal));
-}
-
-t_vect3	get_texture(t_pict *map, double u, double v)
-{
-	const int	pixel_x = u * map->size[0];
-	const int	pixel_y = v * map->size[1];
-	t_color		p_color;
-
-	p_color.color = get_color_from_img(map, pixel_x, pixel_y);
-	return (color_to_vec(p_color));
-}
-
-t_vect3	sphere_mapping(t_object *obj, t_point3 p, t_vect3* normal)
-{
-	double	u;
-	double	v;
-	t_vect3	to_center;
-
-	to_center = vect3_sub(p, obj->pos);
-	to_center = vect3_const_div(to_center, ((t_sphere *)obj)->radius);
-	u = 0.5 + atan2(to_center.z, to_center.x) / (2 * M_PI);
-	v = 0.5 - asin(to_center.y) / M_PI;
-	if (obj->texture[1])
-		*normal = get_normal_map(obj->texture[1], u, v);
-	if (obj->texture[0])
-		return (get_texture(obj->texture[0], u, v));
-	return (color_to_vec(obj->color)); //duplicated in get_pixel_color
-}
-
-t_color	get_pixel_color(t_object *obj, t_context *scene, \
-	t_point3 p, t_vect3 normal)
-{
-	t_vect3	texture;
-
-	texture = color_to_vec(obj->color); //May be removed for performance
-	if (!obj->texture[0] && !obj->texture[1])
-		return (vec_to_color(lightning(scene, p, normal, texture))); 
-	if (obj->type == SPHERE)
-		texture = sphere_mapping(obj, p, &normal);
-	return (vec_to_color(lightning(scene, p, normal, texture)));
+	while (objects)
+	{
+		curr = (t_object *)objects->content;
+		if (curr->type == PLANE)
+			t[0] = hit_plane((t_plane *)curr, r);
+		else if (curr->type == SPHERE)
+			t[0] = hit_sphere((t_sphere *)curr, r);
+		else
+		{
+			t[0] = hit_cylinder((t_cylinder *)curr, r);
+			t[1] = hit_cylinder_caps((t_cylinder *)curr, r);
+			if (t[0] < 0 || (t[1] > T_MIN && t[1] < t[0]))
+				t[0] = t[1];
+		}
+		if (t[0] > T_MIN && t[0] < *current_t)
+		{
+			*current_t = t[0];
+			*current_object = curr;
+		}
+		objects = objects->next;
+	}
 }
 
 t_color	ray_color(t_ray ray, t_context *scene)
@@ -105,34 +71,4 @@ t_color	ray_color(t_ray ray, t_context *scene)
 	/*return (vec_to_color(lightning(scene, p, normal, \
 	color_to_vec(closest_obj->color))));*/
 	return (get_pixel_color(closest_obj, scene, p, normal));
-}
-
-static void	find_closest_object(const t_list *objects, t_ray r, \
-t_object **current_object, double *current_t)
-
-{
-	t_object	*curr;
-	double		t[2];
-
-	while (objects)
-	{
-		curr = (t_object *)objects->content;
-		if (curr->type == PLANE)
-			t[0] = hit_plane((t_plane *)curr, r);
-		else if (curr->type == SPHERE)
-			t[0] = hit_sphere((t_sphere *)curr, r);
-		else
-		{
-			t[0] = hit_cylinder((t_cylinder *)curr, r);
-			t[1] = hit_cylinder_caps((t_cylinder *)curr, r);
-			if (t[0] < 0 || (t[1] > T_MIN && t[1] < t[0]))
-				t[0] = t[1];
-		}
-		if (t[0] > T_MIN && t[0] < *current_t)
-		{
-			*current_t = t[0];
-			*current_object = curr;
-		}
-		objects = objects->next;
-	}
 }

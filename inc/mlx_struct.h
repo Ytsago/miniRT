@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 16:07:04 by secros            #+#    #+#             */
-/*   Updated: 2025/09/01 17:31:34 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/02 11:05:53 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,6 @@ void	mlx_destroy(t_mlx *display);
 void	error_failure_from_mlx_new_image(t_context *scene, t_mlx *display);
 int		handle_key(int keycode, void *params);
 t_pict	*load_image(t_mlx *display, char *addr);
+t_color	coord_to_img(t_pict	*map, double u, double v);
 
 #endif
