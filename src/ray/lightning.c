@@ -6,7 +6,7 @@
 /*   By: yabokhar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 20:18:33 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/09/01 16:35:46 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/09/02 11:46:30 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,16 @@ static bool	in_shadow(const t_list *objs, t_ray ray, double max_dist)
 			if (t > T_MIN && t < max_dist)
 				return (true);
 		}
+		if (curr->type == PLANE)
+		{
+			t = hit_plane((t_plane *) curr, ray);
+			if (t > T_MIN && t < max_dist)
+				return (true);
+		}
 		if (curr->type == CYLINDER)
 		{
 			t = hit_cylinder((t_cylinder *) curr, ray);
-			if (t > -1 && t < max_dist)
+			if (t > T_MIN && t < max_dist)
 				return (true);
 		}
 		objs = objs->next;

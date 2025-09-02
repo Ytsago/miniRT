@@ -6,7 +6,7 @@
 /*   By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:20:16 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/09/02 10:57:06 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/02 11:29:26 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,7 @@ t_object **current_object, double *current_t)
 		else if (curr->type == SPHERE)
 			t[0] = hit_sphere((t_sphere *)curr, r);
 		else
-		{
 			t[0] = hit_cylinder((t_cylinder *)curr, r);
-			t[1] = hit_cylinder_caps((t_cylinder *)curr, r);
-			if (t[0] < 0 || (t[1] > T_MIN && t[1] < t[0]))
-				t[0] = t[1];
-		}
 		if (t[0] > T_MIN && t[0] < *current_t)
 		{
 			*current_t = t[0];

@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:38:37 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/20 21:10:10 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/09/02 11:39:21 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ bool	parse_camera(char *line, t_context *scene)
 	jump_spaces(&line);
 	get_horizontal_fov(scene, &line, &parameters->horizontal_fov);
 	jump_spaces(&line);
-	if (*line != '\0' && *line != '\n' && *line != ' ')
+	if (*line != '\0' && *line != '\n' && *line != ' ' && *line != '\t')
 		excessive_params_error(scene, "camera", '3');
 	return (true);
 }
@@ -54,14 +54,14 @@ static void	get_view_point(t_context *scene, char **line, double p[3], short i)
 		++(*line);
 	if (i < 2)
 		get_view_point(scene, line, p, ++i);
-	if (i == 2 && **line != ' ')
+	if (i == 2 && **line != ' ' && **line != '\t')
 		no_space_error(scene);
 }
 
 static bool	get_nov(t_context *scene, char **line, t_vect3 *result)
 
 {
-	if (**line == ' ')
+	if (**line == ' ' || **line == '\t')
 		(*line)++;
 	if (!get_vect3_value(scene, line, result))
 		return (false);
@@ -71,7 +71,7 @@ static bool	get_nov(t_context *scene, char **line, t_vect3 *result)
 		range_error(scene, "camera 3d normalized orientation vec", "-1", "1");
 	if (result->coords[Z] < -1.0 || result->coords[Z] > 1.0)
 		range_error(scene, "camera 3d normalized orientation vec", "-1", "1");
-	if (**line != ' ')
+	if (**line != ' ' && **line != '\t')
 		no_space_error(scene);
 	return (true);
 }
@@ -89,7 +89,7 @@ static void	get_horizontal_fov(t_context *s, char **line, short *horizon_fov)
 		*horizon_fov = *horizon_fov * 10 + **line - '0';
 		++(*line);
 	}
-	if (**line != '\0' && **line != '\n' && **line != ' ')
+	if (**line != '\0' && **line != '\n' && **line != ' ' && **line != '\t')
 		no_space_error(s);
 	if (*horizon_fov < 0 || *horizon_fov > 180)
 		range_error(s, "camera horizontal fov", "0", "180");

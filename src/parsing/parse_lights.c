@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:38:43 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/22 11:10:11 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/09/02 11:34:27 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static bool	get_light_point_coords(t_context *s, char **line, t_point3 *result)
 		return (false);
 	if (!get_vect3_value(s, line, result))
 		return (false);
-	if (**line != ' ')
+	if (**line != ' ' && **line != '\t')
 		no_space_error(s);
 	return (true);
 }
@@ -71,7 +71,7 @@ static bool	get_brightness_ratio(t_context *scene, char **line, double *ratio)
 	if (precision)
 		precision_lost_error(scene, "light", "brightness ratio");
 	*line = end;
-	if (**line != ' ')
+	if (**line != ' ' && **line != '\t')
 		no_space_error(scene);
 	return (true);
 }

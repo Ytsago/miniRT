@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:16:05 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/27 20:59:28 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/09/02 11:25:08 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ double	hit_finite_cylinder(double hit[2], double scal[2], double height)
 	return (-1);
 }
 
-double	hit_cylinder(t_cylinder *cy, t_ray r)
+double	hit_cylinder_body(t_cylinder *cy, t_ray r)
 {
 	const t_vect3	w = vect3_sub(r.origin, cy->pos);
 	double			scal[2];
@@ -89,4 +89,23 @@ double	hit_cylinder(t_cylinder *cy, t_ray r)
 	if (hit[T1] > hit[T2])
 		swap_doubles(&hit[T1], &hit[T2]);
 	return (hit_finite_cylinder(hit, scal, cy->height / 2));
+}
+
+double	hit_cylinder(t_cylinder *cy, t_ray r)
+{
+	double	t_body;
+	double	t_caps;
+
+	t_body = hit_cylinder_body(cy, r);
+	t_caps = hit_cylinder_caps(cy, r);
+
+	if (t_body > 0 && t_caps > 0)
+	{
+		if (t_body < t_caps)
+			return (t_body);
+		return (t_caps);
+	}
+	if (t_body > 0)
+		return (t_body);
+	return (t_caps);
 }

@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 15:57:00 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/06/14 20:55:27 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/09/02 11:43:39 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ bool	parse_ambient_lightning(char *line, t_context *scene)
 
 	if (scene->element_has_been_declared[AMBIENT_LIGHTNING])
 		multiple_declarations_error(scene, "ambient lightning");
-	if (*line != ' ')
+	if (*line != ' ' && *line != '\t')
 		no_space_error(scene);
 	jump_spaces(&line);
 	parameters = &scene->ambient_lightning;
 	get_ratio(scene, &parameters->ratio, &line);
-	if (*line != ' ')
+	if (*line != ' ' && *line != '\t')
 		no_space_error(scene);
 	jump_spaces(&line);
 	if (!get_color(scene, &line, &parameters->color))

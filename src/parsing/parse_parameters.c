@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:29:29 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/21 17:10:24 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/09/02 11:38:34 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,11 @@ static bool	parse_objects(char *line, t_context *scene)
 	int	error;
 
 	error = 0;
-	if (!ft_strncmp("sp ", line, 3))
+	if (!ft_strncmp("sp", line, 2) && (line[2] == ' ' || line[2] == '\t'))
 		error = add_object(scene, new_sphere(scene, &line));
-	else if (!ft_strncmp("pl ", line, 3))
+	else if (!ft_strncmp("pl ", line, 2) && (line[2] == ' ' || line[2] == '\t'))
 		error = add_object(scene, new_plane(scene, &line));
-	else if (!ft_strncmp("cy ", line, 3))
+	else if (!ft_strncmp("cy ", line, 2) && (line[2] == ' ' || line[2] == '\t'))
 		error = add_object(scene, new_cylinder(scene, &line));
 	else if (!empty_line(line))
 		print(2, "%sline %d starts with an unknown identifier\n", \
