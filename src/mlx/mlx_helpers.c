@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 10:58:26 by secros            #+#    #+#             */
-/*   Updated: 2025/09/02 14:51:05 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/02 15:32:49 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@
 
 inline static unsigned int	get_color_from_img(t_pict *img, int x, int y)
 {
-	return (img->addr[y * img->l_size + x * (img->bbp / 8)]);
+	const char	*addr = img->addr + (y * img->l_size + (x * (img->bbp / 8)));
+
+	return ((*(unsigned int *)addr));
 }
 
 t_color	coord_to_img(t_pict	*map, double u, double v)
@@ -29,5 +31,4 @@ t_color	coord_to_img(t_pict	*map, double u, double v)
 	color.color = get_color_from_img(map, x_pix, y_pix);
 	return (color);
 }
-
 
