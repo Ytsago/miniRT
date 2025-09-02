@@ -6,15 +6,32 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 10:18:09 by secros            #+#    #+#             */
-/*   Updated: 2025/09/02 14:20:53 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/02 18:39:27 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 #include <math.h>
+#include "ray.h"
 
 #define U 0
 #define V 1
+
+t_vect3	apply_tbn(t_tbn tbn, t_vect3 normal)
+{
+	t_vect3	result;
+
+	result.x = tbn.tangent.x * normal.x + \
+			tbn.bitangent.x * normal.y + \
+			tbn.normal.x * normal.z;
+	result.y = tbn.tangent.y * normal.x + \
+			tbn.bitangent.y * normal.y +\
+			tbn.normal.y * normal.z;
+	result.z = tbn.tangent.z * normal.x + \
+			tbn.bitangent.z * normal.y +\
+			tbn.normal.z * normal.z;
+	return (vect3_unit(result));
+}
 
 t_vect3	get_normal_map(t_pict *map, double u, double v)
 {
@@ -24,6 +41,19 @@ t_vect3	get_normal_map(t_pict *map, double u, double v)
 	normal = vect3_const_mult(normal, 2);
 	normal = vect3_add(normal, (t_vect3) {{-1, -1, -1}});
 	return (vect3_unit(normal));
+}
+
+t_tbn	compute_sphere_tbn(double u, double v, t_vect3 normal)
+{
+	t_tbn	sp_tbn;
+
+	sp_tbn.tangent = (t_vect3) {{-sin(2 * M_PI * u), 0, cos(2 * M_PI * u)}};
+	sp_tbn.tangent = vect3_unit(sp_tbn.tangent);
+	sp_tbn.bitangent = (t_vect3) {{-cos(2 * M_PI * u) * sin(M_PI * v), \
+		cos(M_PI * v), -sin(2 * M_PI * u) * sin(M_PI * v)}};
+	sp_tbn.bitangent = vect3_unit(sp_tbn.bitangent);
+	sp_tbn.normal = normal;
+	return (sp_tbn);
 }
 
 t_vect3	sphere_mapping(t_object *obj, t_point3 p, t_vect3* normal)
@@ -37,10 +67,21 @@ t_vect3	sphere_mapping(t_object *obj, t_point3 p, t_vect3* normal)
 	u = 0.5 + atan2(to_center.z, to_center.x) / (2 * M_PI);
 	v = 0.5 - asin(to_center.y) / M_PI;
 	if (obj->texture[1])
-		*normal = get_normal_map(obj->texture[1], u, v);
+		*normal = apply_tbn(compute_sphere_tbn(u, v, *normal), \
+					  get_normal_map(obj->texture[1], u, v));
 	if (obj->texture[0])
 		return (color_to_vec(coord_to_img(obj->texture[0], u, v)));
 	return (color_to_vec(obj->color)); //duplicated in get_pixel_color
+}
+
+t_tbn	compute_plane_tbn(t_vect3 axis_u, t_vect3 axis_v,t_vect3 normal)
+{
+	t_tbn	pl_tbn;
+
+	pl_tbn.normal = normal;
+	pl_tbn.tangent = axis_u;
+	pl_tbn.bitangent = axis_v;
+	return (pl_tbn);
 }
 
 t_vect3	plane_mapping(t_object *obj, t_point3 p, t_vect3 *normal)
@@ -64,7 +105,8 @@ t_vect3	plane_mapping(t_object *obj, t_point3 p, t_vect3 *normal)
 	if (v < 0.0)
 		v += 1.0;
 	if (obj->texture[1])
-		*normal = get_normal_map(obj->texture[1], u, v);
+		*normal = apply_tbn(compute_plane_tbn(axis[U], axis[V], *normal), \
+					  get_normal_map(obj->texture[1], u, v));
 	if (obj->texture[0])
 		return (color_to_vec(coord_to_img(obj->texture[0], u, v)));
 	return (color_to_vec(obj->color));
