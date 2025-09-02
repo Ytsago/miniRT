@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 10:58:26 by secros            #+#    #+#             */
-/*   Updated: 2025/09/02 11:05:27 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/02 14:51:05 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #define W 0
 #define H 1
 
-static unsigned int	get_color_from_img(t_pict *img, int x, int y)
+inline static unsigned int	get_color_from_img(t_pict *img, int x, int y)
 {
 	return (img->addr[y * img->l_size + x * (img->bbp / 8)]);
 }

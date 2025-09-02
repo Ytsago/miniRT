@@ -6,7 +6,7 @@
 /*   By: yabokhar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 16:01:35 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/09/01 17:32:37 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/02 14:47:31 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	attribute_threads(t_context *scene, short img_width)
 	short		i;
 
 	get_(&online_processors);
-	online_processors = 1; 
 	base_height = scene->img[H] / online_processors;
 	remainder = scene->img[H] % online_processors;
 	scene->online_processors = online_processors;
