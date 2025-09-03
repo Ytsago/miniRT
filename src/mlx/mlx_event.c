@@ -74,25 +74,31 @@ int	handle_key(int keycode, void *params)
 #include <stdio.h>
 
 int	handle_mouse(int x, int y, void *params)
-
 {
 	t_context	*scene;
 	t_mlx		*screen;
-	static int	last_pos_x;
-	static int	last_pos_y;
+	static int	last_pos[2] = {-1, -1};
+	int			directions[2]; 
 
-	last_pos_x = x;
-	last_pos_y = y;
-	if (last_pos_x ^ x || last_pos_y ^ y)
+	scene = params;
+	screen = &scene->screen_ptr;
+	if (last_pos[X] < 0 && last_pos[Y] < 0)
 	{
-		scene = params;
-		screen = &scene->screen_ptr;
-		move_camera_orientation(&scene->camera, \
-		scene->center_coords[X] - x, scene->center_coords[Y] - y);
-		rt(scene);
-		mlx_put_image_to_window(screen->mlx_ptr, screen->win_ptr, \
-		screen->img.img_ptr, 0, 0);
+		last_pos[X] = x;
+		last_pos[Y] = y;
 		return (0);
 	}
-	return (1);
+	directions[X] = x - last_pos[X];
+	directions[Y] = y - last_pos[Y];
+	if (directions[X] || directions[Y])
+	{
+		move_camera_orientation(&scene->camera, directions);
+		get_camera(&scene->camera, scene->img);
+		rt(scene);
+		mlx_put_image_to_window(screen->mlx_ptr, screen->win_ptr,
+			screen->img.img_ptr, 0, 0);
+	}
+	last_pos[X] = x;
+	last_pos[Y] = y;
+	return (0);
 }

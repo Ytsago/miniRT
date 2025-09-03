@@ -16,6 +16,7 @@
 #define KEY_W 115
 #define KEY_D 100
 #define KEY_T 116
+#define MOUSE_SENSITIVITY 0.002
 
 void	move_camera(t_camera *camera, int keycode)
 
@@ -47,11 +48,20 @@ void	move_camera(t_camera *camera, int keycode)
 	camera->orientation_vector = vect3_unit(camera->orientation_vector);
 }
 
-#include <stdio.h>
-
-void	move_camera_orientation(t_camera *camera, int mov_x, int mov_y)
+void	move_camera_orientation(t_camera *camera, int directions[2])
 
 {
-	(void)camera;
-	printf("mov x = %d\n mov y = %d\n", mov_x, mov_y);
+	double			yaw;
+	double			pitch;
+	t_vect3			forward;
+	t_vect3			right;
+	const t_vect3	up = (t_vect3){{0, 1, 0}};
+
+	yaw = directions[X] * MOUSE_SENSITIVITY;
+	pitch = directions[Y] * MOUSE_SENSITIVITY;
+	forward = camera->orientation_vector;
+	right = vect3_unit(vect3_cross(up, forward));
+	forward = vect3_rotate(forward, up, yaw);
+	forward = vect3_rotate(forward, right, -pitch);
+	camera->orientation_vector = vect3_unit(forward);
 }

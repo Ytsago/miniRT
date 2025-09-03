@@ -185,7 +185,7 @@ bool		get_color(t_context *scene, char **line, t_color *color);
 
 void		get_camera(t_camera *params, short img[2]);
 void		move_camera(t_camera *camera, int keycode);
-void		move_camera_orientation(t_camera *camera, int mov_x, int mov_y);
+void		move_camera_orientation(t_camera *camera, int directions[2]);
 
 void		rt(t_context *scene);
 void		attribute_threads(t_context *scene, short img_width);
@@ -198,6 +198,7 @@ void		print(int fd, const char *format, ...);
 void		swap_doubles(double *v1, double *v2);
 t_vect3		color_to_vec(t_color c);
 t_color		vec_to_color(t_vect3 v);
+t_vect3		vect3_rotate(t_vect3 v, t_vect3 axis, double angle);
 void		ft_bzero_vect3(t_vect3 *self);
 void		*free_and_return_null(void *pointer);
 void		get_pixel_zero(t_viewport *params);

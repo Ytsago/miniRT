@@ -1,42 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector.c                                           :+:      :+:    :+:   */
+/*   vector_helper.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/03 10:24:14 by secros            #+#    #+#             */
-/*   Updated: 2025/09/03 13:55:59 by secros           ###   ########.fr       */
+/*   Created: 2025/09/03 11:02:34 by secros            #+#    #+#             */
+/*   Updated: 2025/09/03 11:13:04 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector.h"
 
-t_vector	*init_vector(size_t element_size)
+size_t	vector_size(t_vector *v)
 {
-	t_vector	*new;
-
-	new = malloc(sizeof(t_vector));
-	if (!new)
-		return (NULL);
-	new->capacity = 1;
-	new->size = 0;
-	new->element_size = element_size;
-	new->tab = malloc(new->capacity * element_size);
-	ft_fbzero(new->tab, new->capacity * element_size);
-	if (!new->tab)
-	{
-		free(new);
-		return (NULL);
-	}
-	return (new);
+	return (v->size);
 }
 
-void	vector_destroy(t_vector	*v) 
+size_t	vector_capacity(t_vector *v)
 {
-	if (!v)
-		return ;
+	return (v->capacity);
+}
+
+int vector_resize(t_vector *v, size_t new_size)
+{
+	void	*new;
+	new = malloc(new_size);
+	if (!new)
+		return (-1);
+	ft_memmove(new, v->tab, v->size * v->element_size);
 	free(v->tab);
-	free(v);
-	return ;
+	v->tab = new;
+	v->capacity = new_size;
+	return (0);
 }

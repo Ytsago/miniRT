@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 #include "vect3.h"
-#include "math.h"
 #include "mlx_struct.h"
+#include <math.h>
 
 t_vect3	color_to_vec(t_color c)
 
@@ -33,4 +33,22 @@ t_color	vec_to_color(t_vect3 v)
 	c.b = v.coords[Z];
 	c.a = 0;
 	return (c);
+}
+
+t_vect3	vect3_rotate(t_vect3 v, t_vect3 axis, double angle)
+
+{
+	double	c;
+	double	s;
+
+	axis = vect3_unit(axis);
+	c = cos(angle);
+	s = sin(angle);
+	return (vect3_add(
+			vect3_const_mult(v, c),
+			vect3_add(
+				vect3_const_mult(vect3_cross(axis, v), s),
+				vect3_const_mult(axis, vect3_scalar(axis, v) * (1 - c))
+			)
+		));
 }
