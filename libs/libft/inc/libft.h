@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:41:21 by secros            #+#    #+#             */
-/*   Updated: 2025/06/26 15:12:01 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/09/03 13:33:45 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ char	*ft_strrchr(const char *s, int c);
 char	*ft_strnstr(const char *big, const char *little, size_t len);
 char	*ft_strdup(const char *s);
 char	*ft_strappend(char *s1, char *s2);
+char	*extract_str(char *str, const char *charset);
 
 void	*ft_calloc(size_t nmemb, size_t size);
 int		ft_atoi(const char *nptr);

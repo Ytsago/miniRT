@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx.c                                              :+:      :+:    :+:   */
+/*   mlx_event.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:08:53 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/09/02 10:51:46 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/03 13:52:36 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,13 @@ int	destroy_display(t_context *scene)
 	ft_lstclear(&scene->lights_list, free);
 	free(scene->threads);
 	exit(1);
+}
+
+void	destroy_img(t_pict *img, t_mlx *display)
+{
+	if (img && img->img_ptr)
+		mlx_destroy_image(display->mlx_ptr, img->img_ptr);
+	free (img);
 }
 
 int	handle_key(int keycode, void *params)

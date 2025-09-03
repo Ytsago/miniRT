@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 11:29:39 by secros            #+#    #+#             */
-/*   Updated: 2025/09/02 18:49:59 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/03 14:11:28 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ t_object	*new_plane(t_context *scene, char **line)
 	jump_spaces(line);
 	if (!get_color(scene, line, &new->color))
 		return (free_and_return_null(new));
-	new->texture[0] = load_image(&scene->screen_ptr, "./test.xpm");
-	new->texture[1] = load_image(&scene->screen_ptr, "./test_normal.xpm");
+	// new->texture[0] = load_image(&scene->screen_ptr, "./test.xpm");
+	new->texture[1] = load_image(&scene->screen_ptr, "./test3_normal.xpm");
 	return ((t_object *) new);
 }
 

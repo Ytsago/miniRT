@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 10:24:14 by secros            #+#    #+#             */
-/*   Updated: 2025/09/03 11:20:54 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/03 13:55:59 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_vector	*init_vector(size_t element_size)
 	new->size = 0;
 	new->element_size = element_size;
 	new->tab = malloc(new->capacity * element_size);
+	ft_fbzero(new->tab, new->capacity * element_size);
 	if (!new->tab)
 	{
 		free(new);

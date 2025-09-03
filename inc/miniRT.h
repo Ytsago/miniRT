@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:54:55 by secros            #+#    #+#             */
-/*   Updated: 2025/09/03 10:13:15 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/03 11:56:10 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "vect3.h"
 # include "mlx_struct.h"
 # include "libft.h"
+# include "vector.h"
 
 typedef struct s_object		t_object;
 typedef struct s_viewport	t_viewport;
@@ -156,6 +157,7 @@ typedef struct s_context
 	bool				element_has_been_declared[2];
 	bool				brut_mode;
 	t_mlx				screen_ptr;
+	t_vector			*textures;
 }	t_context;
 
 int			main(int argc, const char *argv[]);
