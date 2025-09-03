@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 11:05:42 by secros            #+#    #+#             */
-/*   Updated: 2025/09/03 11:09:03 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/03 11:20:35 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,15 @@ struct s_vector
 };
 
 t_vector	*init_vector(size_t element_size);
-void	vector_destroy(t_vector	*v, void (*f)(void *));
+void		vector_destroy(t_vector	*v);
 
-int	vector_push(t_vector *v, void *element);
-int	vector_pop(t_vector *v);
-int vector_get(t_vector *v, size_t index, void *out);
-int	vector_set(t_vector *v, size_t index, void *in);
+int			vector_push(t_vector *v, void *element);
+int			vector_pop(t_vector *v);
+int 		vector_get(t_vector *v, size_t index, void *out);
+int			vector_set(t_vector *v, size_t index, void *in);
 
-size_t	vector_size(t_vector *v);
-size_t	vector_capacity(t_vector *v);
-int vector_resize(t_vector *v, size_t new_size);
+size_t		vector_size(t_vector *v);
+size_t		vector_capacity(t_vector *v);
+int 		vector_resize(t_vector *v, size_t new_size);
 
 #endif

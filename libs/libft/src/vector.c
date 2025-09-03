@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 10:24:14 by secros            #+#    #+#             */
-/*   Updated: 2025/09/03 11:09:07 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/03 11:20:54 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_vector	*init_vector(size_t element_size)
 	new->capacity = 1;
 	new->size = 0;
 	new->element_size = element_size;
-	new->tab = malloc(sizeof(new->capacity * element_size));
+	new->tab = malloc(new->capacity * element_size);
 	if (!new->tab)
 	{
 		free(new);
@@ -31,11 +31,11 @@ t_vector	*init_vector(size_t element_size)
 	return (new);
 }
 
-void	vector_destroy(t_vector	*v, void (*f)(void *))
+void	vector_destroy(t_vector	*v) 
 {
-	if (!v || !f)
+	if (!v)
 		return ;
-	f(v->tab);
+	free(v->tab);
 	free(v);
 	return ;
 }
