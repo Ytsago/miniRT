@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:29:29 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/09/02 11:38:34 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/03 10:23:41 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static bool	parse_objects(char *line, t_context *scene);
 
 void	parse_and_load_parameters(t_context *scene)
 {
-	char	*line;
+char	*line;
 
 	line = get_next_line(scene->fd);
 	if (!line || !line[0])
@@ -46,7 +46,16 @@ void	parse_and_load_parameters(t_context *scene)
 	}
 	close(scene->fd);
 }
-
+/*
+bool	parse_texture(char *line, t_context *scene)
+{
+	if (*line != 'M')
+		return (false);
+	*line++;
+	jump_spaces(&line);
+	
+}
+*/
 static bool	parse_elements(char *line, t_context *scene)
 
 {
@@ -59,6 +68,8 @@ static bool	parse_elements(char *line, t_context *scene)
 		return (true);
 	else if (empty_line(line))
 		return (true);
+	// else if (parse_texture(line, scene))
+		// return (true);
 	return (false);
 }
 
@@ -83,7 +94,6 @@ static bool	parse_general_elements(char *line, t_context *scene)
 }
 
 static bool	parse_objects(char *line, t_context *scene)
-
 {
 	int	error;
 
