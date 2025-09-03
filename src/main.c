@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 14:38:13 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/09/02 11:13:00 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/03 20:39:12 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int	main(int argc, const char *argv[])
 	ft_bzero(&scene, sizeof(t_context));
 	scene.img[W] = WIDTH;
 	scene.img[H] = HEIGHT;
+	scene.center_coords[X] = WIDTH >> 1;
+	scene.center_coords[Y] = HEIGHT >> 1;
 	get_display_and_new_image(&scene, scene.img);
 	parse_arguments(argc, argv, &scene);
 	parse_and_load_parameters(&scene);
@@ -52,6 +54,7 @@ int	main(int argc, const char *argv[])
 	rt(&scene);
 	mlx_put_image_to_window(scene.screen_ptr.mlx_ptr, scene.screen_ptr.win_ptr, \
 		scene.screen_ptr.img.img_ptr, 0, 0);
+	mlx_hook(scene.screen_ptr.win_ptr, 6, 1L << 6, handle_mouse, &scene);
 	mlx_key_hook(scene.screen_ptr.win_ptr, handle_key, &scene);
 	mlx_loop(scene.screen_ptr.mlx_ptr);
 	return (0);

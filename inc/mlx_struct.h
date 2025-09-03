@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 16:07:04 by secros            #+#    #+#             */
-/*   Updated: 2025/09/03 13:53:16 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/03 20:31:54 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	mlx_destroy(t_mlx *display);
 void	destroy_img(t_pict *img, t_mlx *display);
 void	error_failure_from_mlx_new_image(t_context *scene, t_mlx *display);
 int		handle_key(int keycode, void *params);
+int		handle_mouse(int x, int y, void *params);
 t_pict	*load_image(t_mlx *display, char *addr);
 t_color	coord_to_img(t_pict	*map, double u, double v);
 

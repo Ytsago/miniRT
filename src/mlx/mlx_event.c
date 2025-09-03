@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:08:53 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/09/03 13:52:36 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/03 21:06:15 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "miniRT.h"
 #include "mlx_struct.h"
 
+#define X 0
+#define Y 1
 #define ESC 65307
 #define KEY_W 119
 #define KEY_A 97
@@ -67,4 +69,30 @@ int	handle_key(int keycode, void *params)
 	mlx_put_image_to_window(screen->mlx_ptr, screen->win_ptr, \
 	screen->img.img_ptr, 0, 0);
 	return (0);
+}
+
+#include <stdio.h>
+
+int	handle_mouse(int x, int y, void *params)
+
+{
+	t_context	*scene;
+	t_mlx		*screen;
+	static int	last_pos_x;
+	static int	last_pos_y;
+
+	last_pos_x = x;
+	last_pos_y = y;
+	if (last_pos_x ^ x || last_pos_y ^ y)
+	{
+		scene = params;
+		screen = &scene->screen_ptr;
+		move_camera_orientation(&scene->camera, \
+		scene->center_coords[X] - x, scene->center_coords[Y] - y);
+		rt(scene);
+		mlx_put_image_to_window(screen->mlx_ptr, screen->win_ptr, \
+		screen->img.img_ptr, 0, 0);
+		return (0);
+	}
+	return (1);
 }

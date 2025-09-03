@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:54:55 by secros            #+#    #+#             */
-/*   Updated: 2025/09/03 11:56:10 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/03 21:04:02 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,7 @@ typedef struct s_threads
 typedef struct s_context
 {
 	t_threads			*threads;
+	short				center_coords[2];
 	short				img[2];
 	t_ambient_lightning	ambient_lightning;
 	t_camera			camera;
@@ -184,6 +185,7 @@ bool		get_color(t_context *scene, char **line, t_color *color);
 
 void		get_camera(t_camera *params, short img[2]);
 void		move_camera(t_camera *camera, int keycode);
+void		move_camera_orientation(t_camera *camera, int mov_x, int mov_y);
 
 void		rt(t_context *scene);
 void		attribute_threads(t_context *scene, short img_width);
