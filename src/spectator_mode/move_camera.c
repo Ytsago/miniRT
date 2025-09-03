@@ -61,7 +61,7 @@ void	move_camera_orientation(t_camera *camera, int directions[2])
 	pitch = directions[Y] * MOUSE_SENSITIVITY;
 	forward = camera->orientation_vector;
 	right = vect3_unit(vect3_cross(up, forward));
-	forward = vect3_rotate(forward, up, yaw);
+	forward = vect3_rotate(forward, up, -yaw);
 	forward = vect3_rotate(forward, right, -pitch);
 	camera->orientation_vector = vect3_unit(forward);
 }
