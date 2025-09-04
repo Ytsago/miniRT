@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:54:55 by secros            #+#    #+#             */
-/*   Updated: 2025/09/03 21:04:02 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/09/04 13:33:17 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,14 @@ typedef struct s_viewport	t_viewport;
 typedef struct s_sphere		t_sphere;
 typedef struct s_cylinder	t_cylinder;
 typedef struct s_plane		t_plane;
+typedef struct s_cone		t_cone;
 
 enum e_obj
 {
 	SPHERE,
 	CYLINDER,
 	PLANE,
+	CONE,
 };
 
 # ifndef E_GEO
@@ -89,6 +91,16 @@ struct	s_cylinder
 	double		radius;
 	t_point3	bot;
 	t_point3	top;
+	double		height;
+};
+
+struct s_cone
+{
+	enum e_obj	type;
+	t_point3	pos;
+	t_color		color;
+	t_vect3		orientation;
+	double		radius;
 	double		height;
 };
 
@@ -174,6 +186,7 @@ t_object	*new_object(t_context *scene, char **line, enum e_obj type);
 t_object	*new_cylinder(t_context *scene, char **line);
 t_object	*new_plane(t_context *scene, char **line);
 t_object	*new_sphere(t_context *scene, char **line);
+t_object	*new_cone(t_context *scene, char **line);
 bool		add_element(t_context *scene, void *type);
 
 void		jump_spaces(char **str);

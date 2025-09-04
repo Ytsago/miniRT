@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 14:38:13 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/09/03 20:39:12 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/09/04 13:31:02 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	debug(t_context *scene)
 	cur = scene->lights_list;
 	while (cur)
 	{
+		print_obj_lst(scene->objects);
 		light = cur->content;
 		print_vect(&light->light_point);
 		printf("brightness de mes couilles : %f\n", light->brightness_ratio); 

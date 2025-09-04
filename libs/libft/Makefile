@@ -6,7 +6,7 @@
 #    By: secros <secros@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/03 14:10:37 by yabokhar          #+#    #+#              #
-#    Updated: 2025/07/04 11:09:24 by secros           ###   ########.fr        #
+#    Updated: 2025/09/04 10:04:00 by secros           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ BONUSES = 	ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c ft_lstla
 			ft_lstadd_back_bonus.c ft_lstdelone_bonus.c ft_lstclear_bonus.c ft_lstmap_bonus.c \
 			ft_lstiter_bonus.c ft_putnbr_base.c get_next_line.c get_next_line_utils.c \
 			ft_atol.c ft_issign.c ft_multi_split.c ft_strappend.c bt_malloc.c bt_free.c \
-			ft_strtod.c 
+			ft_strtod.c vector.c vector_element.c vector_helper.c extract_str.c
 			
 
 INCDIR = inc/
