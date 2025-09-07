@@ -6,7 +6,7 @@
 /*   By: yabokhar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 20:18:33 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/09/02 16:37:06 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/04 16:02:10 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ t_vect3	lightning(t_context *scene, t_point3 p, t_vect3 n, t_vect3 obj_color)
 }
 
 static bool	in_shadow(const t_list *objs, t_ray ray, double max_dist)
-
 {
 	t_object		*curr;
 	double			t;
@@ -74,24 +73,9 @@ static bool	in_shadow(const t_list *objs, t_ray ray, double max_dist)
 	while (objs)
 	{
 		curr = (t_object *)objs->content;
-		if (curr->type == SPHERE)
-		{
-			t = hit_sphere((t_sphere *) curr, ray);
-			if (t > T_MIN && t < max_dist)
-				return (true);
-		}
-		if (curr->type == PLANE)
-		{
-			t = hit_plane((t_plane *) curr, ray);
-			if (t > T_MIN && t < max_dist)
-				return (true);
-		}
-		if (curr->type == CYLINDER)
-		{
-			t = hit_cylinder((t_cylinder *) curr, ray);
-			if (t > T_MIN && t < max_dist)
-				return (true);
-		}
+		t = hit_object(curr, ray);
+		if (t > T_MIN && t < max_dist)
+			return (true);
 		objs = objs->next;
 	}
 	return (false);

@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:54:55 by secros            #+#    #+#             */
-/*   Updated: 2025/09/04 13:33:17 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/04 16:01:52 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ struct s_cone
 	t_vect3		orientation;
 	double		radius;
 	double		height;
+	double		k;
+	t_point3	bot;
 };
 
 struct	s_plane

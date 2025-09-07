@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 11:29:39 by secros            #+#    #+#             */
-/*   Updated: 2025/09/04 14:59:19 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/04 15:44:14 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,13 @@ static void	precalculate_cylinder_values(t_cylinder *new)
 	new->top = vect3_add(pos, vect3_const_mult(orientation, half));
 }
 
+static void	precalculate_cone_values(t_cone *new)
+{
+	new->bot = vect3_add(new->pos, \
+					  vect3_const_mult(new->orientation, new->height));
+	new->k = pow(new->height, 2) / (pow(new->height, 2) + pow(new->radius, 2));
+}
+
 t_object	*new_cone(t_context *scene, char **line)
 {
 	t_cone	*new;
@@ -77,7 +84,7 @@ t_object	*new_cone(t_context *scene, char **line)
 	jump_spaces(line);
 	if (!get_color(scene, line, &new->color))
 		return (free_and_return_null(new));
-	// precalculate_cone_values(new);
+	precalculate_cone_values(new);
 	return ((t_object *) new);
 }
 

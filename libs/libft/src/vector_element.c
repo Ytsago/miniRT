@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 11:04:32 by secros            #+#    #+#             */
-/*   Updated: 2025/09/03 11:15:16 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/04 15:32:37 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	vector_push(t_vector *v, void *element)
 			return (-1);
 	}
 	ft_memcpy((char *)v->tab + v->size * v->element_size, \
-		   element, v->element_size);
+		element, v->element_size);
 	v->size++;
 	return (0);
 }
@@ -35,7 +35,7 @@ int	vector_pop(t_vector *v)
 	return (0);
 }
 
-int vector_get(t_vector *v, size_t index, void *out)
+int	vector_get(t_vector *v, size_t index, void *out)
 {
 	if (!v || index >= v->size || !out)
 		return (-1);
