@@ -151,11 +151,13 @@ typedef struct s_threads
 	short				screen_parts[2];
 	pthread_t			thread;
 	short				index;
+	long				elapsed_time;
 	t_context			*scene;
 }	t_threads;
 
 typedef struct s_context
 {
+	bool				benchmark;
 	t_threads			*threads;
 	short				center_coords[2];
 	short				img[2];

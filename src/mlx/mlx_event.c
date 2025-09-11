@@ -22,6 +22,7 @@
 #define KEY_S 115
 #define KEY_D 100
 #define KEY_T 116
+#define KEY_B 98
 
 void	mlx_destroy(t_mlx *display)
 {
@@ -64,6 +65,11 @@ int	handle_key(int keycode, void *params)
 	{
 		move_camera(&scene->camera, keycode);
 		get_camera(&scene->camera, scene->img);
+	}
+	if (keycode == KEY_B)
+	{
+		print(1, "Time of execution of each thread will be calculated at next frame.\n");
+		scene->benchmark = true;
 	}
 	rt(scene);
 	mlx_put_image_to_window(screen->mlx_ptr, screen->win_ptr, \
