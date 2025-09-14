@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:20:18 by secros            #+#    #+#             */
-/*   Updated: 2025/09/04 15:54:28 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/11 19:20:42 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ double	hit_finit_cone(double hit[2], double scal[2], double height)
 	double projected_height;
 
 	projected_height = scal[N] + (hit[T1] * scal[M]);
-	if (hit[T1] > T_MIN && projected_height >= 0 && projected_height <= height)
+	if (hit[T1] > T_MIN && projected_height >= -height && projected_height <= height)
 		return (hit[T1]);
 	projected_height = scal[N] + (hit[T2] * scal[M]);
-	if (hit[T2] > T_MIN && projected_height >= 0 && projected_height <= height)
+	if (hit[T2] > T_MIN && projected_height >= -height && projected_height <= height)
 		return (hit[T2]);
 	return (-1);
 }
