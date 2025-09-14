@@ -6,11 +6,11 @@
 #    By: secros <secros@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/03 14:10:37 by yabokhar          #+#    #+#              #
-#    Updated: 2025/09/04 10:04:00 by secros           ###   ########.fr        #
+#    Updated: 2025/09/14 11:22:49 by secros           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -MMD -MP
 CC = cc
 AR = ar
 ARFLAG = -rcs
@@ -39,7 +39,7 @@ BONUSES = 	ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c ft_lstla
 
 INCDIR = inc/
 
-INCH = libft.h ft_printf.h get_next_line.h
+INCH = libft.h ft_printf.h get_next_line.h color.h vector.h bt_malloc.h
 
 INC = $(addprefix $(INCDIR), $(INCH))
 
@@ -60,13 +60,13 @@ all: $(NAME) $(INC)
 $(NAME) : $(OBJS)
 	@$(AR) $(ARFLAG) $@ $?
 
-$(OBJDIR)%.o: $(SRCDIR)%.c $(INC) | $(OBJDIR) msg
+$(OBJDIR)%.o: $(SRCDIR)%.c $(INC) | $(OBJDIR) 
 	@$(CC) -c $(CFLAGS) -I$(INCDIR) $< -o $@
 
 $(OBJDIR):
 	@mkdir -p $(OBJDIR)
 
-clean:
+clean: fclean
 	@rm -rf $(OBJDIR)
 
 fclean:
@@ -74,4 +74,4 @@ fclean:
 
 re: fclean all
 
-.PHONY: clean fclean re all bonus msg
+.PHONY: clean fclean re all bonus 
