@@ -13,6 +13,8 @@
 #include "miniRT.h"
 #include "ray.h"
 #include <pthread.h>
+#include <stdio.h>
+#include <sys/time.h>
 
 #define W 0
 #define H 1
@@ -46,16 +48,27 @@ void	rt(t_context *scene)
 	i = -1;
 	while (++i < online_processors)
 		pthread_join(scene->threads[i].thread, NULL);
+
+	i = -1;
+	if (scene->benchmark)
+	{
+		while (++i < online_processors)
+			printf("Thread %d took %ld microseconds.\n", i, scene->threads[i].elapsed_time);
+		scene->benchmark = false;
+	}
 }
 
 static void	*raytracer(void *argument)
 
 {
-	const t_threads		*thread = (t_threads *)argument;
+	t_threads		*thread = (t_threads *)argument;
 	const t_context		*scene = thread->scene;
 	const t_viewport	*view = (t_viewport *)&scene->camera.viewport;
 	int16_t				values[6];
+	struct timeval		time[2];
 
+	if (scene->benchmark)
+		gettimeofday(&time[0], NULL);
 	values[IMG_WIDTH] = scene->img[IMG_WIDTH];
 	values[IMG_HEIGHT] = scene->img[IMG_HEIGHT];
 	values[START_Y] = get_start_y((t_context *)scene, thread->index);
@@ -64,6 +77,11 @@ static void	*raytracer(void *argument)
 	values[INDEX_Y] = values[START_Y] - 1;
 	get_colors((t_context *)scene, values, \
 	view, (unsigned int *)scene->screen_ptr.img.addr);
+	if (scene->benchmark)
+	{
+		gettimeofday(&time[1], NULL);
+		thread->elapsed_time = (time[1].tv_sec - time[0].tv_sec) * 1000000 + (time[1].tv_usec - time[0].tv_usec);
+	}
 	return (NULL);
 }
 

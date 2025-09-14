@@ -43,6 +43,7 @@ void	attribute_threads(t_context *scene, short img_width)
 		threads[i].scene = scene;
 		threads[i].screen_parts[H] = base_height + (i < remainder);
 		threads[i].screen_parts[W] = img_width;
+		threads[i].elapsed_time = 0;
 	}
 }
 
