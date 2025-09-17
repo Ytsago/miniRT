@@ -13,8 +13,8 @@
 #ifndef MINIRT_H
 # define MINIRT_H
 
-# define WIDTH 1920
-# define HEIGHT 1080
+# define WIDTH 720
+# define HEIGHT 480
 
 # include <stdint.h>
 # include <stdbool.h>
@@ -36,6 +36,7 @@ enum e_obj
 	CYLINDER,
 	PLANE,
 	CONE,
+	CHECKERBOARD,
 };
 
 # ifndef E_GEO
@@ -189,6 +190,7 @@ bool		add_object(t_context *scene, t_object *object);
 t_object	*new_object(t_context *scene, char **line, enum e_obj type);
 t_object	*new_cylinder(t_context *scene, char **line);
 t_object	*new_plane(t_context *scene, char **line);
+t_object	*new_checkerboard(t_context *scene, char **line);
 t_object	*new_sphere(t_context *scene, char **line);
 t_object	*new_cone(t_context *scene, char **line);
 bool		add_element(t_context *scene, void *type);
@@ -222,5 +224,8 @@ void		get_pixel_zero(t_viewport *params);
 void		get_viewport_upper_left(t_viewport *params, t_camera *cam);
 t_color		get_pixel_color(t_object *obj, t_context *scene, \
 	t_point3 p, t_vect3 normal);
+
+t_vect3		checkerboard_mapping(t_object *obj, t_point3 p, t_vect3 *normal);
+
 
 #endif

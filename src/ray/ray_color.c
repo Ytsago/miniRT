@@ -32,6 +32,8 @@ t_object **current_object, double *current_t)
 			t = hit_sphere((t_sphere *)curr, r);
 		else if (curr->type == CYLINDER)
 			t = hit_cylinder((t_cylinder *)curr, r);
+		else if (curr->type == CHECKERBOARD)
+			t = hit_plane((t_plane *) curr, r);
 		else
 			t = hit_cone((t_cone *) curr, r);
 		if (t > T_MIN && t < *current_t)
@@ -78,6 +80,8 @@ t_color	ray_color(t_ray ray, t_context *scene)
 		normal = vect3_unit(vect3_sub(p, closest_obj->pos));
 	else if (closest_obj->type == CYLINDER)
 		normal = cylinder_normal((t_cylinder *)closest_obj, ray, closest_t);
+	else if (closest_obj->type == CHECKERBOARD)
+		normal = ((t_plane *)closest_obj)->orientation;
 	else
 		normal = cone_normal((t_cone *) closest_obj, p);
 	/*return (vec_to_color(lightning(scene, p, normal, \

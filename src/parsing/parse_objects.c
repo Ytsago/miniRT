@@ -40,6 +40,24 @@ t_object	*new_plane(t_context *scene, char **line)
 	return ((t_object *) new);
 }
 
+t_object	*new_checkerboard(t_context *scene, char **line)
+{
+	t_plane	*new;
+
+	new = malloc(sizeof(t_plane));
+	if (!new)
+		return (NULL);
+	ft_fbzero(new, sizeof(t_plane));
+	new->type = CHECKERBOARD;
+	(*line) += 3;
+	if (!get_vect3_value(scene, line, &new->pos))
+		return (free_and_return_null(new));
+	if (!get_vect3_value(scene, line, &new->orientation))
+		return (free_and_return_null(new));
+	new->orientation = vect3_unit(new->orientation);
+	return ((t_object *) new);
+}
+
 static void	precalculate_cylinder_values(t_cylinder *new)
 
 {

@@ -23,6 +23,8 @@ double	hit_object(t_object *obj, t_ray r)
 		return (hit_cylinder((t_cylinder *) obj, r));
 	if (obj->type == CONE)
 		return (hit_cone((t_cone *) obj, r));
+	if (obj->type == CHECKERBOARD)
+		return (hit_plane((t_plane *) obj, r));
 	return (-1);
 }
 

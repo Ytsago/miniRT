@@ -58,7 +58,7 @@ IMAGE	=	get_camera.c
 
 RT		=	raytracing.c
 
-RAY		=	bumpmapping.c background_shade.c ray_create.c ray_at.c lightning.c\
+RAY		=	checkerboard.c bumpmapping.c background_shade.c ray_create.c ray_at.c lightning.c\
 			ray_color.c 
 
 OBJECT	=	hit_cylinder.c hit_sphere.c hit_plane.c cylinder_normal.c hit_cone.c\

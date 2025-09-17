@@ -118,11 +118,13 @@ t_color	get_pixel_color(t_object *obj, t_context *scene, \
 	t_vect3	texture;
 
 	texture = color_to_vec(obj->color); //May be removed for performance
-	if (!obj->texture[0] && !obj->texture[1])
-		return (vec_to_color(lightning(scene, p, normal, texture))); 
+	/*if (!obj->texture[0] && !obj->texture[1])
+		return (vec_to_color(lightning(scene, p, normal, texture))); */
 	if (obj->type == SPHERE)
 		texture = sphere_mapping(obj, p, &normal);
 	if (obj->type == PLANE)
 		texture = plane_mapping(obj, p, &normal);
+	if (obj->type == CHECKERBOARD)
+		texture = checkerboard_mapping(obj, p, &normal);
 	return (vec_to_color(lightning(scene, p, normal, texture)));
 }

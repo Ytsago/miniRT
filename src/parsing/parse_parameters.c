@@ -167,6 +167,8 @@ static bool	parse_objects(char *line, t_context *scene)
 		error = add_object(scene, new_cylinder(scene, &line));
 	else if (!ft_strncmp("co", line, 2) && (line[2] == ' ' || line[2] == '\t'))
 		error = add_object(scene, new_cone(scene, &line));
+	else if (!ft_strncmp("ch", line, 2) && (line[2] == ' ' || line[2] == '\t'))
+		error = add_object(scene, new_checkerboard(scene, &line));
 	else if (!empty_line(line))
 		print(2, "%sline %d starts with an unknown identifier\n", \
 		X_ERROR, scene->line_number);
