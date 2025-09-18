@@ -58,6 +58,17 @@ t_vect3	cone_normal(t_cone *co, t_point3 p)
 	return (vect3_unit(normal));
 }
 
+static t_ray	compute_reflection_ray(t_point3 p, t_vect3 normal, t_ray incident)
+
+{
+	t_vect3	reflect_direction;
+	double	cos_theta;
+
+	cos_theta = vect3_scalar(incident.direction, normal);
+	reflect_direction = vect3_sub(incident.direction, vect3_const_mult(normal, 2.0 * cos_theta));
+	return (ray_create(vect3_add(p, vect3_const_mult(normal, T_MIN)), reflect_direction));
+}
+
 t_color	ray_color(t_ray ray, t_context *scene)
 {
 	t_object		*closest_obj;
@@ -65,6 +76,11 @@ t_color	ray_color(t_ray ray, t_context *scene)
 	const t_list	*objs = scene->objects;
 	t_point3		p;
 	t_vect3			normal;
+
+	t_vect3			texture_color;
+	t_ray			reflected_ray;
+	t_color			reflected_color;
+	t_vect3			reflected_vector;
 
 	closest_obj = NULL;
 	closest_t = DBL_MAX;
@@ -84,6 +100,16 @@ t_color	ray_color(t_ray ray, t_context *scene)
 		normal = ((t_plane *)closest_obj)->orientation;
 	else
 		normal = cone_normal((t_cone *) closest_obj, p);
+
+	texture_color = color_to_vec(get_pixel_color(closest_obj, scene, p, normal));
+	if (closest_obj->type == CHECKERBOARD)
+	{
+		reflected_ray = compute_reflection_ray(p, normal, ray);
+		reflected_color = ray_color(reflected_ray, scene);
+		reflected_vector = color_to_vec(reflected_color);
+		texture_color = vect3_add(vect3_const_mult(texture_color, 0.5), vect3_const_mult(reflected_vector, 0.5));
+	}
+	return (vec_to_color(lightning(scene, p, normal, texture_color)));
 	/*return (vec_to_color(lightning(scene, p, normal, \
 	color_to_vec(closest_obj->color))));*/
 	return (get_pixel_color(closest_obj, scene, p, normal));

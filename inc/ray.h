@@ -43,6 +43,7 @@ double	hit_object(t_object *obj, t_ray r);
 
 t_color	ray_color(t_ray dir, t_context *objects);
 t_vect3	ray_at(t_ray r, double t);
+t_ray	ray_create(t_vect3 origin, t_vect3 direction);
 t_vect3	cylinder_normal(t_cylinder *cy, t_ray r, double t);
 
 #endif
