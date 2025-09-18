@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move_camera.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabokhar <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 10:08:22 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/09/03 21:04:15 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/09/18 22:11:13 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #define KEY_W 115
 #define KEY_D 100
 #define KEY_T 116
-#define MOUSE_SENSITIVITY 0.002
+#define MOUSE_SENSITIVITY 0.0001
 
 void	move_camera(t_camera *camera, int keycode)
 

@@ -47,6 +47,8 @@ int	main(int argc, const char *argv[])
 	scene.center_coords[X] = WIDTH >> 1;
 	scene.center_coords[Y] = HEIGHT >> 1;
 	get_display_and_new_image(&scene, scene.img);
+	mlx_mouse_hide(scene.screen_ptr.mlx_ptr, scene.screen_ptr.win_ptr);
+	mlx_mouse_move(scene.screen_ptr.mlx_ptr, scene.screen_ptr.win_ptr, scene.img[W] >> 1, scene.img[H] >> 1);
 	parse_arguments(argc, argv, &scene);
 	parse_and_load_parameters(&scene);
 	attribute_threads(&scene, scene.img[W]);

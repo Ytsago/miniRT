@@ -14,6 +14,8 @@
 #include "miniRT.h"
 #include "mlx_struct.h"
 
+#define H 0
+#define W 1
 #define X 0
 #define Y 1
 #define ESC 65307
@@ -78,30 +80,26 @@ int	handle_key(int keycode, void *params)
 }
 
 int	handle_mouse(int x, int y, void *params)
+
 {
 	t_context	*scene;
 	t_mlx		*screen;
+	int			centers[2];
 	int			directions[2];
 
 	scene = params;
 	screen = &scene->screen_ptr;
-	if (scene->center_coords[X] < 0 && scene->center_coords[Y] < 0)
-	{
-		scene->center_coords[X] = x;
-		scene->center_coords[Y] = y;
-		return (0);
-	}
-	directions[X] = x - scene->center_coords[X];
-	directions[Y] = y - scene->center_coords[Y];
+	centers[X] = scene->img[W] >> 1;
+	centers[Y] = scene->img[H] >> 1;
+	directions[X] = x - centers[X];
+	directions[Y] = y - centers[Y];
 	if (directions[X] || directions[Y])
 	{
 		move_camera_orientation(&scene->camera, directions);
 		get_camera(&scene->camera, scene->img);
 		rt(scene);
-		mlx_put_image_to_window(screen->mlx_ptr, screen->win_ptr,
-			screen->img.img_ptr, 0, 0);
+		mlx_put_image_to_window(screen->mlx_ptr, screen->win_ptr, screen->img.img_ptr, 0, 0);
+		mlx_mouse_move(screen->mlx_ptr, screen->win_ptr, centers[X], centers[Y]);
 	}
-	scene->center_coords[X] = x;
-	scene->center_coords[Y] = y;
 	return (0);
 }
