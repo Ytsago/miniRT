@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 11:29:39 by secros            #+#    #+#             */
-/*   Updated: 2025/09/11 19:26:26 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/24 15:17:33 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,27 @@
 #include "color.h"
 #include "debug.h"
 #include "vect3.h"
+
+bool	texture_or_color(t_context *scene, t_object *new, char **line)
+{
+	size_t		id;
+	t_vector	*text_list;
+
+	text_list = scene->textures;
+	if (**line == 'T' && ft_isdigit(*((*line) + 1)))
+	{
+		id = ft_atoi(((*line) + 1));
+		if (id <= 0 || id > text_list->size)
+	  		return (false);
+		vector_get(text_list, id, &new->text);
+	}
+	else
+	{
+		if (!get_color(scene, line, &new->color))
+			return (false);
+	}
+	return (true);
+}
 
 t_object	*new_plane(t_context *scene, char **line)
 {
@@ -33,10 +54,8 @@ t_object	*new_plane(t_context *scene, char **line)
 		return (free_and_return_null(new));
 	new->orientation = vect3_unit(new->orientation);
 	jump_spaces(line);
-	if (!get_color(scene, line, &new->color))
+	if (!texture_or_color(scene, (t_object *)new, line))
 		return (free_and_return_null(new));
-	new->texture[0] = load_image(&scene->screen_ptr, "./test.xpm");
-	new->texture[1] = load_image(&scene->screen_ptr, "./test3_normal.xpm");
 	return ((t_object *) new);
 }
 
@@ -100,7 +119,7 @@ t_object	*new_cone(t_context *scene, char **line)
 	if (get_unique_value(line, &new->height))
 		return (free_and_return_null(new));
 	jump_spaces(line);
-	if (!get_color(scene, line, &new->color))
+	if (!texture_or_color(scene, (t_object *)new, line))
 		return (free_and_return_null(new));
 	precalculate_cone_values(new);
 	return ((t_object *) new);

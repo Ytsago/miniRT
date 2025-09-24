@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 10:18:09 by secros            #+#    #+#             */
-/*   Updated: 2025/09/02 18:39:27 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/24 16:08:33 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,16 @@ t_tbn	compute_sphere_tbn(double u, double v, t_vect3 normal)
 	return (sp_tbn);
 }
 
+t_vect3	set_area_value(t_object *obj, t_vect3 *normal, double value[2], t_tbn matrix)
+{
+	if (obj->text->img[1])
+		*normal = apply_tbn(matrix, get_normal_map(obj->text->img[1], value[U], value[V]));
+	if (obj->text->img[0])
+		return (color_to_vec(coord_to_img(obj->text->img[0], value[U], value[V])));
+	else
+		return (color_to_vec(obj->text->based));
+}
+
 t_vect3	sphere_mapping(t_object *obj, t_point3 p, t_vect3* normal)
 {
 	double	u;
@@ -66,12 +76,7 @@ t_vect3	sphere_mapping(t_object *obj, t_point3 p, t_vect3* normal)
 	to_center = vect3_const_div(to_center, ((t_sphere *)obj)->radius);
 	u = 0.5 + atan2(to_center.z, to_center.x) / (2 * M_PI);
 	v = 0.5 - asin(to_center.y) / M_PI;
-	if (obj->texture[1])
-		*normal = apply_tbn(compute_sphere_tbn(u, v, *normal), \
-					  get_normal_map(obj->texture[1], u, v));
-	if (obj->texture[0])
-		return (color_to_vec(coord_to_img(obj->texture[0], u, v)));
-	return (color_to_vec(obj->color)); //duplicated in get_pixel_color
+	return (set_area_value(obj, normal, (double [2]){u, v}, compute_sphere_tbn(u, v, *normal)));
 }
 
 t_tbn	compute_plane_tbn(t_vect3 axis_u, t_vect3 axis_v,t_vect3 normal)
@@ -104,12 +109,7 @@ t_vect3	plane_mapping(t_object *obj, t_point3 p, t_vect3 *normal)
 		u += 1.0;
 	if (v < 0.0)
 		v += 1.0;
-	if (obj->texture[1])
-		*normal = apply_tbn(compute_plane_tbn(axis[U], axis[V], *normal), \
-					  get_normal_map(obj->texture[1], u, v));
-	if (obj->texture[0])
-		return (color_to_vec(coord_to_img(obj->texture[0], u, v)));
-	return (color_to_vec(obj->color));
+	return (set_area_value(obj, normal, (double [2]){u, v}, compute_plane_tbn(axis[U], axis[V], *normal)));
 }
 
 t_color	get_pixel_color(t_object *obj, t_context *scene, \
@@ -117,14 +117,13 @@ t_color	get_pixel_color(t_object *obj, t_context *scene, \
 {
 	t_vect3	texture;
 
-	texture = color_to_vec(obj->color); //May be removed for performance
-	/*if (!obj->texture[0] && !obj->texture[1])
-		return (vec_to_color(lightning(scene, p, normal, texture))); */
-	if (obj->type == SPHERE)
+	if (obj->type == SPHERE && obj->text)
 		texture = sphere_mapping(obj, p, &normal);
-	if (obj->type == PLANE)
+	else if (obj->type == PLANE && obj->text)
 		texture = plane_mapping(obj, p, &normal);
-	if (obj->type == CHECKERBOARD)
+	else if (obj->type == CHECKERBOARD)
 		texture = checkerboard_mapping(obj, p, &normal);
+	else
+		texture = color_to_vec(obj->color); //May be removed for performance
 	return (vec_to_color(lightning(scene, p, normal, texture)));
 }

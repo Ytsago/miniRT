@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:54:55 by secros            #+#    #+#             */
-/*   Updated: 2025/09/07 14:48:37 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/24 15:56:28 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_sphere		t_sphere;
 typedef struct s_cylinder	t_cylinder;
 typedef struct s_plane		t_plane;
 typedef struct s_cone		t_cone;
+typedef struct s_text		t_text;
 
 enum e_obj
 {
@@ -65,12 +66,20 @@ enum e_rgb
 	BLUE,
 };
 
+struct	s_text
+{
+	double	shiny;
+	t_color	based;
+	t_pict	*img[2];
+	char	*path[2];
+};
+
 struct	s_object
 {
 	enum e_obj	type;
 	t_point3	pos;
 	t_color		color;
-	t_pict		*texture[2];
+	t_text		*text;
 };
 
 struct	s_sphere
@@ -78,7 +87,7 @@ struct	s_sphere
 	enum e_obj	type;
 	t_point3	pos;
 	t_color		color;
-	t_pict		*texture[2];
+	t_text		*text;
 	double		radius;
 };
 
@@ -87,7 +96,7 @@ struct	s_cylinder
 	enum e_obj	type;
 	t_point3	pos;
 	t_color		color;
-	t_pict		*texture[2];
+	t_text		*text;
 	t_vect3		orientation;
 	double		radius;
 	t_point3	bot;
@@ -100,6 +109,7 @@ struct s_cone
 	enum e_obj	type;
 	t_point3	pos;
 	t_color		color;
+	t_text		*text;
 	t_vect3		orientation;
 	double		radius;
 	double		height;
@@ -112,7 +122,7 @@ struct	s_plane
 	enum e_obj	type;
 	t_point3	pos;
 	t_color		color;
-	t_pict		*texture[2];
+	t_text		*text;
 	t_vect3		orientation;
 };
 

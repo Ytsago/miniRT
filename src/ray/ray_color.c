@@ -6,7 +6,7 @@
 /*   By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:20:16 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/09/04 14:54:34 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/24 16:17:49 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ t_color	ray_color(t_ray ray, t_context *scene)
 		normal = cone_normal((t_cone *) closest_obj, p);
 
 	texture_color = color_to_vec(get_pixel_color(closest_obj, scene, p, normal));
-	if (closest_obj->type == CHECKERBOARD)
+	// if (closest_obj->type == CHECKERBOARD)
 	{
 		reflected_ray = compute_reflection_ray(p, normal, ray);
 		reflected_color = ray_color(reflected_ray, scene);

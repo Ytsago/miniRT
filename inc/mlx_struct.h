@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 16:07:04 by secros            #+#    #+#             */
-/*   Updated: 2025/09/03 20:31:54 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/09/24 14:29:19 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,6 @@ typedef struct s_mlx		t_mlx;
 typedef struct s_pict		t_pict;
 typedef struct s_context	t_context;
 
-typedef struct s_texture	t_texture;
-
-struct s_texture
-{
-	int		id;
-	t_pict	*texture;
-	t_pict	*normals;
-};
-
 struct s_pict
 {
 	void	*img_ptr;
@@ -38,6 +29,7 @@ struct s_pict
 	int		bbp;
 	int		endian;
 	int		size[2];
+	char	*path;
 };
 
 struct s_mlx

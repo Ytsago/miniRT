@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:29:29 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/09/04 13:32:58 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/24 15:58:14 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,64 +56,44 @@ bool	is_space(char c)
 	return (false);
 }
 
-bool	get_id(int *id, char **str)
-{
-	jump_spaces(str);
-	if (!ft_isdigit(**str) && !ft_issign(**str))
-		return (false);
-	*id = ft_atoi(*str);
-	if (*id < 0 || *id > MAX_ID)
-		return (false);
-	while (ft_isdigit(**str) || ft_issign(**str)) //must refined the number check (1-2 can pass)
-		(*str)++;
-	return (true);
-}
-
-bool	path_loading(char **str, t_pict **img, t_mlx *display)
+bool	get_path(char **str, char **save_path, t_pict **img)
 {
 	char	*path;
 
 	jump_spaces(str);
-	path = extract_str(*str, " \t");
+	path = extract_str(*str, " \t\n");
 	if (!path)
 		return (false);
+	(*str) += ft_strlen(path);
 	if (!ft_strncmp(path, "NONE", 5))
 	{
 		*img = NULL;
-		free(path);
+		free (path);
 		return (true);
 	}
-	*img = load_image(display, path);
-	free(path);
-	if (!*img)
-		return (false);
-	while (!is_space(**str) && (**str) != '\n' && (**str) != '\0')
-		(*str)++;
+	*save_path = path;
 	return (true);
 }
 
 bool	parse_texture(char *line, t_context *scene)
 {
-	static bool	init = false;
-	t_texture	new;
+	t_text		new;
 
-	if (!init)
-		scene->textures = init_vector(sizeof(t_texture));
-	if (*line != 'M' && *line != '\0' && !is_space(*(line + 1)))
+	if (*line != 'T' && (!*(line + 1)) && !is_space(*(line + 1)))
 		return (false);
 	line++;
-	if (!get_id(&new.id, &line))
-		return (false);
-	if (!path_loading(&line, &new.texture, &scene->screen_ptr)
-		&& (!is_space(*line)))
-		return (false);
-	if (!path_loading(&line, &new.normals, &scene->screen_ptr)
-		&& (!is_space(*line) && *line != '\n' && *line != '\0'))
-	 	return (false);
+	ft_fbzero(&new, sizeof(t_text));
 	jump_spaces(&line);
+	if (!get_color(scene, &line, &new.based))
+		return (false);
+	if (!get_path(&line, &new.path[0], &new.img[0]))
+		return (false);
+	if (!get_path(&line, &new.path[1], &new.img[1]))
+		return (false);
 	if (*line != '\n' && *line)
 		return (false);
-	vector_push(scene->textures, &new);
+	jump_spaces(&line);
+	vector_push(scene->textures, &new); //TODO Security issue can fail;
 	return (true);
 }
 
@@ -129,8 +109,8 @@ static bool	parse_elements(char *line, t_context *scene)
 		return (true);
 	else if (empty_line(line))
 		return (true);
-	// else if (parse_texture(line, scene))
-		// return (true);
+	else if (parse_texture(line, scene))
+		return (true);
 	return (false);
 }
 

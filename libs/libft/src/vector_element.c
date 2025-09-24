@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 11:04:32 by secros            #+#    #+#             */
-/*   Updated: 2025/09/04 15:32:37 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/24 13:29:35 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	vector_push(t_vector *v, void *element)
 		return (-1);
 	if (v->size >= v->capacity)
 	{
-		if (vector_resize(v, v->element_size * 2) == -1)
+		if (vector_resize(v, v->capacity * 2) == -1)
 			return (-1);
 	}
 	ft_memcpy((char *)v->tab + v->size * v->element_size, \
