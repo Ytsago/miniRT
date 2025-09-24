@@ -6,7 +6,7 @@
 /*   By: yabokhar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 19:00:43 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/27 20:59:08 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/09/24 17:24:36 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,8 @@
 #define EPSILON 1e-4
 #define T_MIN 1e-6
 
-t_vect3	cylinder_normal(t_cylinder *cy, t_ray r, double t)
-
+t_vect3	cylinder_normal(t_cylinder *cy, t_point3 p)
 {
-	const t_point3	p = ray_at(r, t);
 	t_vect3			w;
 	double			t2;
 	t_vect3			q;

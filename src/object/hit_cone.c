@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:20:18 by secros            #+#    #+#             */
-/*   Updated: 2025/09/11 19:20:42 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/24 17:24:53 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 #define C 2
 
 static double	hit_disk(t_ray r, t_point3 cap_pos, t_vect3 n, double rad)
-
 {
 	double	denom;
 	double	t;

@@ -6,7 +6,7 @@
 /*   By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:20:16 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/09/24 16:17:49 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/24 17:28:28 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,7 @@ t_object **current_object, double *current_t)
 	while (objects)
 	{
 		curr = (t_object *)objects->content;
-		if (curr->type == PLANE)
-			t = hit_plane((t_plane *)curr, r);
-		else if (curr->type == SPHERE)
-			t = hit_sphere((t_sphere *)curr, r);
-		else if (curr->type == CYLINDER)
-			t = hit_cylinder((t_cylinder *)curr, r);
-		else if (curr->type == CHECKERBOARD)
-			t = hit_plane((t_plane *) curr, r);
-		else
-			t = hit_cone((t_cone *) curr, r);
+		t = hit_object(curr, r);	
 		if (t > T_MIN && t < *current_t)
 		{
 			*current_t = t;
@@ -90,19 +81,9 @@ t_color	ray_color(t_ray ray, t_context *scene)
 	if (scene->brut_mode)
 		return (closest_obj->color);
 	p = ray_at(ray, closest_t);
-	if (closest_obj->type == PLANE)
-		normal = ((t_plane *)closest_obj)->orientation;
-	else if (closest_obj->type == SPHERE)
-		normal = vect3_unit(vect3_sub(p, closest_obj->pos));
-	else if (closest_obj->type == CYLINDER)
-		normal = cylinder_normal((t_cylinder *)closest_obj, ray, closest_t);
-	else if (closest_obj->type == CHECKERBOARD)
-		normal = ((t_plane *)closest_obj)->orientation;
-	else
-		normal = cone_normal((t_cone *) closest_obj, p);
-
+	normal = object_normal(closest_obj, p);	
 	texture_color = color_to_vec(get_pixel_color(closest_obj, scene, p, normal));
-	// if (closest_obj->type == CHECKERBOARD)
+	if (closest_obj->type == CHECKERBOARD)
 	{
 		reflected_ray = compute_reflection_ray(p, normal, ray);
 		reflected_color = ray_color(reflected_ray, scene);

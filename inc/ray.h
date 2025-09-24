@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 15:26:15 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/09/04 16:02:04 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/24 17:25:21 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ double	hit_object(t_object *obj, t_ray r);
 t_color	ray_color(t_ray dir, t_context *objects);
 t_vect3	ray_at(t_ray r, double t);
 t_ray	ray_create(t_vect3 origin, t_vect3 direction);
-t_vect3	cylinder_normal(t_cylinder *cy, t_ray r, double t);
+t_vect3	cylinder_normal(t_cylinder *cy, t_point3 p);
+t_vect3	cone_normal(t_cone *co, t_point3 p);
+
+t_vect3	object_normal(t_object *obj, t_vect3 p);
 
 #endif
