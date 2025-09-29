@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 10:18:09 by secros            #+#    #+#             */
-/*   Updated: 2025/09/29 13:58:49 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/29 16:07:37 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,27 +126,28 @@ bool	cylinder_part(t_cylinder *obj, double *d, t_point3 p)
 		return (1);
 	return (-1);
 }
-
-t_vect3	cylinder_mapping(t_object *obj, t_point3 p, t_vect3 *normal)
-{
-	t_cylinder	*curr;
-	double		d;
-	const bool	part = cylinder_part((t_cylinder *)obj, &d, p);
-
-	curr = (t_cylinder *)obj;
-	if (!part)
-	{
-		double v = d / curr->height;
-		t_point3 q = vect3_add(curr->bot, vect3_const_mult(curr->orientation, d));
-		t_vect3	w = {{0, 1, 0}};
-		if (curr->orientation.y == 1)
-			w = (t_vect3) {{1, 0, 0}};
-		t_vect3 Rref = vect3_unit(vect3_cross(w, curr->orientation));
-		t_vect3 Fref = vect3_cross(curr->orientation, Rref);
-
-	}
-}
-
+//
+// t_vect3	cylinder_mapping(t_object *obj, t_point3 p, t_vect3 *normal)
+// {
+// 	t_cylinder	*curr;
+// 	double		d;
+// 	const bool	part = cylinder_part((t_cylinder *)obj, &d, p);
+//
+// 	curr = (t_cylinder *)obj;
+// 	if (!part)
+// 	{
+// 		double v = d / curr->height;
+// 		t_point3 q = vect3_add(curr->bot, vect3_const_mult(curr->orientation, d));
+// 		t_vect3	w = {{0, 1, 0}};
+// 		if (curr->orientation.y == 1)
+// 			w = (t_vect3) {{1, 0, 0}};
+// 		t_vect3 Rref = vect3_unit(vect3_cross(w, curr->orientation));
+// 		t_vect3 Fref = vect3_cross(curr->orientation, Rref);
+// 		double	xlocal = vect3_scalar()
+//
+// 	}
+// }
+//
 t_color	get_pixel_color(t_object *obj, t_context *scene, \
 	t_point3 p, t_vect3 normal)
 {
