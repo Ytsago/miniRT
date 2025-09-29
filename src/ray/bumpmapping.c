@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 10:18:09 by secros            #+#    #+#             */
-/*   Updated: 2025/09/29 16:07:37 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/29 16:30:19 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,41 +113,72 @@ t_vect3	plane_mapping(t_object *obj, t_point3 p, t_vect3 *normal)
 }
 
 #define EPSILON 1e-4
+enum	e_part
+{
+	MIDDLE,
+	TOP,
+	BOT,
+};
 
 bool	cylinder_part(t_cylinder *obj, double *d, t_point3 p)
 {
 	t_vect3	v = vect3_sub(p, obj->bot);
 	*d = vect3_scalar(v, obj->orientation);
 	if (*d > 0 && *d < obj->height)
-		return (0);
+		return (MIDDLE);
 	else if (*d >= obj->height - EPSILON)
-		return (1);
+		return (TOP);
 	else if (*d <= EPSILON)
-		return (1);
+		return (BOT);
 	return (-1);
 }
-//
-// t_vect3	cylinder_mapping(t_object *obj, t_point3 p, t_vect3 *normal)
-// {
-// 	t_cylinder	*curr;
-// 	double		d;
-// 	const bool	part = cylinder_part((t_cylinder *)obj, &d, p);
-//
-// 	curr = (t_cylinder *)obj;
-// 	if (!part)
-// 	{
-// 		double v = d / curr->height;
-// 		t_point3 q = vect3_add(curr->bot, vect3_const_mult(curr->orientation, d));
-// 		t_vect3	w = {{0, 1, 0}};
-// 		if (curr->orientation.y == 1)
-// 			w = (t_vect3) {{1, 0, 0}};
-// 		t_vect3 Rref = vect3_unit(vect3_cross(w, curr->orientation));
-// 		t_vect3 Fref = vect3_cross(curr->orientation, Rref);
-// 		double	xlocal = vect3_scalar()
-//
-// 	}
-// }
-//
+
+t_vect3	cylinder_mapping(t_object *obj, t_point3 p, t_vect3 *normal)
+{
+	t_cylinder	*curr;
+	double		d;
+	double		u, v;
+	t_tbn		matrix;
+	const bool	part = cylinder_part((t_cylinder *)obj, &d, p);
+
+	curr = (t_cylinder *)obj;
+	t_vect3	w = {{0, 1, 0}};
+	if (curr->orientation.y == 1)
+		w = (t_vect3) {{1, 0, 0}};
+	t_vect3 Rref = vect3_unit(vect3_cross(w, curr->orientation));
+	t_vect3 Fref = vect3_cross(curr->orientation, Rref);
+	if (!part)
+	{
+		v = d / curr->height;
+		t_point3 q = vect3_add(curr->bot, vect3_const_mult(curr->orientation, d));
+	
+		t_vect3	Rvect = vect3_sub(p, q);
+		double	xlocal = vect3_scalar(Rvect, Rref);
+		double	ylocal = vect3_scalar(Rvect, Fref);
+		double	teta = atan2(xlocal, ylocal);
+		u = (teta + M_PI) / (2 * M_PI);
+		matrix.normal = *normal;
+		matrix.bitangent = curr->orientation;
+		matrix.tangent = vect3_cross(matrix.bitangent, *normal);
+	}
+	else
+	{
+		t_vect3	Vcap;
+		if (part == 1)
+			Vcap = vect3_sub(p, curr->top);
+		else
+			Vcap = vect3_sub(p, curr->bot);
+		double	xlocal = vect3_scalar(Vcap, Rref);
+		double	ylocal = vect3_scalar(Vcap, Fref);
+		u = xlocal / (curr->radius * 2) + 0.5;
+		v = ylocal / (curr->radius * 2) + 0.5;
+		matrix.normal = *normal;
+		matrix.tangent = Rref;
+		matrix.bitangent = vect3_cross(*normal, Rref);
+	}
+	return (set_area_value(obj, normal, (double [2]){u,v}, matrix));
+}
+
 t_color	get_pixel_color(t_object *obj, t_context *scene, \
 	t_point3 p, t_vect3 normal)
 {
@@ -157,6 +188,8 @@ t_color	get_pixel_color(t_object *obj, t_context *scene, \
 		texture = sphere_mapping(obj, p, &normal);
 	else if (obj->type == PLANE && obj->text)
 		texture = plane_mapping(obj, p, &normal);
+	else if (obj->type == CYLINDER && obj->text)
+		texture = cylinder_mapping(obj, p, &normal);
 	else if (obj->type == CHECKERBOARD)
 		texture = checkerboard_mapping(obj, p, &normal);
 	else
