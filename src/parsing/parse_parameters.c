@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:29:29 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/09/24 15:58:14 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/29 12:36:05 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,16 @@ bool	is_space(char c)
 	return (false);
 }
 
+#include <stdio.h>
+
 bool	get_path(char **str, char **save_path, t_pict **img)
 {
 	char	*path;
 
 	jump_spaces(str);
+	
 	path = extract_str(*str, " \t\n");
+	// printf("Curr : %s\npath : %s\n", *str, path);
 	if (!path)
 		return (false);
 	(*str) += ft_strlen(path);
@@ -90,10 +94,12 @@ bool	parse_texture(char *line, t_context *scene)
 		return (false);
 	if (!get_path(&line, &new.path[1], &new.img[1]))
 		return (false);
+	jump_spaces(&line);
 	if (*line != '\n' && *line)
 		return (false);
-	jump_spaces(&line);
+	// printf("%s\n", new.path[1]);
 	vector_push(scene->textures, &new); //TODO Security issue can fail;
+	// printf("Based color from pasing : %d img[0] : %p, img[1] : %p\n", new.based.color, (void *)new.img[0], (void *)new.img[1]);
 	return (true);
 }
 
@@ -105,11 +111,11 @@ static bool	parse_elements(char *line, t_context *scene)
 		return (true);
 	if (parse_general_elements(line, scene))
 		return (true);
-	else if (parse_objects(line, scene))
+	else if (parse_texture(line, scene))
 		return (true);
 	else if (empty_line(line))
 		return (true);
-	else if (parse_texture(line, scene))
+	else if (parse_objects(line, scene))
 		return (true);
 	return (false);
 }

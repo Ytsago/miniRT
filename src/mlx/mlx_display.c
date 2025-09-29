@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   image.c                                            :+:      :+:    :+:   */
+/*   mlx_display.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 10:28:46 by secros            #+#    #+#             */
-/*   Updated: 2025/09/02 10:51:48 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/29 11:54:34 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,6 @@ t_pict	*load_image(t_mlx *display, char *addr)
 		mlx_destroy_image(display->mlx_ptr, new->img_ptr);
 		return (free_and_return_null(new));
 	}
-	ft_putendl_fd("Hello", 1);
+	// ft_putendl_fd("Hello", 1);
 	return (new);
 }

@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 10:18:09 by secros            #+#    #+#             */
-/*   Updated: 2025/09/24 16:08:33 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/29 13:58:49 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,41 @@ t_vect3	plane_mapping(t_object *obj, t_point3 p, t_vect3 *normal)
 	if (v < 0.0)
 		v += 1.0;
 	return (set_area_value(obj, normal, (double [2]){u, v}, compute_plane_tbn(axis[U], axis[V], *normal)));
+}
+
+#define EPSILON 1e-4
+
+bool	cylinder_part(t_cylinder *obj, double *d, t_point3 p)
+{
+	t_vect3	v = vect3_sub(p, obj->bot);
+	*d = vect3_scalar(v, obj->orientation);
+	if (*d > 0 && *d < obj->height)
+		return (0);
+	else if (*d >= obj->height - EPSILON)
+		return (1);
+	else if (*d <= EPSILON)
+		return (1);
+	return (-1);
+}
+
+t_vect3	cylinder_mapping(t_object *obj, t_point3 p, t_vect3 *normal)
+{
+	t_cylinder	*curr;
+	double		d;
+	const bool	part = cylinder_part((t_cylinder *)obj, &d, p);
+
+	curr = (t_cylinder *)obj;
+	if (!part)
+	{
+		double v = d / curr->height;
+		t_point3 q = vect3_add(curr->bot, vect3_const_mult(curr->orientation, d));
+		t_vect3	w = {{0, 1, 0}};
+		if (curr->orientation.y == 1)
+			w = (t_vect3) {{1, 0, 0}};
+		t_vect3 Rref = vect3_unit(vect3_cross(w, curr->orientation));
+		t_vect3 Fref = vect3_cross(curr->orientation, Rref);
+
+	}
 }
 
 t_color	get_pixel_color(t_object *obj, t_context *scene, \

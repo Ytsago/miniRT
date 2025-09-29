@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 11:29:39 by secros            #+#    #+#             */
-/*   Updated: 2025/09/24 15:17:33 by secros           ###   ########.fr       */
+/*   Updated: 2025/09/29 11:48:51 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,14 @@ bool	texture_or_color(t_context *scene, t_object *new, char **line)
 		id = ft_atoi(((*line) + 1));
 		if (id <= 0 || id > text_list->size)
 	  		return (false);
-		vector_get(text_list, id, &new->text);
+	  	new->text = (t_text*) vector_get_addr(scene->textures, id - 1);
+		// printf("Obj color : %d, based color : %d\n", new->color.color, new->text->based.color);
 	}
 	else
 	{
 		if (!get_color(scene, line, &new->color))
 			return (false);
+		new->text = NULL;
 	}
 	return (true);
 }
@@ -144,7 +146,7 @@ t_object	*new_cylinder(t_context *scene, char **line)
 	if (get_unique_value(line, &new->height))
 		return (free_and_return_null(new));
 	jump_spaces(line);
-	if (!get_color(scene, line, &new->color))
+	if (!texture_or_color(scene, (t_object *)new, line))
 		return (free_and_return_null(new));
 	precalculate_cylinder_values(new);
 	return ((t_object *) new);
@@ -167,10 +169,8 @@ t_object	*new_sphere(t_context *scene, char **line)
 		return (free_and_return_null(new));
 	new->radius = radius * 0.5;
 	jump_spaces(line);
-	if (!get_color(scene, line, &new->color))
+	if (!texture_or_color(scene, (t_object *)new, line))
 		return (free_and_return_null(new));
-	// new->texture[0] = load_image(&scene->screen_ptr, "./test.xpm");
-	// new->texture[1] = load_image(&scene->screen_ptr, "./test3_normal.xpm");
 	return ((t_object *) new);
 }
 
