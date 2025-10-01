@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 10:18:09 by secros            #+#    #+#             */
-/*   Updated: 2025/09/29 16:30:19 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/01 09:43:49 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,11 @@ t_vect3	cylinder_mapping(t_object *obj, t_point3 p, t_vect3 *normal)
 		matrix.bitangent = vect3_cross(*normal, Rref);
 	}
 	return (set_area_value(obj, normal, (double [2]){u,v}, matrix));
+}
+
+t_vect3	cone_mapping()
+{
+	return ((t_vect3){{0, 0, 0}});
 }
 
 t_color	get_pixel_color(t_object *obj, t_context *scene, \
