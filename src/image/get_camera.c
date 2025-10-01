@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:43:52 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/10/01 16:20:11 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/01 16:22:22 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,19 +58,21 @@ t_vect3	get_focal(int fov, double size, t_vect3 orientation)
 
 void	get_camera(t_camera	*params, short img[2])
 {
+	const t_vect3	norm_orientation = vect3_unit(params->orientation_vector);
 	t_viewport		*screen;
+	t_vect3			world_up = {{0, 1, 0}};
+	t_vect3			u;
+	t_vect3			v;
 
 	screen = &params->viewport;
 	screen->viewport[H] = 2;
 	screen->viewport[W] = screen->viewport[H] * img[W] / img[H];
 	params->focal = get_focal(params->horizontal_fov, screen->viewport[W], \
 		params->orientation_vector);
-	t_vect3	world_up = {{0, 1, 0}};
-	t_vect3	norm_orientation = vect3_unit(params->orientation_vector);
 	if (fabs(norm_orientation.y) > 0.999)
 		world_up = (t_vect3) {{1, 0, 0}};
-	t_vect3	u = vect3_unit(vect3_cross(world_up, norm_orientation));
-	t_vect3	v = vect3_cross(norm_orientation, u);
+	u = vect3_unit(vect3_cross(world_up, norm_orientation));
+	v = vect3_cross(norm_orientation, u);
 	screen->viewport_vect[U] = vect3_const_mult(u, screen->viewport[U]);
 	screen->viewport_vect[V] = vect3_const_mult(v, -screen->viewport[V]);;
 	screen->pixel_deltas[U] = vect3_const_div(screen->viewport_vect[U], img[W]);
