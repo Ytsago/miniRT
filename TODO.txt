@@ -1,0 +1,19 @@
+Yazid:
+
+- URGENT: gérer la lumière à l'intérieur des objets
+- URGENT: déceler la couille sur 42sphere.rt
+- la réflexion spéculaire sur les cylindres
+- optimiser le multithreading (PEUT-ÊTRE LOL)
+
+Seb:
+
+
+
+
+
+
+À la toute fin :
+
+- Norme (norminette, includes en trop...)
+- Makefile rule bonus (avoir un programme mandatory sans fonction interdite)
+- Tester la remontée d'erreur, faire péter ce qui est pétable et regarder
