@@ -6,7 +6,7 @@
 /*   By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:20:16 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/09/24 17:28:28 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/05 18:09:16 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,9 @@ t_color	ray_color(t_ray ray, t_context *scene)
 		return (closest_obj->color);
 	p = ray_at(ray, closest_t);
 	normal = object_normal(closest_obj, p);	
+	const double inside = vect3_scalar(normal, ray.direction);
+	if (inside > 0.0)
+		normal = vect3_negate(normal);
 	texture_color = color_to_vec(get_pixel_color(closest_obj, scene, p, normal));
 	if (closest_obj->type == CHECKERBOARD)
 	{

@@ -1,0 +1,57 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   spectator_mode.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yabokhar <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/04 22:35:40 by yabokhar          #+#    #+#             */
+/*   Updated: 2025/10/04 22:46:27 by yabokhar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "miniRT.h"
+#include "mlx.h"
+#include "mlxstruct.h"
+
+void		render_frame(t_context *scene);
+static void	upscale_nearest(const t_pict *src, t_pict *dest, const short scale)
+
+{
+	
+}
+
+void	render_frame(t_context *scene)
+
+{
+	const short 	saved_img[2] = { scene->img[W], scene->img[H] };
+	const t_pict	saved_picture = scene->screenptr.img;
+
+	if (!scene->specator_mode)
+	{
+		rt(scene);
+		mlx_put_image_to_window(scene->screenptr.mlxptr, \
+		scene->screenptr.winptr, scene->screenptr.img.imgptr, 0, 0);
+		return ;
+	}
+	if (!ensure_lowres_image(scene))
+	{
+		rt(scene);
+		mlx_put_image_to_window(scene->screenptr.mlxptr, \
+		scene->screenptr.winptr, scene->screenptr.img.imgptr, 0, 0);
+		return ;
+	}
+	scene->img[W] = scene->lowres_img.size[W];
+	scene->img[H] = scene->lowres_img.size[H];
+	scene->screenptr.img = scene->lowres_img;
+	get_camera(scene->camera, scene->img);
+	rt(scene);
+	scene->screenptr.img = saved_full;
+	scene->img[W] = saved_img[W];
+	scene->img[H] = saved_img[H];
+    get_camera(scene->camera, scene->img);
+	upscale_nearest(&scene->lowres_img, \
+	&scene->screenptr.img, scene->spectator_scale);
+	mlx_put_image_to_window(scene->screenptr.mlxptr, \
+	scene->screenptr.winptr, scene->screenptr.img.imgptr, 0, 0);
+}

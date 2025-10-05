@@ -1,9 +1,7 @@
 Yazid:
 
 - URGENT: gérer la lumière à l'intérieur des objets
-- URGENT: déceler la couille sur 42sphere.rt
-- la réflexion spéculaire sur les cylindres
-- optimiser le multithreading (PEUT-ÊTRE LOL)
+- optimiser le multithreading (lcottet m'a dit d'éviter de faire pthread_create en boucle ce qui est logique)
 
 Seb:
 

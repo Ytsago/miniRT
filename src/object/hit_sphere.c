@@ -6,7 +6,7 @@
 /*   By: yabokhar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 19:51:12 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/23 19:51:26 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/10/05 17:33:44 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,8 @@ double	hit_sphere(t_sphere *sphere, t_ray ray)
 
 	if (discriminant < 0)
 		return (-1);
-	return ((h - sqrt(discriminant)));
+	const double t1 = h - sqrt(discriminant);
+	if (t1 < 0.0)
+		return (h + sqrt(discriminant));
+	return (t1);
 }
