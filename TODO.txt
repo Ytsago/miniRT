@@ -1,15 +1,10 @@
 Yazid:
 
-- URGENT: gérer la lumière à l'intérieur des objets
 - optimiser le multithreading (lcottet m'a dit d'éviter de faire pthread_create en boucle ce qui est logique)
 
 Seb:
 
-- Bumpamming cone
-
-
 - Spectator mode: Depuis le fix du viewport, les controles sont inverse
-- Bug orientation pas sur l'axe z
 
 À la toute fin :
 
