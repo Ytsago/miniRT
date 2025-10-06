@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:43:52 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/10/06 16:22:47 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/06 19:50:20 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ void	get_camera(t_camera	*params, short img[2])
 	screen->viewport[W] = screen->viewport[H] * img[W] / img[H];
 	params->focal = get_focal(params->horizontal_fov, screen->viewport[W], \
 		params->orientation_vector);
-	if (fabs(norm_orientation.y) > 0.999)
-		world_up = (t_vect3){{1, 0, 0}};
+	if (fabs(norm_orientation.y) >= 0.999)
+		world_up = (t_vect3){{0, 0, 1}};
 	u = vect3_unit(vect3_cross(world_up, norm_orientation));
 	v = vect3_cross(norm_orientation, u);
 	screen->viewport_vect[U] = vect3_const_mult(u, screen->viewport[U]);

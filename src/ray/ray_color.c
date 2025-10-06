@@ -6,7 +6,7 @@
 /*   By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:20:16 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/10/06 16:12:22 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/06 19:44:23 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,20 @@ t_object **current_object, double *current_t)
 	}
 }
 
+#define EPSILON 1e-4
+
 t_vect3	cone_normal(t_cone *co, t_point3 p)
 {
 	t_vect3	v;
 	double	d;
 	t_vect3	normal;
+
+	if (fabs(vect3_scalar(vect3_sub(p, co->bot), co->orientation)) \
+	< EPSILON)
+		return (vect3_negate(co->orientation));
+	if (fabs(vect3_scalar(vect3_sub(p, co->top), co->orientation)) \
+	< EPSILON)
+		return (co->orientation);
 
 	v = vect3_sub(p, co->pos);
 	d = vect3_scalar(v, co->orientation);
