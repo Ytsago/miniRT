@@ -6,7 +6,7 @@
 /*   By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 10:08:22 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/09/18 22:11:13 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/10/06 20:08:48 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,11 @@ void	move_camera_orientation(t_camera *camera, int directions[2])
 	double			pitch;
 	t_vect3			forward;
 	t_vect3			right;
-	const t_vect3	up = (t_vect3){{0, 1, 0}};
+	t_vect3			up;
 
+	up = (t_vect3){{0, 1, 0}};
+	if (fabs(camera->orientation_vector.y) >= 0.999)
+		up = (t_vect3) {{1, 0, 0}};
 	yaw = directions[X] * MOUSE_SENSITIVITY;
 	pitch = directions[Y] * MOUSE_SENSITIVITY;
 	forward = camera->orientation_vector;

@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 10:18:09 by secros            #+#    #+#             */
-/*   Updated: 2025/10/06 19:27:55 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/06 20:10:01 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ t_vect3	cylinder_mapping(t_object *obj, t_point3 p, t_vect3 *normal)
 
 	curr = (t_cylinder *)obj;
 	t_vect3	w = {{0, 1, 0}};
-	if (curr->orientation.y == 1)
+	if (fabs(curr->orientation.y) >= 0.999)
 		w = (t_vect3) {{1, 0, 0}};
 	t_vect3 Rref = vect3_unit(vect3_cross(w, curr->orientation));
 	t_vect3 Fref = vect3_cross(curr->orientation, Rref);
@@ -203,7 +203,7 @@ t_vect3	cone_mapping(t_object *obj, t_point3 p, t_vect3 *normal)
 
 	curr = (t_cone *)obj;
 	t_vect3	w = {{0, 1, 0}};
-	if (curr->orientation.y == 1)
+	if (fabs(curr->orientation.y) >= 0.999)
 		w = (t_vect3) {{1, 0, 0}};
 	l = sqrt(pow(curr->height, 2) + pow(curr->radius, 2));
 	t_vect3 Rref = vect3_unit(vect3_cross(w, curr->orientation));
