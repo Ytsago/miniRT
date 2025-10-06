@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:08:53 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/10/06 17:07:00 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/06 21:31:32 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@
 #define KEY_D 100
 #define KEY_T 116
 #define KEY_B 98
+#define KEY_UP 65362
+#define KEY_DOWN 65364
+#define KEY_LEFT 65361
+#define KEY_RIGHT 65363
 
 void	mlx_destroy(t_mlx *display)
 {
@@ -51,6 +55,25 @@ void	destroy_img(t_pict *img, t_mlx *display)
 	free (img);
 }
 
+void	handle_this_bullshit(t_context *scene, int keycode)
+
+{
+	int	directions[2];
+
+	directions[X] = 0;
+	directions[Y] = 0;
+	if (keycode == KEY_LEFT)
+		directions[X] = 50;
+	if (keycode == KEY_RIGHT)
+		directions[X] = -50;
+	if (keycode == KEY_UP)
+		directions[Y] = 50;
+	if (keycode == KEY_DOWN)
+		directions[Y] = -50;
+	move_camera_orientation(&scene->camera, directions);
+	get_camera(&scene->camera, scene->img);
+}
+
 int	handle_key(int keycode, void *params)
 {
 	t_mlx		*screen;
@@ -68,39 +91,11 @@ int	handle_key(int keycode, void *params)
 		move_camera(&scene->camera, keycode);
 		get_camera(&scene->camera, scene->img);
 	}
-	if (keycode == KEY_B)
-	{
-		print(1, "Time of execution of each thread will be calculated at next frame.\n");
-		scene->benchmark = true;
-	}
-	// get_camera(&scene->camera, scene->img);
+	if (keycode == KEY_UP || keycode == KEY_DOWN
+		|| keycode == KEY_LEFT || keycode == KEY_RIGHT)
+		handle_this_bullshit(scene, keycode);
 	rt(scene);
 	mlx_put_image_to_window(screen->mlx_ptr, screen->win_ptr, \
 	screen->img.img_ptr, 0, 0);
-	return (0);
-}
-
-int	handle_mouse(int x, int y, void *params)
-
-{
-	t_context	*scene;
-	t_mlx		*screen;
-	int			centers[2];
-	int			directions[2];
-
-	scene = params;
-	screen = &scene->screen_ptr;
-	centers[X] = scene->img[W] >> 1;
-	centers[Y] = scene->img[H] >> 1;
-	directions[X] = x - centers[X];
-	directions[Y] = y - centers[Y];
-	if (directions[X] || directions[Y])
-	{
-		move_camera_orientation(&scene->camera, directions);
-		get_camera(&scene->camera, scene->img);
-		rt(scene);
-		mlx_put_image_to_window(screen->mlx_ptr, screen->win_ptr, screen->img.img_ptr, 0, 0);
-		mlx_mouse_move(screen->mlx_ptr, screen->win_ptr, centers[X], centers[Y]);
-	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 14:38:13 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/09/29 11:55:48 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/06 21:02:39 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,6 @@ int	main(int argc, const char *argv[])
 	scene.center_coords[X] = WIDTH >> 1;
 	scene.center_coords[Y] = HEIGHT >> 1;
 	get_display_and_new_image(&scene, scene.img);
-	mlx_mouse_hide(scene.screen_ptr.mlx_ptr, scene.screen_ptr.win_ptr);
-	mlx_mouse_move(scene.screen_ptr.mlx_ptr, scene.screen_ptr.win_ptr, scene.img[W] >> 1, scene.img[H] >> 1);
 	ft_lstiter(scene.objects, load_texture);
 	init_texture(scene.textures, &scene.screen_ptr);
 	attribute_threads(&scene, scene.img[W]);
@@ -106,7 +104,6 @@ int	main(int argc, const char *argv[])
 	rt(&scene);
 	mlx_put_image_to_window(scene.screen_ptr.mlx_ptr, scene.screen_ptr.win_ptr, \
 		scene.screen_ptr.img.img_ptr, 0, 0);
-	mlx_hook(scene.screen_ptr.win_ptr, 6, 1L << 6, handle_mouse, &scene);
 	mlx_key_hook(scene.screen_ptr.win_ptr, handle_key, &scene);
 	mlx_loop(scene.screen_ptr.mlx_ptr);
 	return (0);

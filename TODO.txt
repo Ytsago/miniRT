@@ -1,6 +1,6 @@
 Yazid:
 
-- move camera avec les fleches
+
 
 Seb:
 
