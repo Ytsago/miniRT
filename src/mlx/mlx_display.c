@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 10:28:46 by secros            #+#    #+#             */
-/*   Updated: 2025/09/29 11:54:34 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/06 21:34:44 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,16 +79,15 @@ t_pict	*load_image(t_mlx *display, char *addr)
 	if (!new)
 		return (NULL);
 	new->img_ptr = mlx_xpm_file_to_image(display->mlx_ptr, addr, \
-									  &new->size[W], &new->size[H]);
+	&new->size[W], &new->size[H]);
 	if (!new->img_ptr)
 		return (free_and_return_null(new));
 	new->addr = mlx_get_data_addr(new->img_ptr, &new->bbp, &new->l_size, \
-							   &new->endian);
+	&new->endian);
 	if (!new->addr)
 	{
 		mlx_destroy_image(display->mlx_ptr, new->img_ptr);
 		return (free_and_return_null(new));
 	}
-	// ft_putendl_fd("Hello", 1);
 	return (new);
 }

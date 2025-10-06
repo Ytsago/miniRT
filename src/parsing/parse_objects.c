@@ -6,15 +6,13 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 11:29:39 by secros            #+#    #+#             */
-/*   Updated: 2025/10/01 15:32:56 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/06 21:45:37 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 #include "libft.h"
-#include <stdio.h>
 #include "color.h"
-#include "debug.h"
 #include "vect3.h"
 
 bool	texture_or_color(t_context *scene, t_object *new, char **line)
@@ -27,9 +25,8 @@ bool	texture_or_color(t_context *scene, t_object *new, char **line)
 	{
 		id = ft_atoi(((*line) + 1));
 		if (id <= 0 || id > text_list->size)
-	  		return (false);
-	  	new->text = (t_text*) vector_get_addr(scene->textures, id - 1);
-		// printf("Obj color : %d, based color : %d\n", new->color.color, new->text->based.color);
+			return (false);
+		new->text = (t_text *)vector_get_addr(scene->textures, id - 1);
 	}
 	else
 	{
@@ -96,6 +93,7 @@ static void	precalculate_cylinder_values(t_cylinder *new)
 static void	precalculate_cone_values(t_cone *new)
 {
 	const double	half = new->height / 2;
+
 	new->bot = vect3_sub(new->pos, vect3_const_mult(new->orientation, half));
 	new->top = vect3_add(new->pos, vect3_const_mult(new->orientation, half));
 	new->k = pow(half, 2) / (pow(half, 2) + pow(new->radius, 2));

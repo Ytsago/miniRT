@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:29:29 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/09/29 12:36:05 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/06 21:42:47 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,12 @@ bool	is_space(char c)
 	return (false);
 }
 
-#include <stdio.h>
-
 bool	get_path(char **str, char **save_path, t_pict **img)
 {
 	char	*path;
 
 	jump_spaces(str);
-	
 	path = extract_str(*str, " \t\n");
-	// printf("Curr : %s\npath : %s\n", *str, path);
 	if (!path)
 		return (false);
 	(*str) += ft_strlen(path);
@@ -97,9 +93,7 @@ bool	parse_texture(char *line, t_context *scene)
 	jump_spaces(&line);
 	if (*line != '\n' && *line)
 		return (false);
-	// printf("%s\n", new.path[1]);
 	vector_push(scene->textures, &new); //TODO Security issue can fail;
-	// printf("Based color from pasing : %d img[0] : %p, img[1] : %p\n", new.based.color, (void *)new.img[0], (void *)new.img[1]);
 	return (true);
 }
 
@@ -145,7 +139,7 @@ static bool	parse_objects(char *line, t_context *scene)
 	int	error;
 
 	error = 0;
-	if (!ft_strncmp("sp", line, 2) && (line[2] == ' ' || line[2] == '\t')) // maybe change it to *(line + 2) for consistency
+	if (!ft_strncmp("sp", line, 2) && (line[2] == ' ' || line[2] == '\t'))
 		error = add_object(scene, new_sphere(scene, &line));
 	else if (!ft_strncmp("pl", line, 2) && (line[2] == ' ' || line[2] == '\t'))
 		error = add_object(scene, new_plane(scene, &line));

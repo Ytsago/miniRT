@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:20:18 by secros            #+#    #+#             */
-/*   Updated: 2025/10/01 15:33:32 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/06 21:38:51 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,31 +23,17 @@
 #define B 1
 #define C 2
 
-// static double	hit_disk(t_ray r, t_point3 cap_pos, t_vect3 n, double rad)
-// {
-// 	double	denom;
-// 	double	t;
-//
-// 	denom = vect3_scalar(n, r.direction);
-// 	if (denom > -EPSILON && denom < EPSILON)
-// 		return (-1);
-// 	t = vect3_scalar(n, vect3_sub(cap_pos, r.origin)) / denom;
-// 	if (t < T_MIN)
-// 		return (-1);
-// 	if (vect3_norm(vect3_sub(ray_at(r, t), cap_pos).coords) > rad)
-// 		return (-1);
-// 	return (t);
-// }
-
-double	hit_finit_cone(double hit[2], double scal[2], double height)
+double	hit_finite_cone(double hit[2], double scal[2], double height)
 {
 	double	projected_height;
 
 	projected_height = scal[N] + (hit[T1] * scal[M]);
-	if (hit[T1] > T_MIN && projected_height >= -height && projected_height <= height)
+	if (hit[T1] > T_MIN && projected_height >= -height
+		&& projected_height <= height)
 		return (hit[T1]);
 	projected_height = scal[N] + (hit[T2] * scal[M]);
-	if (hit[T2] > T_MIN && projected_height >= -height && projected_height <= height)
+	if (hit[T2] > T_MIN && projected_height >= -height
+		&& projected_height <= height)
 		return (hit[T2]);
 	return (-1);
 }
@@ -73,13 +59,13 @@ double	hit_cone_body(t_cone *co, t_ray r)
 	hit[T2] = (-fact[B] + sqrt(delta)) / (2 * fact[A]);
 	if (hit[T1] > hit[T2])
 		swap_doubles(&hit[T1], &hit[T2]);
-	return (hit_finit_cone(hit, scal, co->height / 2));
+	return (hit_finite_cone(hit, scal, co->height / 2));
 }
 
 double	hit_cone(t_cone *co, t_ray r)
 {
 	double			t_body;
-	double			t_cap = 0;
+	double			t_cap;
 
 	t_body = hit_cone_body(co, r);
 	t_cap = hit_cylinder_caps((t_cylinder *) co, r);

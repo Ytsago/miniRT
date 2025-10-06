@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 14:38:13 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/10/06 21:02:39 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/10/06 21:40:47 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,6 @@
 
 #define W 0
 #define H 1
-#include <stdio.h>
-
-void	debug(t_context *scene)
-
-{
-	t_list	*cur;
-	t_light	*light;
-
-	cur = scene->lights_list;
-	while (cur)
-	{
-		print_obj_lst(scene->objects);
-		light = cur->content;
-		print_vect(&light->light_point);
-		printf("brightness de mes couilles : %f\n", light->brightness_ratio); 
-		t_vect3	encule = color_to_vec(light->color);
-		print_vect(&encule);
-		printf("\n");
-		cur = cur->next;
-	}
-}
 
 void	load_texture(void *pt)
 {
@@ -65,7 +44,6 @@ bool	init_texture(t_vector *v, t_mlx *mlx)
 	while (i < v->size)
 	{
 		curr = vector_get_addr(v, i);
-		// printf("Path [0] :%s\nPath[1] : %s\n", curr->path[0], curr->path[1]);
 		if (curr->path[0])
 		{
 			curr->img[0] = load_image(mlx, curr->path[0]);
@@ -100,7 +78,6 @@ int	main(int argc, const char *argv[])
 	init_texture(scene.textures, &scene.screen_ptr);
 	attribute_threads(&scene, scene.img[W]);
 	get_camera(&scene.camera, scene.img);
-	// debug(&scene);
 	rt(&scene);
 	mlx_put_image_to_window(scene.screen_ptr.mlx_ptr, scene.screen_ptr.win_ptr, \
 		scene.screen_ptr.img.img_ptr, 0, 0);

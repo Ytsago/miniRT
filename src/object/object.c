@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 16:00:47 by secros            #+#    #+#             */
-/*   Updated: 2025/09/24 17:27:56 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/06 21:39:12 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ double	hit_object(t_object *obj, t_ray r)
 	else if (obj->type == CHECKERBOARD)
 		return (hit_plane((t_plane *) obj, r));
 	return (-1);
-} 
+}
 
 t_vect3	object_normal(t_object *obj, t_vect3 p)
 {
@@ -44,4 +44,3 @@ t_vect3	object_normal(t_object *obj, t_vect3 p)
 		normal = cone_normal((t_cone *) obj, p);
 	return (normal);
 }
-

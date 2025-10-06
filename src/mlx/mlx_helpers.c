@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 10:58:26 by secros            #+#    #+#             */
-/*   Updated: 2025/09/02 15:32:49 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/06 21:34:10 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,3 @@ t_color	coord_to_img(t_pict	*map, double u, double v)
 	color.color = get_color_from_img(map, x_pix, y_pix);
 	return (color);
 }
-
