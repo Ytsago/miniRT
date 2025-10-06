@@ -1,10 +1,11 @@
 Yazid:
 
-- optimiser le multithreading (lcottet m'a dit d'éviter de faire pthread_create en boucle ce qui est logique)
+- move camera avec les fleches
 
 Seb:
 
 - Spectator mode: Depuis le fix du viewport, les controles sont inverse
+- free les textures
 
 À la toute fin :
 
