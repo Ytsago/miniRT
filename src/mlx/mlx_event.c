@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:08:53 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/09/03 21:06:15 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/10/06 17:07:00 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	handle_key(int keycode, void *params)
 		print(1, "Time of execution of each thread will be calculated at next frame.\n");
 		scene->benchmark = true;
 	}
+	// get_camera(&scene->camera, scene->img);
 	rt(scene);
 	mlx_put_image_to_window(screen->mlx_ptr, screen->win_ptr, \
 	screen->img.img_ptr, 0, 0);

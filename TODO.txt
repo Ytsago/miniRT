@@ -5,12 +5,14 @@ Yazid:
 
 Seb:
 
+- Bumpamming cone
 
 
-
-
+- Spectator mode: Depuis le fix du viewport, les controles sont inverse
+- Bug orientation pas sur l'axe z
 
 À la toute fin :
+
 
 - Norme (norminette, includes en trop...)
 - Makefile rule bonus (avoir un programme mandatory sans fonction interdite)

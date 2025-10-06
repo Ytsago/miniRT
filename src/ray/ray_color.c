@@ -6,7 +6,7 @@
 /*   By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:20:16 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/10/05 18:09:16 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/10/06 16:12:22 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static t_ray	compute_reflection_ray(t_point3 p, t_vect3 normal, t_ray incident)
 	return (ray_create(vect3_add(p, vect3_const_mult(normal, T_MIN)), reflect_direction));
 }
 
-t_color	ray_color(t_ray ray, t_context *scene)
+t_color	ray_color(t_ray ray, t_context *scene, short depth)
 {
 	t_object		*closest_obj;
 	double			closest_t;
@@ -86,10 +86,11 @@ t_color	ray_color(t_ray ray, t_context *scene)
 	if (inside > 0.0)
 		normal = vect3_negate(normal);
 	texture_color = color_to_vec(get_pixel_color(closest_obj, scene, p, normal));
-	if (closest_obj->type == CHECKERBOARD)
+	if (closest_obj->type == CHECKERBOARD && depth)
+	// if (depth)
 	{
 		reflected_ray = compute_reflection_ray(p, normal, ray);
-		reflected_color = ray_color(reflected_ray, scene);
+		reflected_color = ray_color(reflected_ray, scene, depth - 1);
 		reflected_vector = color_to_vec(reflected_color);
 		texture_color = vect3_add(vect3_const_mult(texture_color, 0.5), vect3_const_mult(reflected_vector, 0.5));
 	}

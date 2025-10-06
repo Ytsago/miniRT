@@ -6,7 +6,7 @@
 /*   By: yabokhar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:48:44 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/22 14:44:33 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/10/06 16:09:05 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ const t_viewport *view, unsigned int *img_ptr)
 			scene->camera.view_point));
 			img_ptr[values[INDEX_Y] * values[IMG_WIDTH] + values[INDEX_X]] \
 			= ray_color((t_ray){scene->camera.view_point, ray_dir}, \
-			scene).color;
+			scene, 4).color;
 		}
 	}
 }
