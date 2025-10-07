@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 15:26:15 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/10/07 16:31:53 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/07 19:16:17 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 # include "miniRT.h"
 # include "vect3.h"
-
-
 
 typedef struct s_ray
 {

@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:54:55 by secros            #+#    #+#             */
-/*   Updated: 2025/10/07 19:08:52 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/07 19:18:05 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ enum e_rgb
 
 struct	s_text
 {
-	double	shiny;
 	t_color	based;
 	t_pict	*img[2];
 	char	*path[2];
@@ -223,8 +222,8 @@ void		rt(t_context *scene);
 void		attribute_threads(t_context *scene, short img_width);
 
 t_color		bg_shade(double direction_y);
-t_vect3		lightning(t_context *scene, t_point3 p, t_vect3 normal, \
-t_vect3 obj_color);
+t_vect3		lightning(t_context *scene, t_point3 p, t_vect3 normal,
+				t_vect3 obj_color);
 
 void		print(int fd, const char *format, ...);
 void		swap_doubles(double *v1, double *v2);
@@ -235,8 +234,8 @@ void		ft_bzero_vect3(t_vect3 *self);
 void		*free_and_return_null(void *pointer);
 void		get_pixel_zero(t_viewport *params);
 void		get_viewport_upper_left(t_viewport *params, t_camera *cam);
-t_color		get_pixel_color(t_object *obj, t_context *scene, \
-	t_point3 p, t_vect3 normal);
+t_color		get_pixel_color(t_object *obj, t_context *scene,
+				t_point3 p, t_vect3 normal);
 
 t_vect3		checkerboard_mapping(t_object *obj, t_point3 p, t_vect3 *normal);
 
