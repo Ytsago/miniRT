@@ -6,7 +6,7 @@
 /*   By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 10:08:22 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/10/06 21:39:55 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/10/07 14:20:40 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 void	move_camera(t_camera *camera, int keycode)
 
 {
-	const double	step = 0.5;
+	const double	step = -0.5;
 	const t_vect3	up = {{0, 0, 0}};
 	t_vect3			right;
 

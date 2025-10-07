@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:08:53 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/10/06 21:31:32 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/10/07 14:39:22 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,33 @@ void	mlx_destroy(t_mlx *display)
 	free(display->mlx_ptr);
 }
 
+void	clear_texture(t_vector *v, t_mlx *display)
+{
+	t_text	*pt;
+	size_t	i;
+
+	i = 0;
+	pt = v->tab;
+	while (i < v->size)
+	{
+		if (pt[i].img[0])
+		{
+			mlx_destroy_image(display->mlx_ptr, pt[i].img[0]->img_ptr);
+			free(pt[i].img[0]);
+		}
+		if (pt[i].img[1])
+		{
+			mlx_destroy_image(display->mlx_ptr, pt[i].img[1]->img_ptr);
+			free(pt[i].img[1]);
+		}
+		i++;
+	}
+	vector_destroy(v);
+}
+
 int	destroy_display(t_context *scene)
 {
+	clear_texture(scene->textures, &scene->screen_ptr);
 	mlx_destroy(&scene->screen_ptr);
 	ft_lstclear(&scene->objects, free);
 	ft_lstclear(&scene->lights_list, free);

@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:29:29 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/10/06 21:42:47 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/10/07 14:56:43 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ bool	get_path(char **str, char **save_path, t_pict **img)
 	return (true);
 }
 
-bool	parse_texture(char *line, t_context *scene)
+int	parse_texture(char *line, t_context *scene)
 {
 	t_text		new;
 
@@ -93,19 +93,30 @@ bool	parse_texture(char *line, t_context *scene)
 	jump_spaces(&line);
 	if (*line != '\n' && *line)
 		return (false);
-	vector_push(scene->textures, &new); //TODO Security issue can fail;
+	if (vector_push(scene->textures, &new) == -1)
+	{
+		free(new.path[0]);
+		free(new.path[1]);
+		vector_destroy(scene->textures);
+		return (-1);
+	}
 	return (true);
 }
 
 static bool	parse_elements(char *line, t_context *scene)
-
 {
+	int	error;
+
+	error = false;
 	jump_spaces(&line);
 	if (*line == '#' || *line == '\n')
 		return (true);
 	if (parse_general_elements(line, scene))
 		return (true);
-	else if (parse_texture(line, scene))
+	error = parse_texture(line, scene);
+	if (error == -1)
+		return (false);
+	else if (error)
 		return (true);
 	else if (empty_line(line))
 		return (true);

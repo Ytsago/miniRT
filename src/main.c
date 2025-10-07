@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 14:38:13 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/10/06 21:40:47 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/10/07 14:29:44 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,14 @@ bool	init_texture(t_vector *v, t_mlx *mlx)
 		if (curr->path[0])
 		{
 			curr->img[0] = load_image(mlx, curr->path[0]);
+			free(curr->path[0]);
 			if (!curr->img[0])
 				error_file_loading(curr->path[0]);
 		}
 		if (curr->path[1])
 		{
 			curr->img[1] = load_image(mlx, curr->path[1]);
+			free(curr->path[1]);
 			if (!curr->img[1])
 				error_file_loading(curr->path[1]);
 		}
