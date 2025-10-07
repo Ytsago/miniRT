@@ -6,7 +6,7 @@
 /*   By: yabokhar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:48:44 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/10/06 21:48:30 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/10/07 17:43:56 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	rt(t_context *scene)
 	i = -1;
 	while (++i < online_processors)
 		if (pthread_create(&scene->threads[i].thread, NULL, \
-		raytracer, &scene->threads[i]))
+raytracer, &scene->threads[i]))
 			print(2, "Warning\nminiRT: failed to create thread #%d\n", i);
 	i = -1;
 	while (++i < online_processors)
@@ -66,7 +66,7 @@ static void	*raytracer(void *argument)
 	values[INDEX_X] = -1;
 	values[INDEX_Y] = values[START_Y] - 1;
 	get_colors((t_context *)scene, values, \
-	view, (unsigned int *)scene->screen_ptr.img.addr);
+view, (unsigned int *)scene->screen_ptr.img.addr);
 	return (NULL);
 }
 
@@ -83,14 +83,14 @@ const t_viewport *view, unsigned int *img_ptr)
 		while (++values[INDEX_X] < values[IMG_WIDTH])
 		{
 			pixel_center = vect3_add(view->pixel_zero, \
-			vect3_add(vect3_const_mult(view->pixel_deltas[U], \
-			values[INDEX_X]), \
-			vect3_const_mult(view->pixel_deltas[V], values[INDEX_Y])));
+vect3_add(vect3_const_mult(view->pixel_deltas[U], \
+values[INDEX_X]), \
+vect3_const_mult(view->pixel_deltas[V], values[INDEX_Y])));
 			ray_dir = vect3_unit(vect3_sub(pixel_center, \
-			scene->camera.view_point));
+scene->camera.view_point));
 			img_ptr[values[INDEX_Y] * values[IMG_WIDTH] + values[INDEX_X]] \
-			= ray_color((t_ray){scene->camera.view_point, ray_dir}, \
-			scene, 4).color;
+= ray_color((t_ray){scene->camera.view_point, ray_dir}, \
+scene, 4).color;
 		}
 	}
 }

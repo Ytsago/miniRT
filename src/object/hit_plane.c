@@ -6,7 +6,7 @@
 /*   By: yabokhar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 19:50:10 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/27 20:58:49 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/10/07 17:47:58 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ double	hit_plane(t_plane *plane, t_ray ray)
 
 {
 	const double	sum = vect3_scalar(plane->orientation, \
-		vect3_sub(plane->pos, ray.origin));
+vect3_sub(plane->pos, ray.origin));
 	const double	div = vect3_scalar(plane->orientation, ray.direction);
 	double			t;
 

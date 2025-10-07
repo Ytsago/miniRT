@@ -6,7 +6,7 @@
 /*   By: yabokhar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 21:53:41 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/10/06 21:55:04 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/10/07 17:39:27 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@ t_vect3	vect3_rotate(t_vect3 v, t_vect3 axis, double angle)
 
 	axis = vect3_unit(axis);
 	return (vect3_add(vect3_const_mult(v, cos), \
-	vect3_add(vect3_const_mult(vect3_cross(axis, v), sin), \
-	vect3_const_mult(axis, vect3_scalar(axis, v) * (1 - cos)))));
+vect3_add(vect3_const_mult(vect3_cross(axis, v), sin), \
+vect3_const_mult(axis, vect3_scalar(axis, v) * (1 - cos)))));
 }
