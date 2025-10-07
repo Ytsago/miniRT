@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 14:38:13 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/10/07 20:09:03 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/10/07 21:39:55 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,9 @@ void	load_texture(void *pt)
 		obj->color = obj->text->based;
 }
 
-void	error_file_loading(char *path)
+void	error_file_loading(void)
 {
 	ft_putstr_fd("Error while loading assets : ", 2);
-	ft_putendl_fd(path, 2);
 	ft_putendl_fd("Based value used instead...", 2);
 }
 
@@ -48,14 +47,14 @@ bool	init_texture(t_vector *v, t_mlx *mlx)
 			curr->img[0] = load_image(mlx, curr->path[0]);
 			free(curr->path[0]);
 			if (!curr->img[0])
-				error_file_loading(curr->path[0]);
+				error_file_loading();
 		}
 		if (curr->path[1])
 		{
 			curr->img[1] = load_image(mlx, curr->path[1]);
 			free(curr->path[1]);
 			if (!curr->img[1])
-				error_file_loading(curr->path[1]);
+				error_file_loading();
 		}
 		i++;
 	}
@@ -74,10 +73,10 @@ int	main(int argc, const char *argv[])
 	scene.img[H] = HEIGHT;
 	scene.center_coords[X] = WIDTH >> 1;
 	scene.center_coords[Y] = HEIGHT >> 1;
+	attribute_threads(&scene, scene.img[W]);
 	get_display_and_new_image(&scene, scene.img);
 	ft_lstiter(scene.objects, load_texture);
 	init_texture(scene.textures, &scene.screen_ptr);
-	attribute_threads(&scene, scene.img[W]);
 	get_camera(&scene.camera, scene.img);
 	rt(&scene);
 	mlx_put_image_to_window(scene.screen_ptr.mlx_ptr, scene.screen_ptr.win_ptr,

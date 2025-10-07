@@ -6,7 +6,7 @@
 #    By: secros <secros@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/07 17:10:22 by yabokhar          #+#    #+#              #
-#    Updated: 2025/10/07 20:09:30 by yabokhar         ###   ########.fr        #
+#    Updated: 2025/10/07 21:25:28 by yabokhar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ RESET  = \033[0m
 
 # -----------RULES-----------#
 
-CFLAGS = -Wall -Wextra -Werror -MMD -MP -g3 -flto 
+CFLAGS = -Wall -Wextra -Werror -MMD -MP -g3
 MLXFLAG = libs/vect3/vect3.a libs/libft/libft.a libs/libmlx/libmlx.a -lbsd -lX11 -lXext -lm
 CC = cc
 AR = ar
