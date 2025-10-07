@@ -6,7 +6,7 @@
 #    By: secros <secros@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/07 17:10:22 by yabokhar          #+#    #+#              #
-#    Updated: 2025/10/06 16:16:59 by secros           ###   ########.fr        #
+#    Updated: 2025/10/07 17:36:05 by secros           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ SPECDIR		= $(SRCDIR)spectator_mode/
 MLXDIR		= $(SRCDIR)mlx/
 IMGDIR		= $(SRCDIR)image/
 OBJEDIR		= $(SRCDIR)object/
+BUMPDIR		= $(RAYDIR)bumpmapping/
 
 # -----------FILES-----------#
 
@@ -58,8 +59,10 @@ IMAGE	=	get_camera.c
 
 RT		=	raytracing.c
 
-RAY		=	checkerboard.c bumpmapping.c background_shade.c ray_create.c ray_at.c lightning.c\
-			ray_color.c 
+RAY		=	checkerboard.c background_shade.c ray_create.c ray_at.c lightning.c\
+			ray_color.c
+
+	BUMP =	cone_mapping.c cylinder_mapping.c plane_mapping.c sphere_mapping.c mapping.c 
 
 OBJECT	=	hit_cylinder.c hit_sphere.c hit_plane.c cylinder_normal.c hit_cone.c\
 			object.c
@@ -80,7 +83,7 @@ THREADS	=	multithreading.c
 ERRORS 	=	parsing_error_reporting.c parsing_error_reporting_bis.c \
 			multithreading_error_malloc.c mlx_error_reporting.c
 
-INC		=	miniRT.h
+INC		=	miniRT.h bumpmapping.h
 
 # -----------SRCS-----------#
 
@@ -96,6 +99,7 @@ SRCS =	$(addprefix $(SRCDIR), $(MAIN))\
 		$(addprefix $(IMGDIR), $(IMAGE))\
 		$(addprefix $(RAYDIR), $(RAY))\
 		$(addprefix $(OBJEDIR), $(OBJECT))\
+		$(addprefix $(BUMPDIR), $(BUMP))\
 
 # -----------LIBS------------#
 

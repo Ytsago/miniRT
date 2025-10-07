@@ -4,8 +4,6 @@ Yazid:
 
 Seb:
 
-- Spectator mode: Depuis le fix du viewport, les controles sont inverse
-- free les textures
 
 À la toute fin :
 
