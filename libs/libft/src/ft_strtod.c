@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 16:05:37 by secros            #+#    #+#             */
-/*   Updated: 2025/06/11 11:49:14 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/07 21:11:19 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	skip_space_and_get_sign(const char **str)
 }
 
 static double	get_integer_part(const char **str, char **end, \
-	int *digit_count, bool *lost_prec)
+int *digit_count, bool *lost_prec)
 {
 	double	digit;
 	double	result;
@@ -66,7 +66,7 @@ static double	get_integer_part(const char **str, char **end, \
 }
 
 static double	get_fractional_part(const char **str, char **end, \
-	int *digit_count, bool *lost_prec)
+int *digit_count, bool *lost_prec)
 {
 	int		divisor;
 	double	digit;

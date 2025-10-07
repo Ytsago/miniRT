@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 10:32:35 by secros            #+#    #+#             */
-/*   Updated: 2025/07/04 11:20:45 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/07 21:10:08 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,8 @@
 
 double	vect3_scalar(t_vect3 f, t_vect3 s)
 {
-	return (f.coords[X] * s.coords[X] + \
-		f.coords[Y] * s.coords[Y] + \
-		f.coords[Z] * s.coords[Z]);
+	return (f.coords[X] * s.coords[X]
+		+ f.coords[Y] * s.coords[Y] + f.coords[Z] * s.coords[Z]);
 }
 
 t_vect3	vect3_cross(t_vect3 first, t_vect3 second)

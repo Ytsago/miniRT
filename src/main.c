@@ -6,13 +6,12 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 14:38:13 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/10/07 18:52:08 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/07 20:09:03 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "miniRT.h"
-#include "debug.h"
 
 #define W 0
 #define H 1

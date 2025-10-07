@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 11:04:32 by secros            #+#    #+#             */
-/*   Updated: 2025/10/07 14:57:09 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/07 21:11:51 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	vector_push(t_vector *v, void *element)
 			return (-1);
 	}
 	ft_memcpy((char *)v->tab + v->size * v->element_size, \
-		element, v->element_size);
+element, v->element_size);
 	v->size++;
 	return (0);
 }

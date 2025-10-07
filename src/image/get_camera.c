@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:43:52 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/10/07 18:26:39 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/07 20:09:49 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 #define V 1
 #include "vect3.h"
 #include "miniRT.h"
-#include "debug.h"
 
 void	get_pixel_zero(t_viewport *params)
 {
