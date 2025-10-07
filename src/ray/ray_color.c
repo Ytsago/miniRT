@@ -6,7 +6,7 @@
 /*   By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:20:16 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/10/07 19:59:43 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/07 20:01:45 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 #define T_MIN 1e-4
 #define DBL_MAX 1.79769e+308
+#define EPSILON 1e-4
 
 static void	find_closest_object(const t_list *objects, t_ray r,
 					t_object **current_object, double *current_t)
@@ -35,8 +36,6 @@ static void	find_closest_object(const t_list *objects, t_ray r,
 		objects = objects->next;
 	}
 }
-
-#define EPSILON 1e-4
 
 t_vect3	cone_normal(t_cone *co, t_point3 p)
 {

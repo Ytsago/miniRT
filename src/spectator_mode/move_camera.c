@@ -6,7 +6,7 @@
 /*   By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 10:08:22 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/10/07 19:11:59 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/07 20:00:38 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ void	move_camera(t_camera *camera, int keycode)
 	if (keycode)
 	{
 		if (keycode == KEY_W)
-			camera->view_point = vect3_add(camera->view_point,
+			camera->view_point = vect3_sub(camera->view_point,
 					vect3_const_mult(camera->orientation_vector, step));
 		if (keycode == KEY_S)
-			camera->view_point = vect3_sub(camera->view_point,
+			camera->view_point = vect3_add(camera->view_point,
 					vect3_const_mult(camera->orientation_vector, step));
 		if (keycode == KEY_A)
 			camera->view_point = vect3_sub(camera->view_point,
