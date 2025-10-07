@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:20:18 by secros            #+#    #+#             */
-/*   Updated: 2025/10/07 17:48:32 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/07 18:29:36 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ double	hit_cone_body(t_cone *co, t_ray r)
 	scal[M] = vect3_scalar(r.direction, co->orientation);
 	scal[N] = vect3_scalar(delta_p, co->orientation);
 	fact[A] = scal[M] * scal[M] - co->k;
-	fact[B] = 2 * ((scal[N] * scal[M]) - \
-(vect3_scalar(delta_p, r.direction) * co->k));
+	fact[B] = 2 * ((scal[N] * scal[M])
+			- (vect3_scalar(delta_p, r.direction) * co->k));
 	fact[C] = (scal[N] * scal[N]) - (vect3_scalar(delta_p, delta_p) * co->k);
 	delta = fact[B] * fact[B] - (4 * fact[A] * fact[C]);
 	if (delta < 0)

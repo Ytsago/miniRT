@@ -68,7 +68,6 @@ enum e_rgb
 
 struct	s_text
 {
-	double	shiny;
 	t_color	based;
 	t_pict	*img[2];
 	char	*path[2];
@@ -196,6 +195,7 @@ void		parse_and_load_parameters(t_context *scene);
 bool		parse_ambient_lightning(char *line, t_context *scene);
 bool		parse_camera(char *line, t_context *scene);
 bool		parse_light(char *line, t_context *scene);
+int			parse_texture(char *line, t_context *scene);
 
 bool		add_object(t_context *scene, t_object *object);
 t_object	*new_object(t_context *scene, char **line, enum e_obj type);
@@ -205,6 +205,7 @@ t_object	*new_checkerboard(t_context *scene, char **line);
 t_object	*new_sphere(t_context *scene, char **line);
 t_object	*new_cone(t_context *scene, char **line);
 bool		add_element(t_context *scene, void *type);
+bool		texture_or_color(t_context *scene, t_object *new, char **line);
 
 void		jump_spaces(char **str);
 bool		empty_line(char *line);
@@ -221,8 +222,8 @@ void		rt(t_context *scene);
 void		attribute_threads(t_context *scene, short img_width);
 
 t_color		bg_shade(double direction_y);
-t_vect3		lightning(t_context *scene, t_point3 p, t_vect3 normal, \
-t_vect3 obj_color);
+t_vect3		lightning(t_context *scene, t_point3 p, t_vect3 normal,
+				t_vect3 obj_color);
 
 void		print(int fd, const char *format, ...);
 void		swap_doubles(double *v1, double *v2);
@@ -233,8 +234,8 @@ void		ft_bzero_vect3(t_vect3 *self);
 void		*free_and_return_null(void *pointer);
 void		get_pixel_zero(t_viewport *params);
 void		get_viewport_upper_left(t_viewport *params, t_camera *cam);
-t_color		get_pixel_color(t_object *obj, t_context *scene, \
-	t_point3 p, t_vect3 normal);
+t_color		get_pixel_color(t_object *obj, t_context *scene,
+				t_point3 p, t_vect3 normal);
 
 t_vect3		checkerboard_mapping(t_object *obj, t_point3 p, t_vect3 *normal);
 void		add_reflections(t_vect3 *result, t_vect3 reflections_vectors[2]);

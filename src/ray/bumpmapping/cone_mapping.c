@@ -6,7 +6,7 @@
 /*   By: secros <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 16:44:22 by secros            #+#    #+#             */
-/*   Updated: 2025/10/07 17:31:36 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/07 18:33:06 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ static t_vect3	center_mapping(t_cone *curr, t_vect3 ref[2],\
 	t_point3	q;
 	t_vect3		to_axis;
 
-	coord[V] = vect3_norm(vect3_sub(p, curr->pos).coords) / \
-(sqrt(pow(curr->height, 2) + pow(curr->radius, 2)));
+	coord[V] = vect3_norm(vect3_sub(p, curr->pos).coords)
+		/ (sqrt(pow(curr->height, 2) + pow(curr->radius, 2)));
 	q = vect3_add(curr->pos, vect3_const_mult(curr->orientation, d));
 	to_axis = vect3_sub(p, q);
 	local[X] = vect3_scalar(to_axis, ref[U]);
@@ -103,6 +103,6 @@ t_vect3	cone_mapping(t_cone *curr, t_point3 p, t_vect3 *normal)
 		two_d = center_mapping(curr, ref, p, d);
 	else
 		two_d = caps_mapping(curr, ref, p, part);
-	return (set_area_value((t_object *)curr, normal, \
-(double [2]){two_d.x, two_d.y}, tbn_matrix(normal, ref, part)));
+	return (set_area_value((t_object *)curr, normal,
+			(double [2]){two_d.x, two_d.y}, tbn_matrix(normal, ref, part)));
 }

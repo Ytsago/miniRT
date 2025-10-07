@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 16:07:04 by secros            #+#    #+#             */
-/*   Updated: 2025/09/24 14:29:19 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/07 19:16:36 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,19 @@
 # include <stdbool.h>
 # include <stdint.h>
 # include "mlx.h"
+
+# define ESC 65307
+# define KEY_W 119
+# define KEY_A 97
+# define KEY_S 115
+# define KEY_D 100
+# define KEY_T 116
+# define KEY_B 98
+# define KEY_UP 65362
+# define KEY_DOWN 65364
+# define KEY_LEFT 65361
+# define KEY_RIGHT 65363
+# define MOUSE_SENSITIVITY 0.0001
 
 typedef struct s_mlx		t_mlx;
 typedef struct s_pict		t_pict;

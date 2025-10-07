@@ -6,7 +6,7 @@
 /*   By: secros <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 15:47:41 by secros            #+#    #+#             */
-/*   Updated: 2025/10/07 17:30:42 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/07 18:48:04 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@ t_vect3	apply_tbn(t_tbn tbn, t_vect3 normal)
 {
 	t_vect3	result;
 
-	result.x = tbn.tangent.x * normal.x + \
-tbn.bitangent.x * normal.y + \
-tbn.normal.x * normal.z;
-	result.y = tbn.tangent.y * normal.x + \
-tbn.bitangent.y * normal.y + \
-tbn.normal.y * normal.z;
-	result.z = tbn.tangent.z * normal.x + \
-tbn.bitangent.z * normal.y + \
-tbn.normal.z * normal.z;
+	result.x = tbn.tangent.x * normal.x
+		+ tbn.bitangent.x * normal.y
+		+ tbn.normal.x * normal.z;
+	result.y = tbn.tangent.y * normal.x
+		+ tbn.bitangent.y * normal.y
+		+ tbn.normal.y * normal.z;
+	result.z = tbn.tangent.z * normal.x
+		+ tbn.bitangent.z * normal.y
+		+ tbn.normal.z * normal.z;
 	return (vect3_unit(result));
 }
 

@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:29:29 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/10/07 17:50:00 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/07 19:09:02 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,53 +54,6 @@ bool	is_space(char c)
 	if (c == ' ' || c == '\t')
 		return (true);
 	return (false);
-}
-
-bool	get_path(char **str, char **save_path, t_pict **img)
-{
-	char	*path;
-
-	jump_spaces(str);
-	path = extract_str(*str, " \t\n");
-	if (!path)
-		return (false);
-	(*str) += ft_strlen(path);
-	if (!ft_strncmp(path, "NONE", 5))
-	{
-		*img = NULL;
-		free (path);
-		return (true);
-	}
-	*save_path = path;
-	return (true);
-}
-
-int	parse_texture(char *line, t_context *scene)
-{
-	t_text		new;
-
-	if (*line != 'T' && (!*(line + 1)) && !is_space(*(line + 1)))
-		return (false);
-	line++;
-	ft_fbzero(&new, sizeof(t_text));
-	jump_spaces(&line);
-	if (!get_color(scene, &line, &new.based))
-		return (false);
-	if (!get_path(&line, &new.path[0], &new.img[0]))
-		return (false);
-	if (!get_path(&line, &new.path[1], &new.img[1]))
-		return (false);
-	jump_spaces(&line);
-	if (*line != '\n' && *line)
-		return (false);
-	if (vector_push(scene->textures, &new) == -1)
-	{
-		free(new.path[0]);
-		free(new.path[1]);
-		vector_destroy(scene->textures);
-		return (-1);
-	}
-	return (true);
 }
 
 static bool	parse_elements(char *line, t_context *scene)
@@ -161,10 +114,10 @@ static bool	parse_objects(char *line, t_context *scene)
 	else if (!ft_strncmp("ch", line, 2) && (line[2] == ' ' || line[2] == '\t'))
 		error = add_object(scene, new_checkerboard(scene, &line));
 	else if (!empty_line(line))
-		print(2, "%sline %d starts with an unknown identifier\n", \
-X_ERROR, scene->line_number);
+		print(2, "%sline %d starts with an unknown identifier\n",
+			X_ERROR, scene->line_number);
 	if (!error)
-		print(2, "%sline %d Error while parsing an object\n", \
-X_ERROR, scene->line_number);
+		print(2, "%sline %d Error while parsing an object\n",
+			X_ERROR, scene->line_number);
 	return (error);
 }

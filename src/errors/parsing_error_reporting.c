@@ -6,7 +6,7 @@
 /*   By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 16:46:17 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/10/07 17:44:57 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/07 18:24:26 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ void	multiple_declarations_error(t_context *scene, const char *element)
 	const char			*file_name = scene->file_name;
 	const unsigned int	line_no = scene->line_number;
 
-	print(2, \
-"%s%s: line %d: *** multiple declarations of general element %s\n", \
-X_ERROR, file_name, line_no, element);
+	print(2,
+		"%s%s: line %d: *** multiple declarations of general element %s\n",
+		X_ERROR, file_name, line_no, element);
 	close(scene->fd);
 	free(scene->line);
 	ft_lstclear(&scene->objects, free);
@@ -48,9 +48,9 @@ void	precision_lost_error(t_context *scene, const char *elem, const char *p)
 	const char			*file_name = scene->file_name;
 	const unsigned int	line_no = scene->line_number;
 
-	print(2, \
-"%s%s: line %d: *** %s %s precision lost (too many digits)\n", \
-X_ERROR, file_name, line_no, elem, p);
+	print(2,
+		"%s%s: line %d: *** %s %s precision lost (too many digits)\n",
+		X_ERROR, file_name, line_no, elem, p);
 	close(scene->fd);
 	free(scene->line);
 	ft_lstclear(&scene->objects, free);
@@ -63,9 +63,9 @@ void	range_error(t_context *scene, const char *elem, char *min, char *max)
 	const char			*file_name = scene->file_name;
 	const unsigned int	line_no = scene->line_number;
 
-	print(2, \
-"%s%s: line %d: *** %s must be in range [%s,%s]\n", \
-X_ERROR, file_name, line_no, elem, min, max);
+	print(2,
+		"%s%s: line %d: *** %s must be in range [%s,%s]\n",
+		X_ERROR, file_name, line_no, elem, min, max);
 	close(scene->fd);
 	free(scene->line);
 	ft_lstclear(&scene->objects, free);
