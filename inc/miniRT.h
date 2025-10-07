@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:54:55 by secros            #+#    #+#             */
-/*   Updated: 2025/10/07 17:36:42 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/07 19:08:52 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,6 +196,7 @@ void		parse_and_load_parameters(t_context *scene);
 bool		parse_ambient_lightning(char *line, t_context *scene);
 bool		parse_camera(char *line, t_context *scene);
 bool		parse_light(char *line, t_context *scene);
+int			parse_texture(char *line, t_context *scene);
 
 bool		add_object(t_context *scene, t_object *object);
 t_object	*new_object(t_context *scene, char **line, enum e_obj type);
@@ -205,6 +206,7 @@ t_object	*new_checkerboard(t_context *scene, char **line);
 t_object	*new_sphere(t_context *scene, char **line);
 t_object	*new_cone(t_context *scene, char **line);
 bool		add_element(t_context *scene, void *type);
+bool		texture_or_color(t_context *scene, t_object *new, char **line);
 
 void		jump_spaces(char **str);
 bool		empty_line(char *line);
@@ -238,5 +240,6 @@ t_color		get_pixel_color(t_object *obj, t_context *scene, \
 
 t_vect3		checkerboard_mapping(t_object *obj, t_point3 p, t_vect3 *normal);
 
+bool		is_space(char c);
 
 #endif

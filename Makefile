@@ -6,7 +6,7 @@
 #    By: secros <secros@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/07 17:10:22 by yabokhar          #+#    #+#              #
-#    Updated: 2025/10/07 17:36:05 by secros           ###   ########.fr        #
+#    Updated: 2025/10/07 19:10:57 by secros           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,7 @@ BUMPDIR		= $(RAYDIR)bumpmapping/
 
 MAIN 	=	main.c
 
-MLX		=	mlx_event.c mlx_display.c mlx_helpers.c
+MLX		=	mlx_event.c mlx_display.c mlx_helpers.c mlx_clear.c
 
 IMAGE	=	get_camera.c
 
@@ -72,9 +72,11 @@ SPEC	=	move_camera.c
 
 PARSING =	parse_arguments.c	parse_parameters.c	\
 			parse_ambient_lightning.c	parse_camera.c	parse_lights.c	\
-			process_characters.c	parse_objects.c	get_values.c	debug.c
+			process_characters.c	parse_objects.c	get_values.c \
+			debug.c parse_texture.c parse_cone.c parse_cylinder.c
+
 UTILS	=	print.c vect3_convert.c ft_bzero_vect3.c swap_doubles.c	\
-			free_and_return_null.c
+			free_and_return_null.c 
 
 LISTS	=	add_element.c
 

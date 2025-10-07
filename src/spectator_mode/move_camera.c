@@ -6,17 +6,11 @@
 /*   By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 10:08:22 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/10/07 18:22:15 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/07 19:11:59 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
-#define KEY_S 119
-#define KEY_A 97
-#define KEY_W 115
-#define KEY_D 100
-#define KEY_T 116
-#define MOUSE_SENSITIVITY 0.0001
 
 void	move_camera(t_camera *camera, int keycode)
 
