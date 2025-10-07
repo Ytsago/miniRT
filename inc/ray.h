@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 15:26:15 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/10/07 19:16:17 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/07 19:59:37 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,20 @@
 # include "miniRT.h"
 # include "vect3.h"
 
+typedef struct s_hit	t_hit;
+
 typedef struct s_ray
 {
 	t_vect3	origin;
 	t_vect3	direction;
 }	t_ray;
+
+struct	s_hit
+{
+	t_point3	p;
+	t_vect3		normal;
+	t_ray		incident;
+};
 
 double	hit_sphere(t_sphere *sp, t_ray ray);
 double	hit_plane(t_plane *pl, t_ray ray);
