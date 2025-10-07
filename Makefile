@@ -6,7 +6,7 @@
 #    By: secros <secros@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/07 17:10:22 by yabokhar          #+#    #+#              #
-#    Updated: 2025/10/07 21:25:28 by yabokhar         ###   ########.fr        #
+#    Updated: 2025/10/07 22:45:56 by yabokhar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ RESET  = \033[0m
 
 # -----------RULES-----------#
 
-CFLAGS = -Wall -Wextra -Werror -MMD -MP -g3
+CFLAGS = -Wall -Wextra -Werror -MMD -MP
 MLXFLAG = libs/vect3/vect3.a libs/libft/libft.a libs/libmlx/libmlx.a -lbsd -lX11 -lXext -lm
 CC = cc
 AR = ar
@@ -29,6 +29,8 @@ ARFLAG = -rcs
 # -----------PATHS-----------#
 
 SRCDIR = src/
+
+SRCDIR_BONUS = src_bonus/
 
 INCDIR = inc/
 
@@ -103,6 +105,20 @@ SRCS =	$(addprefix $(SRCDIR), $(MAIN))\
 		$(addprefix $(OBJEDIR), $(OBJECT))\
 		$(addprefix $(BUMPDIR), $(BUMP))\
 
+SRCS_BONUS =	$(addprefix $(SRCDIR), $(MAIN))\
+				$(addprefix $(PARSDIR), $(PARSING))\
+				$(addprefix $(SRCDIR), $(THREADS))\
+				$(addprefix $(SRCDIR), $(RT))\
+				$(addprefix $(ERRDIR), $(ERRORS))\
+				$(addprefix $(UTILSDIR), $(UTILS))\
+				$(addprefix $(LISTSDIR), $(LISTS))\
+				$(addprefix $(MLXDIR), $(MLX))\
+				$(addprefix $(SPECDIR), $(SPEC))\
+				$(addprefix $(IMGDIR), $(IMAGE))\
+				$(addprefix $(RAYDIR), $(RAY))\
+				$(addprefix $(OBJEDIR), $(OBJECT))\
+				$(addprefix $(BUMPDIR), $(BUMP))\
+
 # -----------LIBS------------#
 
 LIB =	libft vect3 libmlx
@@ -118,18 +134,27 @@ LIBINCDIR = $(foreach l, $(LIBS), $(if $(findstring mlx, $(l)), -I $(l), -I $(l)
 
 OBJS =	$(patsubst $(SRCDIR)%.c, $(OBJDIR)%.o, $(SRCS))
 
+OBJS_BONUS =	$(patsubst $(SRCDIR)%.c, $(OBJDIR)%.o, $(SRCS_BONUS))
+
 DEPS =	$(OBJS:.o=.d)
 
 HEADER = $(addprefix $(INCDIR), $(INC))
 
 NAME =	miniRT
 
+NAME_BONUS = miniRT_bonus
+
 # -----------RULES-----------#
 
 all: $(NAME)
 
+bonus: $(NAME_BONUS)
+
 $(NAME): $(LIBA) $(OBJS) 
 	$(CC) $(CFLAGS) $(OBJS) $(MLXFLAG) $(LIBA) -o $(NAME) 
+
+$(NAME_BONUS): $(LIBA) $(OBJS_BONUS) 
+	$(CC) $(CFLAGS) $(OBJS_BONUS) $(MLXFLAG) $(LIBA) -o $(NAME_BONUS) 
 
 $(OBJDIR)%.o: $(SRCDIR)%.c | $(OBJDIR)
 	$(CC) $(CFLAGS) -I $(INCDIR) $(LIBINCDIR) -c $< -o $@ 

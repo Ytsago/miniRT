@@ -6,7 +6,7 @@
 /*   By: yabokhar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:48:44 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/10/07 22:46:38 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/10/07 18:58:14 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,18 @@ static short	get_start_y(t_context *scene, short thread_index);
 
 void	rt(t_context *scene)
 {
-	raytracer(&scene->threads[0]);
+	const long		online_processors = scene->online_processors;
+	int16_t			i;
+
+	i = -1;
+	while (++i < online_processors)
+		if (pthread_create(&scene->threads[i].thread, NULL, \
+raytracer, &scene->threads[i]))
+			print(2, "Warning\nminiRT: failed to create thread #%d\n", i);
+	i = -1;
+	while (++i < online_processors)
+		pthread_join(scene->threads[i].thread, NULL);
+	i = -1;
 }
 
 static void	*raytracer(void *argument)
