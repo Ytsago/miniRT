@@ -6,7 +6,7 @@
 /*   By: secros <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 16:17:44 by secros            #+#    #+#             */
-/*   Updated: 2025/10/07 17:14:16 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/07 18:45:48 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	cylinder_part(t_cylinder *obj, double *d, t_point3 p)
 	return (-1);
 }
 
-static t_vect3	center_mapping(t_cylinder *curr,\
+static t_vect3	center_mapping(t_cylinder *curr,
 								t_point3 p, t_vect3 ref[2], double d)
 {
 	double		coord[2];
@@ -46,7 +46,7 @@ static t_vect3	center_mapping(t_cylinder *curr,\
 	return ((t_vect3){{coord[U], coord[V]}});
 }
 
-static t_vect3	caps_mapping(t_cylinder *curr,\
+static t_vect3	caps_mapping(t_cylinder *curr,
 						t_point3 p, t_vect3 ref[2], int part)
 {
 	double	local[2];
@@ -64,7 +64,7 @@ static t_vect3	caps_mapping(t_cylinder *curr,\
 	return ((t_vect3){{coord[U], coord[V]}});
 }
 
-static t_tbn	tbn_matrix(t_cylinder *curr,\
+static t_tbn	tbn_matrix(t_cylinder *curr,
 						t_vect3 *normal, t_vect3 ref, int part)
 {
 	t_tbn	matrix;
@@ -101,6 +101,7 @@ t_vect3	cylinder_mapping(t_cylinder *curr, t_point3 p, t_vect3 *normal)
 		two_d = center_mapping(curr, p, ref, d);
 	else
 		two_d = caps_mapping(curr, p, ref, part);
-	return (set_area_value((t_object *)curr, normal, \
-(double [2]){two_d.x, two_d.y}, tbn_matrix(curr, normal, ref[U], part)));
+	return (set_area_value((t_object *)curr, normal,
+			(double [2]){two_d.x, two_d.y},
+		tbn_matrix(curr, normal, ref[U], part)));
 }

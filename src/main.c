@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 14:38:13 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/10/07 17:48:52 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/07 18:52:08 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ int	main(int argc, const char *argv[])
 	attribute_threads(&scene, scene.img[W]);
 	get_camera(&scene.camera, scene.img);
 	rt(&scene);
-	mlx_put_image_to_window(scene.screen_ptr.mlx_ptr, scene.screen_ptr.win_ptr, \
-scene.screen_ptr.img.img_ptr, 0, 0);
+	mlx_put_image_to_window(scene.screen_ptr.mlx_ptr, scene.screen_ptr.win_ptr,
+		scene.screen_ptr.img.img_ptr, 0, 0);
 	mlx_key_hook(scene.screen_ptr.win_ptr, handle_key, &scene);
 	mlx_loop(scene.screen_ptr.mlx_ptr);
 	return (0);

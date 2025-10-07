@@ -6,7 +6,7 @@
 /*   By: yabokhar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:48:44 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/10/07 17:43:56 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/07 18:58:14 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,13 @@ static void	*raytracer(void *argument)
 	values[END_Y] = values[START_Y] + thread->screen_parts[H];
 	values[INDEX_X] = -1;
 	values[INDEX_Y] = values[START_Y] - 1;
-	get_colors((t_context *)scene, values, \
-view, (unsigned int *)scene->screen_ptr.img.addr);
+	get_colors((t_context *)scene, values,
+		view, (unsigned int *)scene->screen_ptr.img.addr);
 	return (NULL);
 }
 
-static void	get_colors(t_context *scene, int16_t values[6], \
-const t_viewport *view, unsigned int *img_ptr)
+static void	get_colors(t_context *scene, int16_t values[6],
+					const t_viewport *view, unsigned int *img_ptr)
 
 {
 	t_vect3	pixel_center;
@@ -82,15 +82,15 @@ const t_viewport *view, unsigned int *img_ptr)
 		values[INDEX_X] = -1;
 		while (++values[INDEX_X] < values[IMG_WIDTH])
 		{
-			pixel_center = vect3_add(view->pixel_zero, \
-vect3_add(vect3_const_mult(view->pixel_deltas[U], \
-values[INDEX_X]), \
-vect3_const_mult(view->pixel_deltas[V], values[INDEX_Y])));
-			ray_dir = vect3_unit(vect3_sub(pixel_center, \
-scene->camera.view_point));
-			img_ptr[values[INDEX_Y] * values[IMG_WIDTH] + values[INDEX_X]] \
-= ray_color((t_ray){scene->camera.view_point, ray_dir}, \
-scene, 4).color;
+			pixel_center = vect3_add(view->pixel_zero, vect3_add(
+						vect3_const_mult(view->pixel_deltas[U],
+							values[INDEX_X]), vect3_const_mult(
+							view->pixel_deltas[V], values[INDEX_Y])));
+			ray_dir = vect3_unit(vect3_sub(pixel_center,
+						scene->camera.view_point));
+			img_ptr[values[INDEX_Y] * values[IMG_WIDTH] + values[INDEX_X]]
+				= ray_color((t_ray){scene->camera.view_point, ray_dir},
+					scene, 4).color;
 		}
 	}
 }

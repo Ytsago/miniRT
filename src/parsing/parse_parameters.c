@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:29:29 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/10/07 17:50:00 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/07 18:31:52 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,10 +161,10 @@ static bool	parse_objects(char *line, t_context *scene)
 	else if (!ft_strncmp("ch", line, 2) && (line[2] == ' ' || line[2] == '\t'))
 		error = add_object(scene, new_checkerboard(scene, &line));
 	else if (!empty_line(line))
-		print(2, "%sline %d starts with an unknown identifier\n", \
-X_ERROR, scene->line_number);
+		print(2, "%sline %d starts with an unknown identifier\n",
+			X_ERROR, scene->line_number);
 	if (!error)
-		print(2, "%sline %d Error while parsing an object\n", \
-X_ERROR, scene->line_number);
+		print(2, "%sline %d Error while parsing an object\n",
+			X_ERROR, scene->line_number);
 	return (error);
 }

@@ -6,7 +6,7 @@
 /*   By: secros <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 17:17:09 by secros            #+#    #+#             */
-/*   Updated: 2025/10/07 17:24:13 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/07 18:48:24 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,6 @@ t_vect3	plane_mapping(t_object *obj, t_point3 p, t_vect3 *normal)
 		u += 1.0;
 	if (v < 0.0)
 		v += 1.0;
-	return (set_area_value(obj, normal, (double [2]){u, v}, \
-tbn_matrix(axis[U], axis[V], *normal)));
+	return (set_area_value(obj, normal, (double [2]){u, v},
+		tbn_matrix(axis[U], axis[V], *normal)));
 }
