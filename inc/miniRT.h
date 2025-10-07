@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:54:55 by secros            #+#    #+#             */
-/*   Updated: 2025/10/07 21:38:55 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/10/07 21:45:36 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,5 +243,7 @@ void		nullify_vectors(t_vect3 lights_data[3], t_vect3 re_vectors[2]);
 t_vect3		initial_light(t_ambient_lightning amb_l, t_vect3 obj_color);
 
 bool		is_space(char c);
+
+void		clear_texture(t_vector *v, t_mlx *display);
 
 #endif

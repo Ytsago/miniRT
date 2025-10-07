@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:29:29 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/10/07 19:09:02 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/07 21:46:26 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	parse_and_load_parameters(t_context *scene)
 	if (!line || !line[0])
 	{
 		close(scene->fd);
+		clear_texture(scene->textures, &scene->screen_ptr);
 		print_error_then_exit_failure("empty .rt file\n");
 	}
 	++scene->line_number;
@@ -40,6 +41,7 @@ void	parse_and_load_parameters(t_context *scene)
 			close(scene->fd);
 			free(line);
 			ft_lstclear(&scene->objects, free);
+			clear_texture(scene->textures, &scene->screen_ptr);
 			exit(EXIT_FAILURE);
 		}
 		free(line);
