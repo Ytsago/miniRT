@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 16:46:17 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/10/07 18:25:17 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/07 22:20:28 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	excessive_params_error(t_context *scene, const char *element, char n)
 	close(scene->fd);
 	free(scene->line);
 	ft_lstclear(&scene->objects, free);
+	clear_texture(scene->textures, &scene->screen_ptr);
 	exit(1);
 }
 
@@ -39,6 +40,7 @@ void	no_space_error(t_context *scene)
 	close(scene->fd);
 	free(scene->line);
 	ft_lstclear(&scene->objects, free);
+	clear_texture(scene->textures, &scene->screen_ptr);
 	exit(1);
 }
 
@@ -54,5 +56,16 @@ void	no_comma_error(t_context *scene)
 	close(scene->fd);
 	free(scene->line);
 	ft_lstclear(&scene->objects, free);
+	clear_texture(scene->textures, &scene->screen_ptr);
 	exit(1);
+}
+
+void	parse_and_load_parameters_error(t_context *scene, char *line)
+
+{
+	close(scene->fd);
+	free(line);
+	ft_lstclear(&scene->objects, free);
+	clear_texture(scene->textures, &scene->screen_ptr);
+	exit(EXIT_FAILURE);
 }

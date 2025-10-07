@@ -6,7 +6,7 @@
 /*   By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 16:14:22 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/08/22 11:26:50 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/10/07 22:21:08 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ bool	print_space_then_error_then_return_false(const char *element);
 void	print_error_then_exit_failure(const char *error_description);
 void	print_error_from_open_function_then_exit_failure(const char *path);
 void	error_malloc_failure_for_threads_array(t_context *scene);
+void	parse_and_load_parameters_error(t_context *scene, char *line);
 
 #endif

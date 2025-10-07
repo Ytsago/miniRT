@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:29:29 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/10/07 21:46:26 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/10/07 22:21:32 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,7 @@ void	parse_and_load_parameters(t_context *scene)
 	{
 		scene->line = line;
 		if (!parse_elements(line, scene))
-		{
-			close(scene->fd);
-			free(line);
-			ft_lstclear(&scene->objects, free);
-			clear_texture(scene->textures, &scene->screen_ptr);
-			exit(EXIT_FAILURE);
-		}
+			parse_and_load_parameters_error(scene, line);
 		free(line);
 		line = get_next_line(scene->fd);
 		++scene->line_number;
