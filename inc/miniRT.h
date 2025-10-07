@@ -6,15 +6,15 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:54:55 by secros            #+#    #+#             */
-/*   Updated: 2025/10/07 21:45:36 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/10/07 22:27:06 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
-# define WIDTH 720 / 4
-# define HEIGHT 480 / 4
+# define WIDTH 720
+# define HEIGHT 480
 
 # include <stdint.h>
 # include <stdbool.h>
