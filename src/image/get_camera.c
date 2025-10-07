@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:43:52 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/10/06 19:50:20 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/07 17:58:53 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 void	get_pixel_zero(t_viewport *params)
 {
 	const t_vect3	sum = vect3_add(params->pixel_deltas[U], \
-	params->pixel_deltas[V]);
+params->pixel_deltas[V]);
 	const t_vect3	div = vect3_const_div(sum, 2);
 
 	params->pixel_zero = vect3_add(params->viewport_upper_left, div);
@@ -66,7 +66,7 @@ void	get_camera(t_camera	*params, short img[2])
 	screen->viewport[H] = 2;
 	screen->viewport[W] = screen->viewport[H] * img[W] / img[H];
 	params->focal = get_focal(params->horizontal_fov, screen->viewport[W], \
-		params->orientation_vector);
+params->orientation_vector);
 	if (fabs(norm_orientation.y) >= 0.999)
 		world_up = (t_vect3){{0, 0, 1}};
 	u = vect3_unit(vect3_cross(world_up, norm_orientation));
