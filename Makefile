@@ -6,7 +6,7 @@
 #    By: secros <secros@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/07 17:10:22 by yabokhar          #+#    #+#              #
-#    Updated: 2025/10/07 17:36:05 by secros           ###   ########.fr        #
+#    Updated: 2025/10/07 20:03:27 by yabokhar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,7 @@ IMAGE	=	get_camera.c
 RT		=	raytracing.c
 
 RAY		=	checkerboard.c background_shade.c ray_create.c ray_at.c lightning.c\
-			ray_color.c
+			lightning_helpers.c ray_color.c
 
 	BUMP =	cone_mapping.c cylinder_mapping.c plane_mapping.c sphere_mapping.c mapping.c 
 

@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:54:55 by secros            #+#    #+#             */
-/*   Updated: 2025/10/07 17:36:42 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/07 20:02:52 by yabokhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,6 +237,8 @@ t_color		get_pixel_color(t_object *obj, t_context *scene, \
 	t_point3 p, t_vect3 normal);
 
 t_vect3		checkerboard_mapping(t_object *obj, t_point3 p, t_vect3 *normal);
-
+void		add_reflections(t_vect3 *result, t_vect3 reflections_vectors[2]);
+void		nullify_vectors(t_vect3 lights_data[3], t_vect3 re_vectors[2]);
+t_vect3		initial_light(t_ambient_lightning amb_l, t_vect3 obj_color);
 
 #endif
