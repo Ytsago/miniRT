@@ -6,7 +6,7 @@
 #    By: secros <secros@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/07 17:10:22 by yabokhar          #+#    #+#              #
-#    Updated: 2025/10/07 23:09:01 by yabokhar         ###   ########.fr        #
+#    Updated: 2025/10/08 13:50:37 by secros           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -161,9 +161,9 @@ NAME_BONUS = miniRT_bonus
 
 # -----------RULES-----------#
 
-all: $(NAME)
+all: libs $(NAME)
 
-bonus: $(NAME_BONUS)
+bonus: libs $(NAME_BONUS)
 
 $(NAME): $(LIBA) $(OBJS) 
 	$(CC) $(CFLAGS) $(OBJS) $(MLXFLAG) $(LIBA) -o $(NAME) 
@@ -184,7 +184,6 @@ $(OBJDIR_BONUS):
 	@mkdir -p $(OBJDIR_BONUS) $(addprefix $(OBJDIR_BONUS), $(dir $(patsubst $(SRCDIR_BONUS)%,%,$(SRCS_BONUS))))
 
 # $(LIBA): FORCE
-$(LIBA): libs
 libs:
 	@for dir in $(LIBS); do \
 		echo "$(YELLOW)Compiling library $$dir$(RESET)" && $(MAKE) -C $$dir --no-print-directory --silent; \

@@ -6,15 +6,13 @@
 /*   By: yabokhar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:48:44 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/10/07 22:46:38 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/10/08 14:26:52 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 #include "ray.h"
-#include <pthread.h>
 #include <stdio.h>
-#include <sys/time.h>
 
 #define W 0
 #define H 1
