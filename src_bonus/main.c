@@ -6,12 +6,13 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 14:38:13 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/10/07 21:39:55 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/10/08 17:15:23 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "miniRT.h"
+#include "mlx_int.h"
 
 #define W 0
 #define H 1
@@ -73,15 +74,15 @@ int	main(int argc, const char *argv[])
 	scene.img[H] = HEIGHT;
 	scene.center_coords[X] = WIDTH >> 1;
 	scene.center_coords[Y] = HEIGHT >> 1;
-	attribute_threads(&scene, scene.img[W]);
 	get_display_and_new_image(&scene, scene.img);
 	ft_lstiter(scene.objects, load_texture);
 	init_texture(scene.textures, &scene.screen_ptr);
+	attribute_threads(&scene, scene.img[W]);
 	get_camera(&scene.camera, scene.img);
 	rt(&scene);
+	mlx_key_hook(scene.screen_ptr.win_ptr, handle_key, &scene);
 	mlx_put_image_to_window(scene.screen_ptr.mlx_ptr, scene.screen_ptr.win_ptr,
 		scene.screen_ptr.img.img_ptr, 0, 0);
-	mlx_key_hook(scene.screen_ptr.win_ptr, handle_key, &scene);
 	mlx_loop(scene.screen_ptr.mlx_ptr);
 	return (0);
 }

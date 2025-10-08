@@ -6,7 +6,7 @@
 /*   By: secros <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 15:47:41 by secros            #+#    #+#             */
-/*   Updated: 2025/10/07 18:48:04 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/08 15:50:25 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_vect3	get_normal_map(t_pict *map, double u, double v)
 	return (vect3_unit(normal));
 }
 
-t_vect3	set_area_value(t_object *obj, t_vect3 *normal,\
+t_vect3	set_area_value(t_object *obj, t_vect3 *normal, \
 						double value[2], t_tbn matrix)
 {
 	if (obj->text->img[1])
@@ -51,7 +51,7 @@ value[V])));
 		return (color_to_vec(obj->text->based));
 }
 
-t_color	get_pixel_color(t_object *obj, t_context *scene,\
+t_color	get_pixel_color(t_object *obj, t_context *scene, \
 						t_point3 p, t_vect3 normal)
 {
 	t_vect3	texture;

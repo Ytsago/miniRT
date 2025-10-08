@@ -6,7 +6,7 @@
 /*   By: secros <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 16:44:22 by secros            #+#    #+#             */
-/*   Updated: 2025/10/07 18:33:06 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/08 15:53:01 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	find_part(t_cone *obj, t_vect3 p, double *d)
 	return (-1);
 }
 
-static t_vect3	center_mapping(t_cone *curr, t_vect3 ref[2],\
+static t_vect3	center_mapping(t_cone *curr, t_vect3 ref[2],
 							t_point3 p, double d)
 {
 	double		coord[2];

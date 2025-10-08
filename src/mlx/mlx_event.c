@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:08:53 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/10/07 19:03:49 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/08 15:34:23 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #define H 0
 #define W 1
 
-void	handle_this_bullshit(t_context *scene, int keycode)
+void	handle_camera_orientation(t_context *scene, int keycode)
 
 {
 	int	directions[2];
@@ -55,7 +55,7 @@ int	handle_key(int keycode, void *params)
 	}
 	if (keycode == KEY_UP || keycode == KEY_DOWN
 		|| keycode == KEY_LEFT || keycode == KEY_RIGHT)
-		handle_this_bullshit(scene, keycode);
+		handle_camera_orientation(scene, keycode);
 	rt(scene);
 	mlx_put_image_to_window(screen->mlx_ptr, screen->win_ptr,
 		screen->img.img_ptr, 0, 0);

@@ -6,7 +6,7 @@
 /*   By: yabokhar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 20:18:33 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/10/07 20:01:44 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/10/08 15:49:00 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_vect3	lightning(t_context *scene, t_point3 p, t_vect3 n, t_vect3 obj_c)
 	t_list			*l_node;
 	t_light			*cur_light;
 	t_vect3			l_data[3];
-	double			light_dist;
+	double			l_dist;
 	t_vect3			reflect_v[2];
 
 	nullify_vectors(l_data, reflect_v);
@@ -68,9 +68,9 @@ t_vect3	lightning(t_context *scene, t_point3 p, t_vect3 n, t_vect3 obj_c)
 	while (l_node)
 	{
 		cur_light = l_node->content;
-		get_lights_data(l_node->content, l_data, &light_dist, p);
+		get_lights_data(l_node->content, l_data, &l_dist, p);
 		if (!in_shadow(scene->objects, \
-(t_ray){vect3_add(p, vect3_const_mult(n, T_MIN)), l_data[DIR]}, light_dist))
+	(t_ray){vect3_add(p, vect3_const_mult(n, T_MIN)), l_data[DIR]}, l_dist))
 		{
 			reflect_v[DIFF] = get_diff(l_data, l_node->content, n, obj_c);
 			reflect_v[SPEC] = vect3_const_mult(l_data[COLOR], \

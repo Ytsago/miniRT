@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 16:07:04 by secros            #+#    #+#             */
-/*   Updated: 2025/10/07 19:16:36 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/08 17:51:04 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define KEY_DOWN 65364
 # define KEY_LEFT 65361
 # define KEY_RIGHT 65363
-# define MOUSE_SENSITIVITY 0.0001
+# define MOUSE_SENSITIVITY 0.001
 
 typedef struct s_mlx		t_mlx;
 typedef struct s_pict		t_pict;
@@ -68,7 +68,6 @@ void	get_display_and_new_image(t_context *scene, short img[2]);
 int		destroy_display(t_context *scene);
 void	mlx_destroy(t_mlx *display);
 void	destroy_img(t_pict *img, t_mlx *display);
-void	error_failure_from_mlx_new_image(t_context *scene, t_mlx *display);
 int		handle_key(int keycode, void *params);
 int		handle_mouse(int x, int y, void *params);
 t_pict	*load_image(t_mlx *display, char *addr);

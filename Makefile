@@ -6,7 +6,7 @@
 #    By: secros <secros@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/07 17:10:22 by yabokhar          #+#    #+#              #
-#    Updated: 2025/10/08 13:50:37 by secros           ###   ########.fr        #
+#    Updated: 2025/10/08 16:08:44 by secros           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ RESET  = \033[0m
 
 # -----------RULES-----------#
 
-CFLAGS = -Wall -Wextra -Werror -MMD -MP
+CFLAGS = -Wall -Wextra -Werror -MMD -MP -g3
 MLXFLAG = libs/vect3/vect3.a libs/libft/libft.a libs/libmlx/libmlx.a -lbsd -lX11 -lXext -lm
 CC = cc
 AR = ar
@@ -98,7 +98,7 @@ LISTS	=	add_element.c
 THREADS	=	multithreading.c
 
 ERRORS 	=	parsing_error_reporting.c parsing_error_reporting_bis.c \
-			multithreading_error_malloc.c mlx_error_reporting.c
+			multithreading_error_malloc.c
 
 INC		=	miniRT.h bumpmapping.h
 

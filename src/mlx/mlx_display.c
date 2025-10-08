@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 10:28:46 by secros            #+#    #+#             */
-/*   Updated: 2025/10/08 15:22:06 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/08 17:05:13 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,13 @@ static bool	new_image(t_context *scene, short img[2])
 
 	display = &scene->screen_ptr;
 	new = &display->img;
-	(void)img;
 	new->img_ptr = mlx_new_image(display->mlx_ptr, img[W], img[H]);
 	if (!new->img_ptr)
-		error_failure_from_mlx_new_image(scene, display);
+		return (false);
 	new->addr = mlx_get_data_addr(new->img_ptr, &new->bbp, &new->l_size,
 			&new->endian);
 	if (!new->addr)
-	{
-		destroy_display(scene);
 		return (false);
-	}
 	return (true);
 }
 
@@ -71,6 +67,7 @@ static void	clear_path(t_vector *v)
 		free (pt[i].path[1]);
 		i++;
 	}
+	vector_destroy(v);
 }
 
 void	get_display_and_new_image(t_context *scene, short img[2])
@@ -81,11 +78,17 @@ void	get_display_and_new_image(t_context *scene, short img[2])
 		ft_lstclear(&scene->lights_list, free);
 		free(scene->threads);
 		clear_path(scene->textures);
-		vector_destroy(scene->textures);
 		exit(1);
 	}
 	if (!new_image(scene, img))
+	{
+		ft_lstclear(&scene->objects, free);
+		ft_lstclear(&scene->lights_list, free);
+		free(scene->threads);
+		clear_path(scene->textures);
 		mlx_destroy(&scene->screen_ptr);
+		exit(1);
+	}
 }
 
 t_pict	*load_image(t_mlx *display, char *addr)

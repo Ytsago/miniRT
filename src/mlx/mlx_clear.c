@@ -6,7 +6,7 @@
 /*   By: secros <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 18:59:44 by secros            #+#    #+#             */
-/*   Updated: 2025/10/07 19:02:28 by secros           ###   ########.fr       */
+/*   Updated: 2025/10/08 16:58:31 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	mlx_destroy(t_mlx *display)
 {
 	mlx_loop_end(display->mlx_ptr);
 	mlx_destroy_window(display->mlx_ptr, display->win_ptr);
-	mlx_destroy_image(display->mlx_ptr, display->img.img_ptr);
+	if (display->img.img_ptr)
+		mlx_destroy_image(display->mlx_ptr, display->img.img_ptr);
 	mlx_destroy_display(display->mlx_ptr);
 	free(display->mlx_ptr);
 }

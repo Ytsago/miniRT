@@ -6,7 +6,7 @@
 /*   By: yabokhar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 20:18:33 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/10/07 20:01:44 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/10/08 15:53:18 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_vect3	lightning(t_context *scene, t_point3 p, t_vect3 n, t_vect3 obj_c)
 		cur_light = l_node->content;
 		get_lights_data(l_node->content, l_data, &light_dist, p);
 		if (!in_shadow(scene->objects, \
-(t_ray){vect3_add(p, vect3_const_mult(n, T_MIN)), l_data[DIR]}, light_dist))
+	(t_ray){vect3_add(p, vect3_const_mult(n, T_MIN)), l_data[DIR]}, light_dist))
 		{
 			reflect_v[DIFF] = get_diff(l_data, l_node->content, n, obj_c);
 			reflect_v[SPEC] = vect3_const_mult(l_data[COLOR], \
