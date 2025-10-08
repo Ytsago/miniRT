@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 10:28:46 by secros            #+#    #+#             */
-/*   Updated: 2025/10/07 22:18:05 by yabokhar         ###   ########.fr       */
+/*   Updated: 2025/10/08 15:23:15 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,21 @@ static bool	get_display(t_context *scene, short img[2])
 	return (true);
 }
 
+static void	clear_path(t_vector *v)
+{
+	t_text	*pt;
+	size_t	i;
+
+	i = 0;
+	pt = v->tab;
+	while (i < v->size)
+	{
+		free (pt[i].path[0]);
+		free (pt[i].path[1]);
+		i++;
+	}
+}
+
 void	get_display_and_new_image(t_context *scene, short img[2])
 {
 	if (!get_display(scene, img))
@@ -65,7 +80,8 @@ void	get_display_and_new_image(t_context *scene, short img[2])
 		ft_lstclear(&scene->objects, free);
 		ft_lstclear(&scene->lights_list, free);
 		free(scene->threads);
-		clear_texture(scene->textures, &scene->screen_ptr);
+		clear_path(scene->textures);
+		vector_destroy(scene->textures);
 		exit(1);
 	}
 	if (!new_image(scene, img))
