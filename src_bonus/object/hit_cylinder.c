@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:16:05 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/10/07 18:30:35 by secros           ###   ########.fr       */
+/*   Updated: 2026/01/09 18:37:33 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,8 @@ double	hit_cylinder(t_cylinder *cy, t_ray r)
 	double	t_caps;
 
 	t_body = hit_cylinder_body(cy, r);
-	t_caps = hit_cylinder_caps(cy, r);
+	// t_caps = hit_cylinder_caps(cy, r);
+	t_caps = 0;
 	if (t_body > 0 && t_caps > 0)
 	{
 		if (t_body < t_caps)

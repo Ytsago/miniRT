@@ -1,0 +1,4 @@
+Problem spot in case of a repush :
+
+Leak if parsing error and Texture or light has been alocated
+Work with no camera and no ambient light : Is it normal ?

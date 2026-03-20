@@ -6,7 +6,7 @@
 /*   By: yabokhar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:48:44 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/10/07 18:58:14 by secros           ###   ########.fr       */
+/*   Updated: 2026/01/09 18:35:05 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static void	get_colors(t_context *scene, int16_t values[6],
 						scene->camera.view_point));
 			img_ptr[values[INDEX_Y] * values[IMG_WIDTH] + values[INDEX_X]]
 				= ray_color((t_ray){scene->camera.view_point, ray_dir},
-					scene, 4).color;
+					scene, 6).color;
 		}
 	}
 }

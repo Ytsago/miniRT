@@ -6,7 +6,7 @@
 /*   By: yabokhar <yabokhar@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 19:20:16 by yabokhar          #+#    #+#             */
-/*   Updated: 2025/10/07 20:01:45 by secros           ###   ########.fr       */
+/*   Updated: 2026/01/09 18:35:28 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ t_vect3	determine_color(t_object *closest_obj, t_context *scene,
 
 	texture_color = color_to_vec(get_pixel_color(closest_obj, scene,
 				record.p, record.normal));
-	if (closest_obj->type == CHECKERBOARD && depth)
+	if (depth)
 	{
 		reflected_ray = compute_reflection_ray(record);
 		reflected_color = ray_color(reflected_ray, scene, depth - 1);
